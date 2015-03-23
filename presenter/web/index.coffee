@@ -1,6 +1,6 @@
-config = require('../../config/config')
 chalk = require('chalk')
 
+config = require('../../config/config')
 app = require('../../config/express')()
 
 if not module.parent

@@ -2,6 +2,7 @@ require('./init')()
 
 _ = require('lodash')
 glob = require('glob')
+
 debug = require('../etc/debug')('config:config')
 
 module.exports = _.extend(
