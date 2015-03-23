@@ -1,6 +1,8 @@
+require('./init')()
+
 _ = require('lodash')
 glob = require('glob')
-debug = require('debug')('watchmen:config:config')
+debug = require('../etc/debug')('config:config')
 
 module.exports = _.extend(
   {},

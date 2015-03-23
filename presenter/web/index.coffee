@@ -1,8 +1,7 @@
-init = require('./config/init')()
-config = require('./config/config')
+config = require('../../config/config')
 chalk = require('chalk')
 
-app = require('./config/express')()
+app = require('../../config/express')()
 
 if not module.parent
   app.listen(config.port)

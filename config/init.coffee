@@ -1,20 +1,16 @@
 glob = require('glob')
-debug = require('debug')('ean:config:init')
+_ = require('lodash')
 chalk = require('chalk')
 
-module.exports = () ->
+module.exports = _.once(() ->
   if not process.env.NODE_ENV
-    debug("NODE_ENV is not set. using 'development'...")
+    console.log("NODE_ENV is not set. using 'development'...")
     process.env.NODE_ENV = 'development'
 
-  glob(
-    "./config/env/#{process.env.NODE_ENV}.@(coffee|js)",
-    {},
-    (err, envFiles) ->
-      if not envFiles.length
-        console.error(chalk.red(
-          "No config file for '#{process.env.NODE_ENV}'."
-        ))
-      else
-        debug("Application loaded using '#{process.env.NODE_ENV}'.")
-  )
+  envFiles = glob.sync("./config/env/#{process.env.NODE_ENV}.@(coffee|js)")
+
+  if not envFiles.length
+    throw new Error("No config file for '#{process.env.NODE_ENV}'.")
+  else
+    console.log("Application loaded using '#{process.env.NODE_ENV}'.")
+)

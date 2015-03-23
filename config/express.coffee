@@ -1,3 +1,5 @@
+require('./init')()
+
 fs = require('fs')
 http = require('http')
 https = require('https')
@@ -12,7 +14,6 @@ flash = require('connect-flash')
 config = require('./config')
 consolidate = require('consolidate')
 path = require('path')
-debug = require('debug')('watchmen:config:express')
 
 module.exports = () ->
   # Initialize express app
@@ -47,7 +48,7 @@ module.exports = () ->
 
   # Set views path and view engine
   app.set('view engine', "server.view.#{config.templateEngine}")
-  app.set('views', './app/views')
+  app.set('views', './presenter/web/template')
 
   # Environment dependent middleware
   if process.env.NODE_ENV is 'development'
@@ -84,7 +85,7 @@ module.exports = () ->
   app.use(express.static(path.resolve('./public')))
 
   # Globbing routing files
-  config.getGlobbedFiles('./app/routes/**/*.@(js|coffee)').forEach(
+  config.getGlobbedFiles('./presenter/web/route/**/*.@(js|coffee)').forEach(
     (routePath) ->
       require(path.resolve(routePath))(app)
   )
