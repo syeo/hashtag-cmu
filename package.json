@@ -1,21 +1,16 @@
 {
-  "name": "ean-seed",
+  "name": "#CMU",
   "version": "1.0.0",
-  "description": "",
+  "description": "#CMU",
   "main": "presenter/web/index.coffee",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/syeo/ean-seed.git"
+    "url": "https://github.com/syeo/hashtag-cmu.git"
   },
   "author": "Stanley Yeo <yyoud88@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/syeo/ean-seed/issues"
-  },
-  "homepage": "https://github.com/syeo/ean-seed",
   "dependencies": {
     "bluebird": "^2.9.14",
     "body-parser": "^1.12.2",
