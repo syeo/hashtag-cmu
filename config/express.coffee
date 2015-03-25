@@ -15,6 +15,7 @@ consolidate = require('consolidate')
 path = require('path')
 
 config = require('./config')
+utils = require('../etc/utils')
 
 module.exports = () ->
   # Initialize express app
@@ -86,7 +87,7 @@ module.exports = () ->
   app.use(express.static(path.resolve('./public')))
 
   # Globbing routing files
-  config.getGlobbedFiles('./presenter/web/route/**/*.@(js|coffee)').forEach(
+  utils.getGlobbedFiles('./presenter/web/route/**/*.@(js|coffee)').forEach(
     (routePath) ->
       require(path.resolve(routePath))(app)
   )
