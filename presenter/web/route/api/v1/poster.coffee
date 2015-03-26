@@ -1,4 +1,4 @@
-posters = require('../../../controller/api/v1/posters.server.controller')
+posters = require('../../../controller/api/v1/poster')
 
 module.exports = (app) ->
   # Root routing

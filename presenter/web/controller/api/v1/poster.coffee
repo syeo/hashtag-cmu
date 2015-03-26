@@ -10,7 +10,7 @@ posterDehydrator = registry.presenter.dehydrator.posterDehydrator
 
 module.exports =
   list: (req, res) ->
-    debug('api.v1.posters.controller.list called')
+    debug('api.v1.poster.list called')
     posterRepository.getRecentPosts(PAGE_SIZE)
       .then(_.bind(posterDehydrator.list, posterDehydrator))
       .then((posters) ->

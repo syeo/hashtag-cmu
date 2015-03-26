@@ -44,12 +44,12 @@ module.exports = () ->
 
   # Set swig as the template engine
   app.engine(
-    "server.view.#{config.templateEngine}",
+    config.templateEngine,
     consolidate[config.templateEngine]
   )
 
   # Set views path and view engine
-  app.set('view engine', "server.view.#{config.templateEngine}")
+  app.set('view engine', config.templateEngine)
   app.set('views', './presenter/web/template')
 
   # Environment dependent middleware
