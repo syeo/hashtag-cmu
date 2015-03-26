@@ -18,3 +18,7 @@ html(lang="en", xmlns="http://www.w3.org/1999/xhtml")
 
   body
     block content
+    script(src="/static/script/application.js")
+    -if (NODE_ENV == 'development' && livereload && livereload.port) {
+        script(src="http://#{livereload.host}:#{livereload.port}/livereload.js")
+    -}

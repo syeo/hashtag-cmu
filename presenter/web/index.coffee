@@ -8,4 +8,4 @@ if not module.parent
 
 exports = module.exports = app
 
-console.log("ean-seed started on port #{config.port}")
+console.log("#{config.app.title} started on port #{config.port}")

@@ -8,8 +8,8 @@ module.exports =
     })
 
   showMockUp: (req, res) ->
-    debug("show mockup called with params: #{req.param('t')}")
-    if req.param('t')
-      res.render(req.param('t'))
+    debug("show mockup called with params: #{req.query.t}")
+    if req.query.t
+      res.render(req.query.t)
     else
       res.send("?")

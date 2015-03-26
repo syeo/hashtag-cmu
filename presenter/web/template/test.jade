@@ -17,3 +17,9 @@ html(lang="en", xmlns="http://www.w3.org/1999/xhtml")
     //- meta(name="description", content="#{description}")
 
   body
+    h1= "HELLO 1"
+    script(src="/static/script/application.js")
+    -if (NODE_ENV == 'development' && livereload && livereload.port) {
+        script(src="http://#{livereload.host}:#{livereload.port}/livereload.js")
+    -}
+

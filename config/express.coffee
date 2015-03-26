@@ -25,6 +25,10 @@ module.exports = () ->
   app.locals.title = config.app.title
   app.locals.description = config.app.description
   app.locals.keywords = config.app.keywords
+  app.locals.NODE_ENV = process.env.NODE_ENV
+
+  if process.env.NODE_ENV is 'development'
+    app.locals.livereload = config.livereload
 
   # Passing the request url to environment locals
   app.use((req, res, next) ->
@@ -84,7 +88,18 @@ module.exports = () ->
   app.disable('x-powered-by')
 
   # Setting the app router and static folder
-  app.use(express.static(path.resolve('./public')))
+  app.use(
+    '/static'
+    express.static(path.resolve('./presenter/web/build/asset'))
+  )
+  app.use(
+    '/static'
+    express.static(path.resolve('./bower_components/'))
+  )
+  app.use(
+    '/static'
+    express.static(path.resolve('./lib/'))
+  )
 
   # Globbing routing files
   utils.getGlobbedFiles('./presenter/web/route/**/*.@(js|coffee)').forEach(
