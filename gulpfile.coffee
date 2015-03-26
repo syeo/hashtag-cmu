@@ -21,16 +21,7 @@ gulp.task('serve:web:dev', ['build'], ->
     env:
       NODE_ENV: 'development'
       DEBUG: "#{config.debugPrefix}*"
-  }).on('restart', (event) ->
-    console.log "nodemon got restart #{event}"
-    setTimeout(() ->
-      console.log "triggering livereload"
-      plugins.livereload.reload()
-      console.log "triggered livereload"
-    , 2000)
-    # console.log "nodemon restarted"
-    # plugins.livereload()
-  )
+  })
 )
 
 gulp.task('build:js', ->
@@ -70,8 +61,8 @@ gulp.task('watch', ->
 
   gulp.watch([
     'presenter/web/template/**/*.jade',
+    '.rebooted'
   ], {}, () ->
-    console.log("jade change callback called")
     plugins.livereload.reload()
   )
 )
