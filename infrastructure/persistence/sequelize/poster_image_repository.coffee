@@ -8,5 +8,8 @@ class PosterImageRepository extends BaseRepository
   bulkCreate: (dataArr) =>
     super(dataArr)
 
+  findAllByPosterId: (posterId) =>
+    return @findAll({ where: { posterId: posterId } })
+
 module.exports = (registry) ->
   return new PosterImageRepository(registry)
