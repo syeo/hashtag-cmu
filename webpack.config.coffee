@@ -45,7 +45,12 @@ module.exports = {
       }
       { test: /[\/\\]ui-bootstrap-tpls\.js$/, loader: "ng-loader?ui.bootstrap" }
     ]
-    noParse: /\.min\.js/
+    noParse: [
+      /\.min\.js/
+      /[\/\\]angular\.js$/
+      /[\/\\]angular-deckgrid\.js$/
+      /[\/\\]ui-bootstrap-tpls\.js$/
+    ]
 
   plugins: [
     # If you want to minify everything
