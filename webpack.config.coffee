@@ -25,6 +25,12 @@ module.exports = {
       'lib/script'
     ]
     extensions: ['', '.js', '.coffee']
+    root: __dirname
+    alias: {
+      'angular': "angular/angular.js",
+      'angular-deckgrid': "angular-deckgrid/angular-deckgrid.js",
+      'angular-bootstrap': "angular-bootstrap/ui-bootstrap-tpls.js",
+    },
 
   module:
     loaders: [
@@ -32,7 +38,13 @@ module.exports = {
       { test: /\.jpg/, loader: "url-loader?limit=10000&minetype=image/jpg" }
       { test: /\.png/, loader: "url-loader?limit=10000&minetype=image/png" }
       { test: /\.coffee/, loader: 'coffee-loader' }
-    ],
+      { test: /[\/\\]angular\.js$/, loader: "exports-loader?window.angular" }
+      {
+        test: /[\/\\]angular-deckgrid\.js$/,
+        loader: "ng-loader?akoenig.deckgrid"
+      }
+      { test: /[\/\\]ui-bootstrap-tpls\.js$/, loader: "ng-loader?ui.bootstrap" }
+    ]
     noParse: /\.min\.js/
 
   plugins: [

@@ -26,6 +26,9 @@ gulp.task('serve:web:dev', ['build'], ->
 
 gulp.task('build:js', ->
   gulp.src('./presenter/web/asset/script/application.coffee')
+    .pipe(plugins.plumber({
+      errorHandler: plugins.notify.onError("Error: <%= error.message %>")
+    }))
     .pipe(plugins.webpack(require('./webpack.config')))
     .pipe(gulp.dest('./presenter/web/build/asset/script/'))
     .pipe(plugins.livereload())
@@ -33,13 +36,20 @@ gulp.task('build:js', ->
 
 gulp.task('build:css', ->
   gulp.src('./presenter/web/asset/style/application.less')
+    .pipe(plugins.plumber({
+      errorHandler: plugins.notify.onError("Error: <%= error.message %>")
+    }))
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.less({
       paths: [
-        path.join(__dirname, 'node_modules'),
-        path.join(__dirname, 'bower_components'),
+        path.join(__dirname, 'node_modules')
+        path.join(__dirname, 'bower_components')
         path.join(__dirname, 'lib/styles')
       ]
+    }))
+    .pipe(plugins.autoprefixer({
+      browsers: ['last 2 versions']
+      cascade: false
     }))
     .pipe(plugins.sourcemaps.write('./'))
     .pipe(gulp.dest('./presenter/web/build/asset/style/'))
@@ -50,17 +60,17 @@ gulp.task('watch', ->
   plugins.livereload.listen({port: config.livereload.port})
 
   gulp.watch([
-    'lib/**/*.@(css|less)',
-    'presenter/web/asset/style/**/*.@(css|less)',
+    'lib/**/*.@(css|less)'
+    'presenter/web/asset/style/**/*.@(css|less)'
   ], ['build:css'])
 
   gulp.watch([
-    'lib/**/*.@(js|coffee)',
-    'presenter/web/asset/script/**/*.@(js|coffee)',
+    'lib/**/*.@(js|coffee)'
+    'presenter/web/asset/script/**/*.@(js|coffee)'
   ], ['build:js'])
 
   gulp.watch([
-    'presenter/web/template/**/*.jade',
+    'presenter/web/template/**/*.jade'
     '.rebooted'
   ], {}, () ->
     plugins.livereload.reload()
