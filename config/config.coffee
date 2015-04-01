@@ -1,7 +1,6 @@
 require('./init')()
 
 _ = require('lodash')
-glob = require('glob')
 
 module.exports = _.extend(
   {},

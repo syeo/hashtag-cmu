@@ -48,13 +48,13 @@ module.exports = () ->
 
   # Set swig as the template engine
   app.engine(
-    config.templateEngine,
-    consolidate[config.templateEngine]
+    config.template.ext,
+    consolidate[config.template.engine]
   )
 
-  # Set views path and view engine
-  app.set('view engine', config.templateEngine)
-  app.set('views', './presenter/web/template')
+  # Set default
+  app.set('view engine', config.template.ext)
+  app.set('views', './presenter/web/templates')
 
   # Environment dependent middleware
   if process.env.NODE_ENV is 'development'
@@ -90,7 +90,7 @@ module.exports = () ->
   # Setting the app router and static folder
   app.use(
     '/static'
-    express.static(path.resolve('./presenter/web/build/asset'))
+    express.static(path.resolve('./presenter/web/build/assets'))
   )
   app.use(
     '/static'
@@ -102,7 +102,7 @@ module.exports = () ->
   )
 
   # Globbing routing files
-  utils.getGlobbedFiles('./presenter/web/route/**/*.@(js|coffee)').forEach(
+  utils.getGlobbedFiles('./presenter/web/routes/**/*.@(js|coffee)').forEach(
     (routePath) ->
       require(path.resolve(routePath))(app)
   )

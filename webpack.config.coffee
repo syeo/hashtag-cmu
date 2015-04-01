@@ -3,7 +3,7 @@ webpack = require("webpack")
 
 module.exports = {
   # This is the main file that should include all other JS files
-  entry: './presenter/web/asset/script/application.coffee'
+  entry: './presenter/web/assets/scripts/application.cjsx'
   target: "web"
   debug: true
   devtool: 'source-map'
@@ -38,13 +38,10 @@ module.exports = {
       { test: /\.jpg/, loader: "url-loader?limit=10000&minetype=image/jpg" }
       { test: /\.png/, loader: "url-loader?limit=10000&minetype=image/png" }
       { test: /\.coffee/, loader: 'coffee-loader' }
-      { test: /[\/\\]angular\.js$/, loader: "exports-loader?window.angular" }
-      {
-        test: /[\/\\]angular-deckgrid\.js$/,
-        loader: "ng-loader?akoenig.deckgrid"
-      }
-      { test: /[\/\\]ui-bootstrap-tpls\.js$/, loader: "ng-loader?ui.bootstrap" }
-    ]
+      { test: /\.html/,  loader: "raw-loader" }
+      { test: /\.json$/,  loader: "json-loader" }
+      { test: /\.cjsx$/, loaders: ['coffee', 'cjsx']}
+   ]
     noParse: [
       /\.min\.js/
       /[\/\\]angular\.js$/
