@@ -21,9 +21,7 @@
 
   </head>
   <body class="dark">
-    <div id="content">
-      {% block content %}{% endblock %}
-    </div>
+    {% block content %}{% endblock %}
     <script src="/static/scripts/application.js"></script>
     {% if NODE_ENV == 'development' && livereload %}
       <script src="http://{{livereload.host}}:{{livereload.port}}/livereload.js">

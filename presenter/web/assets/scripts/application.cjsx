@@ -1,13 +1,19 @@
-Home = require('./home/home.component.cjsx')
-React = require('./react')
+Router = require('react-router')
+React = require('react')
 
-# HomeExampleData.init()
+window.React = React
 
-# ChatExampleData.init() # load example data into localstorage
+routes = require('./app.routes.cjsx')
 
-# ChatWebAPIUtils.getAllMessages();
+Router.run(routes, Router.HistoryLocation, (Handler) ->
+  React.render(<Handler/>, document.getElementById('app'))
+)
 
-React.render(
-    <Home />,
-    document.getElementById('content')
-);
+# Router.run(routes, (Handler) ->
+#   React.render(<Handler/>, document.body)
+# )
+
+# React.render(
+#     <Home />,
+#     document.getElementById('app')
+# );

@@ -1,4 +1,4 @@
-React = require('../react')
+React = require('react')
 
 debug = require('../debug')('home:component')
 
