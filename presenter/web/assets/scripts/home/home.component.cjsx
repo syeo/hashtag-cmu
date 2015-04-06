@@ -44,7 +44,6 @@ Home = React.createClass({
     debug("home render")
 
     <div>
-      <h1>Home </h1>
       <PosterStream>
         {@renderPosters()}
       </PosterStream>
