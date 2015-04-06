@@ -54,7 +54,7 @@ module.exports = () ->
 
   # Set default
   app.set('view engine', config.template.ext)
-  app.set('views', './presenter/web/templates')
+  app.set('views', './presenter/web')
 
   # Environment dependent middleware
   if process.env.NODE_ENV is 'development'
@@ -102,7 +102,7 @@ module.exports = () ->
   )
 
   # Globbing routing files
-  utils.getGlobbedFiles('./presenter/web/routes/**/*.@(js|coffee)').forEach(
+  utils.getGlobbedFiles('./presenter/web/**/*.route.@(js|coffee)').forEach(
     (routePath) ->
       require(path.resolve(routePath))(app)
   )

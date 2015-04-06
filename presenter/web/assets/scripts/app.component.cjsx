@@ -9,12 +9,6 @@ App = React.createClass
 
   render: ->
     <div>
-      <header>
-        <ul>
-          <li><Link to="app">Home</Link></li>
-        </ul>
-      </header>
-
       <RouteHandler/>
     </div>
 

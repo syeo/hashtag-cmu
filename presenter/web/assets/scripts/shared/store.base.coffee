@@ -8,7 +8,7 @@ EVENTS = keyMirror({
   CHANGE: null,
 })
 
-class BaseStore extends EventEmitter
+class StoreBase extends EventEmitter
   constructor: ->
     @dispatchToken =  Dispatcher.register(@actionHandler)
 
@@ -20,4 +20,4 @@ class BaseStore extends EventEmitter
 
   actionHandler: _.noop
 
-module.exports = BaseStore
+module.exports = StoreBase

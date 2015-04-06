@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/static/styles/application.css">
 
   </head>
-  <body class="dark">
+  <body class="light">
     {% block content %}{% endblock %}
     <script src="/static/scripts/application.js"></script>
     {% if NODE_ENV == 'development' && livereload %}

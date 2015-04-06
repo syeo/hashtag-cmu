@@ -2,43 +2,31 @@
   {
     "id": 1,
     "posterId": 1,
-    "originalUrl": "//placehold.it/600x900",
-    "cardUrl": "//placehold.it/200x300",
-    "thunbnailUrl": "//placehold.it/20x30"
+    "url": "//c1.staticflickr.com/9/8703/16849713779_0ee91ed86e.jpg"
   },
   {
     "id": 2,
-    "posterId": 1,
-    "originalUrl": "//placehold.it/600x900",
-    "cardUrl": "//placehold.it/200x300",
-    "thunbnailUrl": "//placehold.it/20x30"
+    "posterId": 2,
+    "url": "//c1.staticflickr.com/9/8703/16849713779_0ee91ed86e.jpg"
   },
   {
     "id": 3,
-    "posterId": 1,
-    "originalUrl": "//placehold.it/600x900",
-    "cardUrl": "//placehold.it/200x300",
-    "thunbnailUrl": "//placehold.it/20x30"
+    "posterId": 3,
+    "url": "//c1.staticflickr.com/9/8703/16849713779_0ee91ed86e.jpg"
   },
   {
     "id": 4,
-    "posterId": 2,
-    "originalUrl": "//placehold.it/600x900",
-    "cardUrl": "//placehold.it/200x300",
-    "thunbnailUrl": "//placehold.it/20x30"
+    "posterId": 4,
+    "url": "//c1.staticflickr.com/9/8703/16849713779_0ee91ed86e.jpg"
   },
   {
     "id": 5,
-    "posterId": 2,
-    "originalUrl": "//placehold.it/600x900",
-    "cardUrl": "//placehold.it/200x300",
-    "thunbnailUrl": "//placehold.it/20x30"
+    "posterId": 5,
+    "url": "//c1.staticflickr.com/9/8703/16849713779_0ee91ed86e.jpg"
   },
   {
     "id": 6,
-    "posterId": 2,
-    "originalUrl": "//placehold.it/600x900",
-    "cardUrl": "//placehold.it/200x300",
-    "thunbnailUrl": "//placehold.it/20x30"
+    "posterId": 6,
+    "url": "//c1.staticflickr.com/9/8703/16849713779_0ee91ed86e.jpg"
   }
 ]
