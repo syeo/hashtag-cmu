@@ -38,8 +38,10 @@ PosterListItem = React.createClass
 
     [
       {imageContent}
-      <h3>{@props.poster.title}</h3>
-      <div>{@props.poster.description}</div>
+      <div className="poster-content">
+        <div className="poster-title">{@props.poster.title}</div>
+        <div>{@props.poster.description}</div>
+      </div>
     ]
 
   renderLoading: ->
