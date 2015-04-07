@@ -11,7 +11,14 @@ class PosterDehydrator extends BaseDehydrator
       @registry.infrastructure.persistence.posterImageRepository
     posterImageDehydrator =
       @registry.presenter.dehydrator.posterImageDehydrator
-    posterImageRepository.findAllByPoster(obj).then((posterImages) ->
+
+    tagRepository = @registry.infrastructure.persistence.tagRepository
+
+    Promise.all([
+      tagRepository.findAllByPoster(obj)
+      posterImageRepository.findAllByPoster(obj)
+    ]).spread((tags, posterImages) ->
+      debug(tags)
       Promise.all([
         super(obj)
         posterImageDehydrator.list(

@@ -1,32 +1,27 @@
 [
   {
     "id": 1,
-    "title": "poster 1",
+    "title": "All University Orchestra",
     "description": "desc 1"
   },
   {
     "id": 2,
-    "title": "poster 2",
+    "title": "Requesting a GRE Tutor",
     "description": "desc 2"
   },
   {
     "id": 3,
-    "title": "poster 3",
+    "title": "Spring 2015 Talk Series",
     "description": "desc 3"
   },
   {
     "id": 4,
-    "title": "poster 4",
+    "title": "Pre-Registration Event Passing the Torch",
     "description": "desc 4"
   },
   {
     "id": 5,
-    "title": "poster 5",
+    "title": "Let's Ride",
     "description": "desc 5"
-  },
-  {
-    "id": 6,
-    "title": "poster 6",
-    "description": "desc 6"
   }
 ]

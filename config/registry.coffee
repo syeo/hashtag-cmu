@@ -21,6 +21,7 @@ makeTest = makeStaging = makeProduction = () ->
 
   registry.domain.models.Poster = Poster
   registry.domain.models.PosterImage = PosterImage
+  registry.domain.models.Tag = Tag
 
   registry.infrastructure.persistence.sequelize = sequelize
   registry.infrastructure.persistence.posterRepository = require(
@@ -28,6 +29,10 @@ makeTest = makeStaging = makeProduction = () ->
   )(registry)
   registry.infrastructure.persistence.posterImageRepository = require(
     '../infrastructure/persistence/sequelize/poster_image.repository'
+  )(registry)
+
+  registry.infrastructure.persistence.tagRepository = require(
+    '../infrastructure/persistence/sequelize/tag.repository.repository'
   )(registry)
 
   registry.presenter.dehydrator.posterDehydrator = require(
@@ -40,17 +45,18 @@ makeTest = makeStaging = makeProduction = () ->
 makeDevelopment = () ->
   db = require('../domain/models/memory')
 
-  Poster = db.Poster
-  PosterImage = db.PosterImage
-
-  registry.domain.models.Poster = Poster
-  registry.domain.models.PosterImage = PosterImage
+  registry.domain.models.Poster = db.Poster
+  registry.domain.models.PosterImage = db.PosterImage
+  registry.domain.models.Tag = db.Tag
 
   registry.infrastructure.persistence.posterRepository = require(
     '../infrastructure/persistence/memory/poster.repository'
   )(registry)
   registry.infrastructure.persistence.posterImageRepository = require(
     '../infrastructure/persistence/memory/poster_image.repository'
+  )(registry)
+  registry.infrastructure.persistence.tagRepository = require(
+    '../infrastructure/persistence/memory/tag.repository'
   )(registry)
 
   registry.presenter.dehydrator.posterDehydrator = require(
