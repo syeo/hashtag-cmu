@@ -3,8 +3,7 @@ Promise = require('../../config/promise')
 class BaseDehydrator
   constructor: (@registry) ->
 
-  default: (obj) -> throw new Error("Method not implemented")
-  whole: (obj) => @default(obj)
+  whole: (obj) => @skim(obj)
   skim: (obj) => @default(obj)
 
   list: (objs) =>

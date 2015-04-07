@@ -41,6 +41,9 @@ makeTest = makeStaging = makeProduction = () ->
   registry.presenter.dehydrator.posterImageDehydrator = require(
     '../presenter/dehydrator/sequelize/poster_image.dehydrator'
   )(registry)
+  registry.presenter.dehydrator.tagDehydrator = require(
+    '../presenter/dehydrator/sequelize/tag.dehydrator'
+  )(registry)
 
 makeDevelopment = () ->
   db = require('../domain/models/memory')
@@ -64,6 +67,9 @@ makeDevelopment = () ->
   )(registry)
   registry.presenter.dehydrator.posterImageDehydrator = require(
     '../presenter/dehydrator/memory/poster_image.dehydrator'
+  )(registry)
+  registry.presenter.dehydrator.tagDehydrator = require(
+    '../presenter/dehydrator/memory/tag.dehydrator'
   )(registry)
 
 module.exports = _.once(() ->

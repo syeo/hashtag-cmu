@@ -9,11 +9,6 @@ debug = require('../debug')('poster:component')
 PosterListItem = React.createClass
   displayName: 'PosterListItem'
 
-  getDefaultProps: ->
-    {
-      load: true
-    }
-
   makeStateFromStore: ->
     {
       poster: PosterStore.getPoster(@props.poster.id)
@@ -21,45 +16,35 @@ PosterListItem = React.createClass
 
   getInitialState: -> @makeStateFromStore()
 
-  componentDidMount: ->
-    PosterStore.addChangeListener(@_onChange)
-    if @props.load
-      PosterService.loadPoster(@props.poster.id)
-
-  renderContent: ->
+  render: ->
     poster = @state.poster
 
-    image = _.first(poster.images)
+    firstImage = _.first(poster.images)
 
-    if image
-      imageContent = <img className="poster-image" src={image.url} />
+    if firstImage
+      image = <img className="poster-image" src={firstImage.url} />
     else
-      imageContent = null
+      image = null
 
-    [
-      {imageContent}
-      <div className="poster-content">
-        <div className="poster-title">{@props.poster.title}</div>
-        <div>{@props.poster.description}</div>
-      </div>
-    ]
+    tags = _.map(poster.tags, (tag) ->
+      <span className="tag badge">
+        {tag.text}
+      </span>
+    )
 
-  renderLoading: ->
-    <div>
-      loading
-    </div>
-
-  renderInner: ->
-    if @state.poster
-      return @renderContent()
-    else
-      return @renderLoading()
-
-  render: ->
     <div className="poster poster-list-item">
-      {@renderInner()}
+      {image}
+      <div className="poster-content">
+        <h3 className="poster-title">{@props.poster.title}</h3>
+        <div className="sep"/>
+        <div className="poster-tags">
+          {tags}
+        </div>
+        <div className="sep"/>
+        <div className="poster-description">
+          {@props.poster.description}
+        </div>
+      </div>
     </div>
-
-  _onChange: -> @setState(@makeStateFromStore())
 
 module.exports = PosterListItem
