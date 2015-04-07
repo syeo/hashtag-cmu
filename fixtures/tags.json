@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "text": "All"
+  },
+  {
+    "id": 2,
+    "text": "SCS"
+  },
+  {
+    "id": 3,
+    "text": "CFA"
+  },
+  {
+    "id": 4,
+    "text": "ECE"
+  },
+  {
+    "id": 5,
+    "text": "Music"
+  },
+  {
+    "id": 6,
+    "text": "Academic"
+  },
+  {
+    "id": 7,
+    "text": "Tutor"
+  },
+  {
+    "id": 8,
+    "text": "Undergraduate"
+  },
+  {
+    "id": 9,
+    "text": "Tech Talk"
+  },
+  {
+    "id": 10,
+    "text": "Non-Academic"
+  },
+  {
+    "id": 11,
+    "text": "Bike"
+  }
+]

@@ -22,7 +22,7 @@ class PosterImageDehydrator extends BaseDehydrator
 
   skim: (obj) =>
     super(obj).then((res) ->
-      _.omit(res, 'posterId')
+      res = _.omit(res, 'posterId')
       res.poster = {id: obj.get('posterId') }
       return res
     )

@@ -1,32 +1,27 @@
 [
   {
     "id": 1,
-    "title": "poster 1",
-    "description": "desc 1"
+    "title": "All University Orchestra",
+    "description": "Connections!"
   },
   {
     "id": 2,
-    "title": "poster 2",
-    "description": "desc 2"
+    "title": "Requesting a GRE Tutor",
+    "description": "Offering $10 per hour"
   },
   {
     "id": 3,
-    "title": "poster 3",
-    "description": "desc 3"
+    "title": "Spring 2015 Talk Series",
+    "description": "#!/cmu/cc - CMU computing club"
   },
   {
     "id": 4,
-    "title": "poster 4",
-    "description": "desc 4"
+    "title": "Pre-Registration Event Passing the Torch",
+    "description": "No faculty allowed"
   },
   {
     "id": 5,
-    "title": "poster 5",
-    "description": "desc 5"
-  },
-  {
-    "id": 6,
-    "title": "poster 6",
-    "description": "desc 6"
+    "title": "Let's Ride",
+    "description": "Dust off your bike + Ride to campus with everyone!"
   }
 ]

@@ -3,14 +3,42 @@
     width: 100%;
   }
   .poster-content {
-    padding: 5px;
+    padding: 0 10px;
+
     .poster-title {
-      font-size: 30px;
+      margin: 10px 0;
+      font-size: 15px;
+      color: @poster-light-title-color;
+    }
+    .poster-tags {
+      font-size: 10px;
+      margin: 3px 0;
+      .tag {
+        background-color: transparent;
+        color: @poster-light-tag-color;
+        border-color: @poster-light-tag-border-color;
+        border-style: solid;
+        border-width: 2px;
+        font-size: inherit;
+        border-radius: 2px;
+        & + .tag {
+          margin-left: 3px;
+        }
+      }
+    }
+    .poster-description {
+      color: @poster-light-description-color;
+      margin: 10px 0;
+    }
+    .sep {
+      height: 0;
+      margin: 3px -15px;
+      border-top-width: 1px;
+      border-top-style: solid;
     }
   }
   overflow: hidden;
   margin-bottom: 20px;
   .rounded(3px);
   .drop-shadow;
-  border: 1px solid #D5D6D7;
 }

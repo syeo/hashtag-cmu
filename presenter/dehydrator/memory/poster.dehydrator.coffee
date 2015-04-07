@@ -6,21 +6,28 @@ BaseDehydrator = require('./base.dehydrator')
 
 
 class PosterDehydrator extends BaseDehydrator
-  default: (obj) =>
+  skim: (obj) =>
     posterImageRepository =
       @registry.infrastructure.persistence.posterImageRepository
     posterImageDehydrator =
       @registry.presenter.dehydrator.posterImageDehydrator
-    posterImageRepository.findAllByPoster(obj).then((posterImages) ->
+
+    tagRepository = @registry.infrastructure.persistence.tagRepository
+    tagDehydrator = @registry.presenter.dehydrator.tagDehydrator
+
+    Promise.all([
+      tagRepository.findAllByPoster(obj)
+      posterImageRepository.findAllByPoster(obj)
+    ]).spread((tags, posterImages) ->
       Promise.all([
         super(obj)
-        posterImageDehydrator.list(
-          posterImages
-        )
+        posterImageDehydrator.list(posterImages)
+        tagDehydrator.list(tags)
       ])
-    ).spread((res, images) ->
+    ).spread((res, images, tags) ->
       _.extend(res, {
         images: images
+        tags: tags
       })
     )
 

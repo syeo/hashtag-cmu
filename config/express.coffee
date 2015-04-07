@@ -94,11 +94,7 @@ module.exports = () ->
   )
   app.use(
     '/static'
-    express.static(path.resolve('./bower_components/'))
-  )
-  app.use(
-    '/static'
-    express.static(path.resolve('./lib/'))
+    express.static(path.resolve('./presenter/web/public'))
   )
 
   # Globbing routing files
