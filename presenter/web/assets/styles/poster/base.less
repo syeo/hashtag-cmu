@@ -8,19 +8,24 @@
     width: 100%;
   }
 
-  .poster-content {
-    padding: 0 10px;
+  > .poster-content-container {
+    padding: 10px;
+
+    & + .poster-content-container {
+      border-top: 1px solid @poster-light-border-color;
+    }
 
     .poster-title {
-      margin: 10px 0;
+      margin: 0;
       font-size: 15px;
       color: @poster-light-title-color;
     }
 
     .poster-tags {
       font-size: 10px;
+      margin: -10px 0;
       .tag {
-        margin: 2px 0;
+        margin: 4px 0;
         font-size: inherit;
         background-color: transparent;
         color: @poster-light-tag-color;
@@ -34,14 +39,6 @@
 
     .poster-description {
       color: @poster-light-description-color;
-      margin: 10px 0;
-    }
-
-    .sep {
-      height: 0;
-      margin: 3px -15px;
-      border-top-width: 1px;
-      border-top-style: solid;
     }
   }
- }
+}

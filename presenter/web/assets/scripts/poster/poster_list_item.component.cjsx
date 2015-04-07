@@ -34,13 +34,15 @@ PosterListItem = React.createClass
 
     <div className="poster poster-list-item">
       {image}
-      <div className="poster-content">
+      <div className="poster-content-container">
         <h3 className="poster-title">{@props.poster.title}</h3>
-        <div className="sep"/>
+      </div>
+      <div className="poster-content-container">
         <div className="poster-tags">
           {tags}
         </div>
-        <div className="sep"/>
+      </div>
+      <div className="poster-content-container">
         <div className="poster-description">
           {@props.poster.description}
         </div>
