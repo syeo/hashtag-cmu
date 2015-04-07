@@ -1,7 +1,7 @@
 .poster {
   overflow: hidden;
   margin-bottom: 10px;
-  .rounded(3px);
+  .rounded(5px);
   .drop-shadow;
 
   .poster-image {
@@ -23,17 +23,14 @@
 
     .poster-tags {
       font-size: 10px;
-      margin: -10px 0;
+      margin: -10px 0 -6px 0;
       .tag {
-        margin: 4px 0;
+        margin: 4px 4px 0px 0;
         font-size: inherit;
         background-color: transparent;
         color: @poster-light-tag-color;
         border: 2px solid @poster-light-tag-border-color;
         border-radius: 2px;
-        & + .tag {
-          margin-left: 4px;
-        }
       }
     }
 
