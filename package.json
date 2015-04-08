@@ -16,7 +16,6 @@
   "dependencies": {
     "bluebird": "^2.9.14",
     "body-parser": "^1.12.2",
-    "bower": "^1.4.1",
     "chalk": "^1.0.0",
     "coffee-script": "^1.9.1",
     "compression": "^1.4.3",
@@ -27,7 +26,6 @@
     "express": "^4.12.3",
     "flux": "^2.0.1",
     "glob": "^5.0.3",
-    "gulp": "^3.8.11",
     "helmet": "^0.7.0",
     "just.randomcolor": "^0.1.1",
     "keymirror": "^0.1.1",
@@ -47,6 +45,7 @@
     "webpack": "^1.7.3"
   },
   "devDependencies": {
+    "bower": "^1.4.1",
     "cjsx-loader": "^2.0.1",
     "json-loader": "^0.5.1",
     "coffee-loader": "^0.7.2",
