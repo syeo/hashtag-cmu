@@ -2,14 +2,17 @@ React = require('react')
 Router = require('react-router')
 
 RouteHandler = Router.RouteHandler
-Link = Router.Link
+NavTopBar = require('./nav_top_bar.component.cjsx')
 
 App = React.createClass
   displayName: 'App'
 
   render: ->
     <div>
-      <RouteHandler/>
+      <NavTopBar/>
+      <div className="content">
+        <RouteHandler/>
+      </div>
     </div>
 
 module.exports = App
