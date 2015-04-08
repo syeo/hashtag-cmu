@@ -4,8 +4,12 @@
   .rounded(5px);
   .drop-shadow;
 
-  .poster-image {
-    width: 100%;
+  .poster-image-container {
+    overflow: hidden;
+    .poster-image {
+      width: 100%;
+      .transition(all 0.2s linear);
+    }
   }
 
   > .poster-content-container {
@@ -36,6 +40,12 @@
 
     .poster-description {
       color: @poster-light-description-color;
+    }
+  }
+
+  &:hover {
+    .poster-image {
+      .scale(1.1);
     }
   }
 }

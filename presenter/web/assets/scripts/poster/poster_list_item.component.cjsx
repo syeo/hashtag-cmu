@@ -22,7 +22,9 @@ PosterListItem = React.createClass
     firstImage = _.first(poster.images)
 
     if firstImage
-      image = <img className="poster-image" src={firstImage.url} />
+      image = <div className="poster-image-container">
+        <img className="poster-image" src={firstImage.url} />
+      </div>
     else
       image = null
 
