@@ -7,14 +7,14 @@ routes = require('./app.routes.cjsx')
 
 NavTopBar = require('./nav_top_bar.component.cjsx')
 
-React.render(
-    <NavTopBar />,
-    document.getElementById('app')
-);
+# React.render(
+#     <NavTopBar />,
+#     document.getElementById('app')
+# );
 
-# Router.run(routes, Router.HistoryLocation, (Handler) ->
-#   React.render(<Handler/>, document.getElementById('app'))
-# )
+Router.run(routes, Router.HistoryLocation, (Handler) ->
+  React.render(<Handler/>, document.getElementById('app'))
+)
 
 # Router.run(routes, (Handler) ->
 #   React.render(<Handler/>, document.body)
