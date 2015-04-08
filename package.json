@@ -4,7 +4,9 @@
   "description": "#CMU",
   "main": "presenter/web/index.coffee",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node presenter/web/index.coffee",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm install && bower install && gulp build"
   },
   "repository": {
     "type": "git",
