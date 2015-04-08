@@ -1,4 +1,7 @@
 module.exports =
   app:
-    title: 'ean-seed - Development Environment'
+    title: '#CMU - dev'
+  livereload:
+    host: 'localhost'
+    port: 35729
 

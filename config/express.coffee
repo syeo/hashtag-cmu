@@ -25,6 +25,10 @@ module.exports = () ->
   app.locals.title = config.app.title
   app.locals.description = config.app.description
   app.locals.keywords = config.app.keywords
+  app.locals.NODE_ENV = process.env.NODE_ENV
+
+  if process.env.NODE_ENV is 'development'
+    app.locals.livereload = config.livereload
 
   # Passing the request url to environment locals
   app.use((req, res, next) ->
@@ -44,13 +48,13 @@ module.exports = () ->
 
   # Set swig as the template engine
   app.engine(
-    "server.view.#{config.templateEngine}",
-    consolidate[config.templateEngine]
+    config.template.ext,
+    consolidate[config.template.engine]
   )
 
-  # Set views path and view engine
-  app.set('view engine', "server.view.#{config.templateEngine}")
-  app.set('views', './presenter/web/template')
+  # Set default
+  app.set('view engine', config.template.ext)
+  app.set('views', './presenter/web')
 
   # Environment dependent middleware
   if process.env.NODE_ENV is 'development'
@@ -84,10 +88,17 @@ module.exports = () ->
   app.disable('x-powered-by')
 
   # Setting the app router and static folder
-  app.use(express.static(path.resolve('./public')))
+  app.use(
+    '/static'
+    express.static(path.resolve('./presenter/web/build/assets'))
+  )
+  app.use(
+    '/static'
+    express.static(path.resolve('./presenter/web/public'))
+  )
 
   # Globbing routing files
-  utils.getGlobbedFiles('./presenter/web/route/**/*.@(js|coffee)').forEach(
+  utils.getGlobbedFiles('./presenter/web/**/*.route.@(js|coffee)').forEach(
     (routePath) ->
       require(path.resolve(routePath))(app)
   )

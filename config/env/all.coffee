@@ -4,6 +4,8 @@ module.exports = {
     description: '#CMU'
     keywords: 'CMU'
   port: process.env.PORT || 3000
-  templateEngine: 'jade'
+  template:
+    ext: 'swig'
+    engine: 'swig'
   debugPrefix: '#CMU'
 }
