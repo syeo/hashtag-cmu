@@ -9,7 +9,7 @@ PosterStream = React.createClass
   mixins: [MasonryMixin('masonryContainer', masonryOptions)]
 
   render: ->
-    <div className="container">
+    <div className="container poster-stream">
       <div className='row' ref='masonryContainer'>
         {@props.children}
       </div>

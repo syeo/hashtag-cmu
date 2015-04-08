@@ -22,7 +22,7 @@ PosterListItem = React.createClass
     firstImage = _.first(poster.images)
 
     if firstImage
-      image = <div className="poster-image-container">
+      image = <div className="poster-image-section">
         <img className="poster-image" src={firstImage.url} />
       </div>
     else
@@ -36,15 +36,15 @@ PosterListItem = React.createClass
 
     <div className="poster poster-list-item">
       {image}
-      <div className="poster-content-container">
+      <div className="poster-content-section">
         <h3 className="poster-title">{@props.poster.title}</h3>
       </div>
-      <div className="poster-content-container">
+      <div className="poster-content-section">
         <div className="poster-tags">
           {tags}
         </div>
       </div>
-      <div className="poster-content-container">
+      <div className="poster-content-section">
         <div className="poster-description">
           {@props.poster.description}
         </div>

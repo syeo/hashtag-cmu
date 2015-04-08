@@ -4,7 +4,7 @@
   .rounded(5px);
   .drop-shadow;
 
-  .poster-image-container {
+  .poster-image-section {
     overflow: hidden;
     .poster-image {
       width: 100%;
@@ -12,10 +12,10 @@
     }
   }
 
-  > .poster-content-container {
+  > .poster-content-section {
     padding: 10px;
 
-    & + .poster-content-container {
+    & + .poster-content-section {
       border-top: 1px solid @poster-light-border-color;
     }
 
@@ -35,6 +35,11 @@
         color: @poster-light-tag-color;
         border: 2px solid @poster-light-tag-border-color;
         border-radius: 2px;
+
+        &:hover {
+          color: @poster-light-tag-highlight-color;
+          border-color: @poster-light-tag-border-highlight-color;
+        }
       }
     }
 
