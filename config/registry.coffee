@@ -12,40 +12,40 @@ registry =
     dehydrator: {}
   application: {}
 
-makeTest = makeStaging = makeProduction = () ->
-  db = require('../domain/models/sequelize')
+# makeTest = makeStaging = makeProduction = () ->
+#   db = require('../domain/models/sequelize')
 
-  sequelize = db.sequelize
-  Poster = db.Poster
-  PosterImage = db.PosterImage
+#   sequelize = db.sequelize
+#   Poster = db.Poster
+#   PosterImage = db.PosterImage
 
-  registry.domain.models.Poster = Poster
-  registry.domain.models.PosterImage = PosterImage
-  registry.domain.models.Tag = Tag
+#   registry.domain.models.Poster = Poster
+#   registry.domain.models.PosterImage = PosterImage
+#   registry.domain.models.Tag = Tag
 
-  registry.infrastructure.persistence.sequelize = sequelize
-  registry.infrastructure.persistence.posterRepository = require(
-    '../infrastructure/persistence/sequelize/poster.repository'
-  )(registry)
-  registry.infrastructure.persistence.posterImageRepository = require(
-    '../infrastructure/persistence/sequelize/poster_image.repository'
-  )(registry)
+#   registry.infrastructure.persistence.sequelize = sequelize
+#   registry.infrastructure.persistence.posterRepository = require(
+#     '../infrastructure/persistence/sequelize/poster.repository'
+#   )(registry)
+#   registry.infrastructure.persistence.posterImageRepository = require(
+#     '../infrastructure/persistence/sequelize/poster_image.repository'
+#   )(registry)
 
-  registry.infrastructure.persistence.tagRepository = require(
-    '../infrastructure/persistence/sequelize/tag.repository.repository'
-  )(registry)
+#   registry.infrastructure.persistence.tagRepository = require(
+#     '../infrastructure/persistence/sequelize/tag.repository.repository'
+#   )(registry)
 
-  registry.presenter.dehydrator.posterDehydrator = require(
-    '../presenter/dehydrator/sequelize/poster.dehydrator'
-  )(registry)
-  registry.presenter.dehydrator.posterImageDehydrator = require(
-    '../presenter/dehydrator/sequelize/poster_image.dehydrator'
-  )(registry)
-  registry.presenter.dehydrator.tagDehydrator = require(
-    '../presenter/dehydrator/sequelize/tag.dehydrator'
-  )(registry)
+#   registry.presenter.dehydrator.posterDehydrator = require(
+#     '../presenter/dehydrator/sequelize/poster.dehydrator'
+#   )(registry)
+#   registry.presenter.dehydrator.posterImageDehydrator = require(
+#     '../presenter/dehydrator/sequelize/poster_image.dehydrator'
+#   )(registry)
+#   registry.presenter.dehydrator.tagDehydrator = require(
+#     '../presenter/dehydrator/sequelize/tag.dehydrator'
+#   )(registry)
 
-makeDevelopment = () ->
+makeTest = makeDevelopment = makeStaging = makeProduction = () ->
   db = require('../domain/models/memory')
 
   registry.domain.models.Poster = db.Poster
