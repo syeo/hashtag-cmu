@@ -29,7 +29,7 @@ PosterListItem = React.createClass
       image = null
 
     tags = _.map(poster.tags, (tag) ->
-      <span className="tag badge">
+      <span className="tag label">
         {tag.text}
       </span>
     )
@@ -39,7 +39,7 @@ PosterListItem = React.createClass
       <div className="poster-content-section">
         <h3 className="poster-title">{@props.poster.title}</h3>
       </div>
-      <div className="poster-content-section">
+      <div className="poster-content-section v-skinny">
         <div className="poster-tags">
           {tags}
         </div>
