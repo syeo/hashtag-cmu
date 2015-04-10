@@ -1,4 +1,4 @@
-{% extends '../shared/_base_layout.template.swig' %}
+{% extends '_layout.swig' %}
 
 {% block content %}
   <div id="app"></div>

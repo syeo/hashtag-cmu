@@ -7,7 +7,7 @@ DefaultRoute = Router.DefaultRoute
 Route = Router.Route
 
 module.exports = (
-  <Route name="app" path="/" handler={App}>
+  <Route name="home" path="/" handler={App}>
     <DefaultRoute handler={Home}/>
   </Route>
 )

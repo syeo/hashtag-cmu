@@ -54,7 +54,7 @@ module.exports = () ->
 
   # Set default
   app.set('view engine', config.template.ext)
-  app.set('views', './presenter/web')
+  app.set('views', './presenter/web/templates')
 
   # Environment dependent middleware
   if process.env.NODE_ENV is 'development'
@@ -125,10 +125,15 @@ module.exports = () ->
 
   # Assume 404 since no middleware responded
   app.use((req, res) ->
-    res.status(404).render('404', {
-      url: req.originalUrl,
-      error: 'Not Found'
-    })
+    if req.accepts('html')
+      res.render('home.swig', {
+        req: req
+      })
+
+    else if req.accepts('json')
+      res.status(404).json({
+        text: 'Not Found'
+      })
   )
 
   # Return Express server instance
