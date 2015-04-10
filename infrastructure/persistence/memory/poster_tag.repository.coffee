@@ -12,18 +12,14 @@ class PosterTagRepository extends FixtureRepository
 
   findAllByPoster: (poster) =>
     posterId = poster.get('id')
-    @findAll().filter((relation) ->
-      relation.get('posterId') == posterId
-    )
+    @findAll()
+      .filter((relation) ->
+        relation.get('posterId') == posterId
+      )
 
   count: (options) =>
-    filterFunc = @filterFunc
-
-    @findAll().reduce((ret, relation) ->
-      if filterFunc(relation, options)
-        ret++
-
-      return ret
-    , 0)
+    @findAll()
+      .filter(_.curry(@filterFunc)(_, options))
+      .then(_.size)
 
 module.exports = (registry) -> new PosterTagRepository(registry)
