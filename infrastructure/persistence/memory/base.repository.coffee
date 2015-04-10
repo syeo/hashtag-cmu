@@ -7,17 +7,21 @@ class BaseRepository
   getDictionary: -> throw new Error("Method not implemented")
   save: -> throw new Error("Method not implemented")
 
-  filter: (val, option) ->
-    ret = false
+  filterFunc: (obj, options) ->
+    _.all(options, (option, key) ->
+      val = obj.get(key)
 
-    if _.isObject(option)
-      if option.in?
-        ret = _.contains(option.in, val)
+      ret = false
 
-    else
-      ret = val == option
+      if _.isObject(option)
+        if option.in?
+          ret = _.contains(option.in, val)
 
-    return ret
+      else
+        ret = val == option
+
+      return ret
+    )
 
   findAll: => @getDictionary().then(_.values)
   findById: (id) => @getDictionary().then((dict) -> dict[id])

@@ -18,7 +18,8 @@ class PosterRepository extends FixtureRepository
     })
 
   getRecentPostsWithOptions: (options) =>
-    tagRepository = @registry.infrastructure.persistence.tagRepository
+    posterTagRepository =
+      @registry.infrastructure.persistence.posterTagRepository
 
     @findAll().then((posters) ->
       postersPromise = Promise.resolve(posters)
@@ -32,11 +33,11 @@ class PosterRepository extends FixtureRepository
         )
 
         postersPromise = postersPromise.filter((poster) ->
-          tagRepository.exists({
+          posterTagRepository.count({
             posterId: poster.get('id')
             tagId:
               in: tagIds
-          })
+          }).then((count) -> count == _.size(tagIds))
         )
 
       postersPromise

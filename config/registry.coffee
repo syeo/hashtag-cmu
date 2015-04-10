@@ -51,6 +51,7 @@ makeTest = makeDevelopment = makeStaging = makeProduction = () ->
   registry.domain.models.Poster = db.Poster
   registry.domain.models.PosterImage = db.PosterImage
   registry.domain.models.Tag = db.Tag
+  registry.domain.models.PosterTag = db.PosterTag
 
   registry.infrastructure.persistence.posterRepository = require(
     '../infrastructure/persistence/memory/poster.repository'
@@ -60,6 +61,9 @@ makeTest = makeDevelopment = makeStaging = makeProduction = () ->
   )(registry)
   registry.infrastructure.persistence.tagRepository = require(
     '../infrastructure/persistence/memory/tag.repository'
+  )(registry)
+  registry.infrastructure.persistence.posterTagRepository = require(
+    '../infrastructure/persistence/memory/poster_tag.repository'
   )(registry)
 
   registry.presenter.dehydrator.posterDehydrator = require(

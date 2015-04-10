@@ -3,6 +3,8 @@ _ = require('lodash')
 FixtureRepository = require('./fixture.repository')
 Promise = require('../../../config/promise')
 
+debug = require('../../../etc/debug')('tag:repository')
+
 class TagRepository extends FixtureRepository
   constructor: (@registry) ->
     super(@registry, '../../../fixtures/tags.json')
@@ -12,26 +14,16 @@ class TagRepository extends FixtureRepository
     new @registry.domain.models.Tag(data)
 
   findAllByPoster: (poster) =>
-    posterId = poster.get('id')
-    tagIds = _.map(
-      _.filter(@posterRelations, (posterRelation) ->
-        posterRelation.poster_id == posterId
+    posterTagRepository =
+      @registry.infrastructure.persistence.posterTagRepository
+
+    posterTagRepository
+      .findAllByPoster(poster)
+      .then((posterTagRelations) ->
+        debug(posterTagRelations)
+        return posterTagRelations
       )
-      (posterRelation) -> posterRelation.tag_id
-    )
-    Promise.all(_.map(tagIds, @findById))
-
-  exists: (options) =>
-    _.any(@posterRelations, (posterRelation) ->
-      ret = true
-
-      if options.posterId?
-        ret &= @filter(posterRelation.poster_id, options.posterId)
-
-      if options.tagId?
-        ret &= @filter(posterRelation.tag_id, options.tagId)
-
-      return ret
-    , @)
+      .map((posterTagRelation) -> posterTagRelation.get('tagId'))
+      .map(@findById)
 
 module.exports = (registry) -> new TagRepository(registry)
