@@ -28,7 +28,7 @@ class BaseRepository
 
   count: (options) =>
     @findAll()
-      .filter(_.curry(@filterFunc)(_, options))
+      .filter(_.partial(@filterFunc, _, options))
       .then(_.size)
 
 module.exports = BaseRepository
