@@ -23,27 +23,20 @@ class PosterRepository extends FixtureRepository
     @findAll().then((posters) ->
       postersPromise = Promise.resolve(posters)
 
-      if _.has(options.filter, 'tag')
+      if options.filter?.tag?
         tagIds = options.filter.tag
 
-        if not _.isArray(tagIds)
-          tagIds = [tagIds]
+        tagIds = _.map(
+          if _.isArray(tagIds) then tagIds else [tagIds]
+          (tagId) -> Number(tagId)
+        )
 
-        postersPromise = postersPromise.then((posters) ->
-          Promise
-            .all(_.map(posters, tagRepository.findAllByPoster))
-            .then((tagsArray) ->
-              _.map(
-                _.filter(
-                  _.zip(posters, tagsArray),
-                  (posterTagsTuple) ->
-                    poster = posterTagsTuple[0]
-                    tags = posterTagsTuple[1]
-                    _.any(tags, (tag) -> _.contains(tagIds, tag.get('id')))
-                )
-                _.first
-              )
-            )
+        postersPromise = postersPromise.filter((poster) ->
+          tagRepository.exists({
+            posterId: poster.get('id')
+            tagId:
+              in: tagIds
+          })
         )
 
       postersPromise

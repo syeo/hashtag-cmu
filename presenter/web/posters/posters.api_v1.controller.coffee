@@ -16,10 +16,8 @@ module.exports =
     options =
       pageSize: PAGE_SIZE
 
-    if _.has(req.query, 'filter')
+    if req.query.filter?
       options.filter = _.pick(req.query.filter, ['tag'])
-      if _.has(options.filter, 'tag')
-        options.filter.tag = _.map(options.filter.tag, (tag) -> Number(tag))
 
     posterRepository.getRecentPostsWithOptions(options)
       .then(posterDehydrator.list)
