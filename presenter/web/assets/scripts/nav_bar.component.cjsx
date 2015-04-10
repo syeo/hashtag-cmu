@@ -5,19 +5,25 @@ Navbar = ReactBootstrap.Navbar
 Nav = ReactBootstrap.Nav
 NavItem = ReactBootstrap.NavItem
 Input = ReactBootstrap.Input
+CollapsableNav = ReactBootstrap.CollapsableNav
+Glyphicon = ReactBootstrap.Glyphicon
 # DropdownButton = ReactBootstrap.DropdownButton
 # MenuItem = ReactBootstrap.MenuItem
 
 NavTopBar = React.createClass
 
   render: ->
-    <Navbar fixedTop toggleNavKey={0}>
-      <form className="navbar-form navbar-left no-left-padding">
-        <Input type='text' addonAfter='search' addonBefore='#CMU'/>
-      </form>
-      <Nav right eventKey={0}>
-        <NavItem href='/'>Home</NavItem>
-      </Nav>
+    <Navbar brand='#CMU' fixedTop toggleNavKey={0}>
+      <CollapsableNav eventKey={0}>
+        <Nav navbar>
+          <form className="navbar-form">
+            <Input type='text' addonAfter={<Glyphicon glyph='search' />} />
+          </form>
+        </Nav>
+        <Nav navbar right>
+          <NavItem href='/'>Home</NavItem>
+        </Nav>
+      </CollapsableNav>
     </Navbar>
 
 module.exports = NavTopBar

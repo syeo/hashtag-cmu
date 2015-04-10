@@ -96,6 +96,10 @@ module.exports = () ->
     '/static'
     express.static(path.resolve('./presenter/web/public'))
   )
+  app.use(
+    '/static/fonts'
+    express.static(path.resolve('./bower_components/bootstrap/fonts'))
+  )
 
   # Globbing routing files
   utils.getGlobbedFiles('./presenter/web/**/*.route.@(js|coffee)').forEach(
