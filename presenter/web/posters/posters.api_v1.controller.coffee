@@ -11,7 +11,17 @@ posterDehydrator = registry.presenter.dehydrator.posterDehydrator
 module.exports =
   list: (req, res) ->
     debug('api.v1.poster.list called')
-    posterRepository.getRecentPosts(PAGE_SIZE)
+    debug(req.query)
+
+    options =
+      pageSize: PAGE_SIZE
+
+    if _.has(req.query, 'filter')
+      options.filter = _.pick(req.query.filter, ['tag'])
+      if _.has(options.filter, 'tag')
+        options.filter.tag = _.map(options.filter.tag, (tag) -> Number(tag))
+
+    posterRepository.getRecentPostsWithOptions(options)
       .then(posterDehydrator.list)
       .then((posters) ->
         res.json(
