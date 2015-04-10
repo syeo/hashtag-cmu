@@ -42,5 +42,4 @@ class FixtureRepository extends BaseRepository
     else
       return 1
 
-
 module.exports = FixtureRepository

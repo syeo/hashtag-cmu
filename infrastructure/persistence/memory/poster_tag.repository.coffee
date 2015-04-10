@@ -1,5 +1,3 @@
-_ = require('lodash')
-
 FixtureRepository = require('./fixture.repository')
 Promise = require('../../../config/promise')
 
@@ -16,10 +14,5 @@ class PosterTagRepository extends FixtureRepository
       .filter((relation) ->
         relation.get('posterId') == posterId
       )
-
-  count: (options) =>
-    @findAll()
-      .filter(_.curry(@filterFunc)(_, options))
-      .then(_.size)
 
 module.exports = (registry) -> new PosterTagRepository(registry)

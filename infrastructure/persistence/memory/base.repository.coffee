@@ -26,4 +26,9 @@ class BaseRepository
   findAll: => @getDictionary().then(_.values)
   findById: (id) => @getDictionary().then((dict) -> dict[id])
 
+  count: (options) =>
+    @findAll()
+      .filter(_.curry(@filterFunc)(_, options))
+      .then(_.size)
+
 module.exports = BaseRepository
