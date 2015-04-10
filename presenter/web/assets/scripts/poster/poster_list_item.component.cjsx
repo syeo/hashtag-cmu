@@ -1,8 +1,10 @@
 React = require('react')
 _ = require('lodash')
+Router = require('react-router')
 
 PosterStore = require('../poster/poster.store')
 PosterService = require('../poster/poster.service')
+Link = Router.Link
 
 debug = require('../debug')('poster:component')
 
@@ -29,9 +31,11 @@ PosterListItem = React.createClass
       image = null
 
     tags = _.map(poster.tags, (tag) ->
-      <span className="tag label">
-        {tag.text}
-      </span>
+      <Link to="tag" params={{tagId: tag.id}}>
+        <span className="tag label">
+          {tag.text}
+        </span>
+      </Link>
     )
 
     <div className="poster poster-list-item">
