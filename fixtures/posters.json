@@ -26,7 +26,67 @@
   },
   {
     "id": 6,
-    "title": "title 6",
-    "description": "desc 6"
+    "title": "The Imitation Game",
+    "description": "Movies in McConomy. Presented by AB films."
+  },
+  {
+    "id": 7,
+    "title": "Robotics Seminar",
+    "description": ""
+  },
+  {
+    "id": 8,
+    "title": "FACES OF WORK",
+    "description": "2015 CMU International Film Festival"
+  },
+  {
+    "id": 9,
+    "title": "Princeton Review",
+    "description": "Enroll in GMAT Ultimate and GET a FREE Basic Pre-application Package from Admit Advantage (A $300 value)"
+  },
+  {
+    "id": 10,
+    "title": "COURT",
+    "description": "2015 CMU International Film Festival"
+  },
+  {
+    "id": 11,
+    "title": "Holy Communication",
+    "description": ""
+  },
+  {
+    "id": 12,
+    "title": "The Dirty Ball",
+    "description": ""
+  },
+  {
+    "id": 13,
+    "title": "We're all mad here",
+    "description": ""
+  },
+  {
+    "id": 14,
+    "title": "Fun Summer Work!",
+    "description": "Gain real world experience"
+  },
+  {
+    "id": 15,
+    "title": "Summer Housing",
+    "description": "Apply for summer housing!"
+  },
+  {
+    "id": 16,
+    "title": "Tartans Pizza",
+    "description": "Create your own personal pizza!"
+  },
+  {
+    "id": 17,
+    "title": "TEDMED Live",
+    "description": ""
+  },
+  {
+    "id": 18,
+    "title": "Heavy Social Drinker Wanted",
+    "description": "You may earn up to $60!"
   }
 ]

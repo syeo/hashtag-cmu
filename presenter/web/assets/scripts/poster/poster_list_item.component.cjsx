@@ -46,11 +46,16 @@ PosterListItem = React.createClass
     return tagsSection
 
   renderDescriptionSection: ->
-    <div className="poster-content-section">
-      <div className="poster-description">
-        {@props.poster.description}
+    unless _.isEmpty(@props.poster.description)
+      descriptionSection = <div className="poster-content-section">
+        <div className="poster-description">
+          {@props.poster.description}
+        </div>
       </div>
-    </div>
+    else
+      descriptionSection = []
+
+    return descriptionSection
 
   render: ->
     <div className="poster poster-list-item">

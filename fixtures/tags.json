@@ -46,5 +46,57 @@
   {
     "id": 12,
     "text": "Movie"
+  },
+  {
+    "id": 13,
+    "text": "Research"
+  },
+  {
+    "id": 14,
+    "text": "Robotics"
+  },
+  {
+    "id": 15,
+    "text": "GMAT"
+  },
+  {
+    "id": 16,
+    "text": "Seminar"
+  },
+  {
+    "id": 17,
+    "text": "Summer"
+  },
+  {
+    "id": 18,
+    "text": "Internship"
+  },
+  {
+    "id": 19,
+    "text": "Work"
+  },
+  {
+    "id": 20,
+    "text": "Recruiting"
+  },
+  {
+    "id": 21,
+    "text": "Housing"
+  },
+  {
+    "id": 22,
+    "text": "Food"
+  },
+  {
+    "id": 23,
+    "text": "TED"
+  },
+  {
+    "id": 24,
+    "text": "Talk"
+  },
+  {
+    "id": 25,
+    "text": "Pocket Money"
   }
 ]
