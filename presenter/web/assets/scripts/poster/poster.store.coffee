@@ -9,7 +9,8 @@ debug = require('../debug')('poster:store')
 class PosterStore extends StoreBase
   constructor: ->
     @posters = {}
-    @posterList = null
+    @homePosterList = []
+    @tagPosterLists = {}
     super()
 
   getPoster: (id) =>
@@ -19,21 +20,31 @@ class PosterStore extends StoreBase
     @posters[poster.id] = poster
     return poster
 
-  setPosterList: (posterList) =>
-    @posterList = _.map(posterList, @setPoster)
-    return @posterList
+  setHomePosterList: (posters) =>
+    @homePosterList = _.map(posters, @setPoster)
+    return @homePosterList
 
-  getPosterList: () =>
-    return @posterList
+  getHomePosterList: () =>
+    return @homePosterList
+
+  setTagPosterList: (tagId, posters) =>
+    @tagPosterLists[tagId] = _.map(posters, @setPoster)
+    return @tagPosterLists[tagId]
+
+  getTagPosterList: (tagId) =>
+    return @tagPosterLists[tagId] || []
 
   actionHandler: (action) =>
     debug(action)
     switch action.type
-      when ACTION.RECEIVE_POSTER_LIST
-        @setPosterList(action.posterList)
+      when ACTION.RECEIVE_HOME_POSTER_LIST
+        @setHomePosterList(action.posters)
         @emitChange()
       when ACTION.RECEIVE_POSTER
         @setPoster(action.poster)
+        @emitChange()
+      when ACTION.RECEIVE_TAG_POSTER_LIST
+        @setTagPosterList(action.tagId, action.posters)
         @emitChange()
 
 module.exports = new PosterStore

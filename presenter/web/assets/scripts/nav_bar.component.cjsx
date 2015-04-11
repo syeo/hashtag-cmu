@@ -12,7 +12,8 @@ Link = Router.Link
 # DropdownButton = ReactBootstrap.DropdownButton
 # MenuItem = ReactBootstrap.MenuItem
 
-NavTopBar = React.createClass
+NavBar = React.createClass
+  displayName: 'NavBar'
 
   render: ->
     brand = <Link to="home">#CMU</Link>
@@ -25,4 +26,4 @@ NavTopBar = React.createClass
       </CollapsableNav>
     </Navbar>
 
-module.exports = NavTopBar
+module.exports = NavBar

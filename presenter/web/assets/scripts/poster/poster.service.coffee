@@ -7,12 +7,17 @@ Promise = require('../promise')
 debug = require('../debug')('watchboard:query:result:service')
 
 module.exports =
-  loadPosterList: () ->
-    ApiService.getPosterList().then((posterList) ->
-      PosterActionCreator.receivePosterList(posterList)
+  loadHomePosterList: () ->
+    ApiService.getHomePosterList().then((posterList) ->
+      PosterActionCreator.receiveHomePosterList(posterList)
     )
 
   loadPoster: (id) ->
     ApiService.getPoster(id).then((poster) ->
       PosterActionCreator.receivePoster(poster)
+    )
+
+  loadTagPosterList: (tagId) ->
+    ApiService.getTagPosterList(tagId).then((posterList) ->
+      PosterActionCreator.receiveTagPosterList(tagId, posterList)
     )

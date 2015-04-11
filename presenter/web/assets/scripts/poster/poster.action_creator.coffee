@@ -10,8 +10,15 @@ module.exports =
       poster: poster
     })
 
-  receivePosterList: (posterList) ->
+  receiveHomePosterList: (posters) ->
     Dispatcher.dispatch({
-      type: ACTION.RECEIVE_POSTER_LIST
-      posterList: posterList
+      type: ACTION.RECEIVE_HOME_POSTER_LIST
+      posters: posters
+    })
+
+  receiveTagPosterList: (tagId, posters) ->
+    Dispatcher.dispatch({
+      type: ACTION.RECEIVE_TAG_POSTER_LIST
+      tagId: tagId
+      posters: posters
     })

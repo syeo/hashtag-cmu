@@ -12,9 +12,16 @@ class ApiService
     superagent
       .get(@makeApiUrl(path))
 
-  getPosterList: () =>
+  getHomePosterList: () =>
     utils.makePromiseWithSuperagentRequest(
       @makeGetRequest("/posters")
+    ).then((res) ->
+      res.body.posters
+    )
+
+  getTagPosterList: (tagId) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makeGetRequest("/tags/#{tagId}/posters")
     ).then((res) ->
       res.body.posters
     )

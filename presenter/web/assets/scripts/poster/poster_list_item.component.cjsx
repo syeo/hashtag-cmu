@@ -11,48 +11,53 @@ debug = require('../debug')('poster:component')
 PosterListItem = React.createClass
   displayName: 'PosterListItem'
 
-  makeStateFromStore: ->
-    {
-      poster: PosterStore.getPoster(@props.poster.id)
-    }
-
-  getInitialState: -> @makeStateFromStore()
-
-  render: ->
-    poster = @state.poster
-
-    firstImage = _.first(poster.images)
-
-    if firstImage
-      image = <div className="poster-image-section">
+  renderImageSection: ->
+    unless _.isEmpty(@props.poster.images)
+      firstImage = _.first(@props.poster.images)
+      imageSection = <div className="poster-image-section">
         <img className="poster-image" src={firstImage.url} />
       </div>
     else
-      image = null
+      imageSection = []
 
-    tags = _.map(poster.tags, (tag) ->
-      <Link to="tag" params={{tagId: tag.id}}>
-        <span className="tag label">
-          {tag.text}
-        </span>
-      </Link>
-    )
+    return imageSection
 
+  renderTitleSection: ->
+    <div className="poster-content-section">
+      <h3 className="poster-title">{@props.poster.title}</h3>
+    </div>
+
+  renderTagsSection: ->
+    unless _.isEmpty(@props.poster.tags)
+      tagsSection = <div className="poster-content-section v-skinny">
+        <div className="poster-tags">{
+          _.map(@props.poster.tags, (tag) ->
+            <Link to="tag" params={{tagId: tag.id}} key={tag.id}>
+              <span className="tag label">
+                {tag.text}
+              </span>
+            </Link>
+          )
+        }</div>
+      </div>
+    else
+      tagsSection = []
+
+    return tagsSection
+
+  renderDescriptionSection: ->
+    <div className="poster-content-section">
+      <div className="poster-description">
+        {@props.poster.description}
+      </div>
+    </div>
+
+  render: ->
     <div className="poster poster-list-item">
-      {image}
-      <div className="poster-content-section">
-        <h3 className="poster-title">{@props.poster.title}</h3>
-      </div>
-      <div className="poster-content-section v-skinny">
-        <div className="poster-tags">
-          {tags}
-        </div>
-      </div>
-      <div className="poster-content-section">
-        <div className="poster-description">
-          {@props.poster.description}
-        </div>
-      </div>
+      {@renderImageSection()}
+      {@renderTitleSection()}
+      {@renderTagsSection()}
+      {@renderDescriptionSection()}
     </div>
 
 module.exports = PosterListItem

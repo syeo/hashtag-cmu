@@ -8,7 +8,6 @@ debug = require('../../../etc/debug')('tag:repository')
 class TagRepository extends FixtureRepository
   constructor: (@registry) ->
     super(@registry, '../../../fixtures/tags.json')
-    @posterRelations = require('../../../fixtures/poster_tags.json')
 
   factory: (data) =>
     new @registry.domain.models.Tag(data)

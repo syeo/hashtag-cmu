@@ -12,12 +12,7 @@ class PosterRepository extends FixtureRepository
   factory: (data) =>
     new @registry.domain.models.Poster(data)
 
-  getRecentPosts: (limit) =>
-    @getRecentPostsWithOptions({
-      pageSize:limit
-    })
-
-  getRecentPostsWithOptions: (options) =>
+  findRecent: (options = {}) =>
     posterTagRepository =
       @registry.infrastructure.persistence.posterTagRepository
 
@@ -42,7 +37,23 @@ class PosterRepository extends FixtureRepository
 
       postersPromise
     ).then((posters) ->
-      _.takeRight(posters, options.pageSize).reverse()
+      posters.reverse()
     )
+
+  findRecentByTag: (tag) => @findRecentByTagId(tag.get('id'))
+
+  findRecentByTagId: (tagId) =>
+    tagId = Number(tagId)
+
+    posterTagRepository =
+      @registry.infrastructure.persistence.posterTagRepository
+
+    posterTagRepository.findAllByTagId(tagId)
+      .map((posterTagRelation) -> posterTagRelation.get('posterId'))
+      .then(@findAllByIds)
+      .then(_.values)
+      .then((posters) ->
+        posters.reverse()
+      )
 
 module.exports = (registry) -> new PosterRepository(registry)

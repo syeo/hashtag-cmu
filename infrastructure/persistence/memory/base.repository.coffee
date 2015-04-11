@@ -23,8 +23,19 @@ class BaseRepository
       return ret
     )
 
-  findAll: => @getDictionary().then(_.values)
-  findById: (id) => @getDictionary().then((dict) -> dict[id])
+  findAll: =>
+    @getDictionary()
+      .then(_.values)
+      .then(_.partial(_.clone, _, true))
+
+  findById: (id) =>
+    @getDictionary()
+      .then((dict) -> dict[id]).then(_.clone)
+
+  findAllByIds: (ids) =>
+    @getDictionary()
+      .then(_.partial(_.pick, _, ids))
+      .then(_.partial(_.clone, _, true))
 
   count: (options) =>
     @findAll()
