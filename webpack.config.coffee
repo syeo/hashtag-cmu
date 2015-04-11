@@ -1,6 +1,15 @@
 path = require("path")
 webpack = require("webpack")
 
+config = require('./config/config')
+
+plugins = []
+
+if process.env.NODE_ENV == 'production'
+  plugins.push(new webpack.optimize.UglifyJsPlugin(
+    mangle: true
+  ))
+
 module.exports = {
   # This is the main file that should include all other JS files
   entry: './presenter/web/assets/scripts/application.cjsx'
@@ -49,10 +58,5 @@ module.exports = {
       /[\/\\]ui-bootstrap-tpls\.js$/
     ]
 
-  plugins: [
-    # If you want to minify everything
-    # new webpack.optimize.UglifyJsPlugin(
-    #   mangle: true
-    # )
-  ]
+  plugins: plugins
 }
