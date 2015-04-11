@@ -1,19 +1,14 @@
+_ = require('lodash')
 Router = require('react-router')
 React = require('react')
 
 window.React = React
 
+PosterActionCreator = require('./page/page_data.action_creator')
 routes = require('./app.routes.cjsx')
 
-Router.run(routes, Router.HistoryLocation, (Handler) ->
+Router.run(routes, Router.HistoryLocation, (Handler, state) ->
+  PosterActionCreator.changePageData(state.params, state.query)
+
   React.render(<Handler/>, document.getElementById('app'))
 )
-
-# Router.run(routes, (Handler) ->
-#   React.render(<Handler/>, document.body)
-# )
-
-# React.render(
-#     <Home />,
-#     document.getElementById('app')
-# );

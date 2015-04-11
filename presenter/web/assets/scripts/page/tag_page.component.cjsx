@@ -14,9 +14,8 @@ TagPage = React.createClass({
     router: React.PropTypes.func
 
   render: ->
-    tagId = @context.router.getCurrentParams().tagId
     <div className='tag-page'>
-      <TagPosterList tagId={tagId} />
+      <TagPosterList />
     </div>
 
   _onChange: -> @setState(@makeStateFromStore())

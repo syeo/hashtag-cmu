@@ -1,8 +1,8 @@
 Router = require('react-router')
 
 App = require('./app.component.cjsx')
-HomePage = require('./pages/home_page.component.cjsx')
-TagPage = require('./pages/tag_page.component.cjsx')
+HomePage = require('./page/home_page.component.cjsx')
+TagPage = require('./page/tag_page.component.cjsx')
 
 DefaultRoute = Router.DefaultRoute
 Route = Router.Route

@@ -5,6 +5,7 @@ MasonryMixin = require('react-masonry-mixin')
 PosterStore = require('../poster/poster.store')
 PosterService = require('../poster/poster.service')
 PosterListMixin = require('../poster/poster_list.mixin.cjsx')
+PageDataStore = require('../page/page_data.store')
 
 debug = require('../debug')('tag_poster_list:component')
 
@@ -28,8 +29,10 @@ TagPosterList = React.createClass({
   ]
 
   makeStateFromStore: () ->
+    tagId = PageDataStore.getParams().tagId
     {
-      posters: PosterStore.getTagPosterList(@props.tagId)
+      tagId: tagId
+      posters: PosterStore.getTagPosterList(tagId)
     }
 
   getInitialState: -> @makeStateFromStore()
@@ -38,16 +41,31 @@ TagPosterList = React.createClass({
     debug("didmount")
 
     PosterStore.addChangeListener(@_onChange)
-    PosterService.loadTagPosterList(@props.tagId)
+    PageDataStore.addChangeListener(@_onPageDataChange)
+
+    debug(@state)
+
+    if @state.tagId?
+      PosterService.loadTagPosterList(@state.tagId)
 
   componentWillUnmount: ->
     debug("will unmount")
 
     PosterStore.removeChangeListener(@_onChange)
+    PageDataStore.removeChangeListener(@_onPageDataChange)
 
   render: -> @renderList()
 
-  _onChange: -> @setState(@makeStateFromStore())
+  _onChange: ->
+    @setState(@makeStateFromStore())
+
+  _onPageDataChange: ->
+    tagId = PageDataStore.getParams().tagId
+
+    if tagId?
+      PosterService.loadTagPosterList(tagId)
+
+    @setState(@makeStateFromStore())
 });
 
 module.exports = TagPosterList;

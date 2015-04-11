@@ -1,3 +1,5 @@
+_ = require('lodash')
+
 PosterListItem = require('./poster_list_item.component.cjsx')
 
 module.exports =
@@ -7,7 +9,7 @@ module.exports =
         _.map(@state.posters, (poster) ->
           <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
                key={poster.id}>
-            <PosterListItem poster={poster} />
+            <PosterListItem poster={poster}/>
           </div>
         )
       }</div>
