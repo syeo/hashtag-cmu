@@ -6,7 +6,7 @@ PosterStore = require('../poster/poster.store')
 PosterService = require('../poster/poster.service')
 PosterListMixin = require('../poster/poster_list.mixin.cjsx')
 
-debug = require('../debug')('home_page:component')
+debug = require('../debug')('tag_poster_list:component')
 
 MASONRY_CONTAINER_REF = 'masonryContainer'
 MASONRY_OPTIONS = {}
