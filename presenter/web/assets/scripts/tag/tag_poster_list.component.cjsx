@@ -62,7 +62,7 @@ TagPosterList = React.createClass({
   _onPageDataChange: ->
     tagId = PageDataStore.getParams().tagId
 
-    if tagId?
+    if tagId? and @state?.tagId != tagId
       PosterService.loadTagPosterList(tagId)
 
     @setState(@makeStateFromStore())
