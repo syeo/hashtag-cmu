@@ -1,5 +1,9 @@
 {
   "coffeelint": {
-    "transforms": [ "coffee-react-transform" ]
+    "transforms": ["coffee-react-transform"]
+  },
+  "max_line_length": {
+    "name": "max_line_length",
+    "level": "ignore"
   }
 }
