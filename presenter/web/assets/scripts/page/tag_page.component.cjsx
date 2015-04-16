@@ -19,6 +19,6 @@ TagPage = React.createClass({
     </div>
 
   _onChange: -> @setState(@makeStateFromStore())
-});
+})
 
-module.exports = TagPage;
+module.exports = TagPage

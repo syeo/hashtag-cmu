@@ -16,6 +16,6 @@ HomePage = React.createClass({
     </div>
 
   _onChange: -> @setState(@makeStateFromStore())
-});
+})
 
-module.exports = HomePage;
+module.exports = HomePage
