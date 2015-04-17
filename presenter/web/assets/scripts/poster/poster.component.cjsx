@@ -1,5 +1,10 @@
 React = require('react')
 
+PosterMixin = require('./poster.component.mixin.cjsx')
+PosterStore = require('./poster.store')
+PosterService = require('./poster.service')
+PageDataStore = require('../page/page_data.store')
+
 debug = require('../debug')('poster:component')
 
 debug("here")
@@ -7,11 +12,52 @@ debug("here")
 Poster = React.createClass
   displayName: 'Poster'
 
+  mixins: [PosterMixin]
+
+  getCurrentPosterId: () ->
+    PageDataStore.getParams().posterId
+
+  makeStateFromStore: ->
+    {
+      poster: PosterStore.getPoster(@getCurrentPosterId())
+    }
+
+  getInitialState: -> @makeStateFromStore()
+
+  componentDidMount: ->
+    PosterStore.addChangeListener(@_onPosterChange)
+
+    if @getCurrentPosterId()?
+      PosterService.loadPoster(@getCurrentPosterId())
+
+  componentWillUnmount: ->
+    PosterStore.removeChangeListener(@_onPosterChange)
+
+  _onPosterChange: ->
+    @setState(@makeStateFromStore())
+
   render: ->
-    debug("render")
-    <div>
-      <h1>{@props.poster.title}</h1>
-      <div>{@props.poster.id}</div>
-    </div>
+    rows = []
+
+    if @state.poster?
+      rows.push(
+        <div className='row' key="poster">
+          <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>{
+            @renderPoster(@state.poster)
+          }</div>
+        </div>
+      )
+    else
+      rows.push(
+        <div className='row' key="poster-loading">
+          <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+            LOADING
+          </div>
+        </div>
+      )
+
+    <div className="container single-poster">{
+      rows
+    }</div>
 
 module.exports = Poster

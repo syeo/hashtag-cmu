@@ -1,68 +1,19 @@
 React = require('react')
-_ = require('lodash')
-Router = require('react-router')
 
-PosterStore = require('../poster/poster.store')
-PosterService = require('../poster/poster.service')
-Link = Router.Link
+PosterMixin = require('./poster.component.mixin.cjsx')
 
 debug = require('../debug')('poster:component')
 
 PosterListItem = React.createClass
   displayName: 'PosterListItem'
 
-  renderImageSection: ->
-    unless _.isEmpty(@props.poster.images)
-      firstImage = _.first(@props.poster.images)
-      imageSection = <div className="poster-image-section">
-        <img className="poster-image" src={firstImage.url} />
-      </div>
-    else
-      imageSection = []
-
-    return imageSection
-
-  renderTitleSection: ->
-    <div className="poster-content-section">
-      <h3 className="poster-title">{@props.poster.title}</h3>
-    </div>
-
-  renderTagsSection: ->
-    unless _.isEmpty(@props.poster.tags)
-      tagsSection = <div className="poster-content-section v-skinny">
-        <div className="poster-tags">{
-          _.map(@props.poster.tags, (tag) ->
-            <Link to="tag" params={{tagId: tag.id}} key={tag.id}>
-              <span className="tag label">
-                {tag.text}
-              </span>
-            </Link>
-          )
-        }</div>
-      </div>
-    else
-      tagsSection = []
-
-    return tagsSection
-
-  renderDescriptionSection: ->
-    unless _.isEmpty(@props.poster.description)
-      descriptionSection = <div className="poster-content-section">
-        <div className="poster-description">
-          {@props.poster.description}
-        </div>
-      </div>
-    else
-      descriptionSection = []
-
-    return descriptionSection
+  mixins: [PosterMixin]
 
   render: ->
-    <div className="poster poster-list-item">
-      {@renderImageSection()}
-      {@renderTitleSection()}
-      {@renderTagsSection()}
-      {@renderDescriptionSection()}
+    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div className="poster-list-item">{
+        @renderPoster(@props.poster)
+      }</div>
     </div>
 
 module.exports = PosterListItem

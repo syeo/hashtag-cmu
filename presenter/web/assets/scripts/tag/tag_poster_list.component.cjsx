@@ -29,43 +29,39 @@ TagPosterList = React.createClass({
   ]
 
   makeStateFromStore: () ->
-    tagId = PageDataStore.getParams().tagId
     {
-      tagId: tagId
-      posters: PosterStore.getTagPosterList(tagId)
+      posters: PosterStore.getTagPosterList(@getCurrentTagId())
     }
+
+  getCurrentTagId: () ->
+    PageDataStore.getParams().tagId
 
   getInitialState: -> @makeStateFromStore()
 
   componentDidMount: ->
     debug("didmount")
 
-    PosterStore.addChangeListener(@_onChange)
+    PosterStore.addChangeListener(@_onPosterChange)
     PageDataStore.addChangeListener(@_onPageDataChange)
 
     debug(@state)
 
-    if @state.tagId?
-      PosterService.loadTagPosterList(@state.tagId)
+    if @getCurrentTagId()?
+      PosterService.loadTagPosterList(@getCurrentTagId())
 
   componentWillUnmount: ->
     debug("will unmount")
 
-    PosterStore.removeChangeListener(@_onChange)
+    PosterStore.removeChangeListener(@_onPosterChange)
     PageDataStore.removeChangeListener(@_onPageDataChange)
 
   render: -> @renderList()
 
-  _onChange: ->
+  _onPosterChange: ->
     @setState(@makeStateFromStore())
 
   _onPageDataChange: ->
-    tagId = PageDataStore.getParams().tagId
+    PosterService.loadTagPosterList(@getCurrentTagId())
+})
 
-    if tagId? and @state?.tagId != tagId
-      PosterService.loadTagPosterList(tagId)
-
-    @setState(@makeStateFromStore())
-});
-
-module.exports = TagPosterList;
+module.exports = TagPosterList

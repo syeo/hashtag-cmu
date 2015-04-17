@@ -19,7 +19,18 @@ module.exports =
     if req.query.filter?
       options.filter = _.pick(req.query.filter, ['tag'])
 
-    posterRepository.findRecent(options)
+    posterRepository
+      .findRecent(options)
       .then(posterDehydrator.list)
       .then((posters) -> res.json({posters: posters}))
+      .done()
+
+  get: (req, res) ->
+    debug('api.v1.poster.get called')
+    debug(req.query)
+
+    posterRepository
+      .findById(req.params.posterId)
+      .then(posterDehydrator.whole)
+      .then((poster) -> res.json({poster: poster}))
       .done()

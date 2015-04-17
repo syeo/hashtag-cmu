@@ -18,7 +18,6 @@ TagPage = React.createClass({
       <TagPosterList />
     </div>
 
-  _onChange: -> @setState(@makeStateFromStore())
 })
 
 module.exports = TagPage
