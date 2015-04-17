@@ -42,9 +42,18 @@ Poster = React.createClass
     if @state.poster?
       rows.push(
         <div className='row' key="poster">
-          <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>{
-            @renderPoster(@state.poster)
-          }</div>
+          <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+            <div className="poster">
+              {@renderImageSection(@state.poster)}
+            </div>
+          </div>
+          <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+            <div className="poster">
+              {@renderTitleSection(@state.poster)}
+              {@renderTagsSection(@state.poster)}
+              {@renderDescriptionSection(@state.poster)}
+            </div>
+          </div>
         </div>
       )
     else
@@ -56,8 +65,8 @@ Poster = React.createClass
         </div>
       )
 
-    <div className="container single-poster">{
-      rows
-    }</div>
+    <div className="container single-poster">
+      {rows}
+    </div>
 
 module.exports = Poster

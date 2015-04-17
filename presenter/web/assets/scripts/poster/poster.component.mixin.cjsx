@@ -18,7 +18,9 @@ module.exports =
   renderTitleSection: (poster) ->
     <div className="poster-content-section">
       <Link to="poster" params={{posterId: poster.id}}>
-        <h3 className="poster-title">{poster.title}</h3>
+        <h3 className="poster-title">
+          {poster.title}
+        </h3>
       </Link>
     </div>
 
