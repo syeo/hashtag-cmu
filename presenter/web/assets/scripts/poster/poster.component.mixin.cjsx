@@ -8,7 +8,9 @@ module.exports =
     unless _.isEmpty(poster.images)
       firstImage = _.first(poster.images)
       imageSection = <div className="poster-image-section">
-        <img className="poster-image" src={firstImage.url} />
+        <Link to="poster" params={{posterId: poster.id}}>
+           <img className="poster-image" src={firstImage.url} />
+        </Link>
       </div>
     else
       imageSection = []
