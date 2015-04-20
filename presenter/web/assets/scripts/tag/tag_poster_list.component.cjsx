@@ -61,7 +61,9 @@ TagPosterList = React.createClass({
     @setState(@makeStateFromStore())
 
   _onPageDataChange: ->
-    PosterService.loadTagPosterList(@getCurrentTagId())
+    tagId = @getCurrentTagId()
+    if tagId?
+      PosterService.loadTagPosterList(tagId)
 })
 
 module.exports = TagPosterList
