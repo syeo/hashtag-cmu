@@ -1,92 +1,74 @@
 [
   {
-    "id": 1,
-    "poster_id": 1,
+    "posterId": 1,
     "url": "/static/images/1.jpg"
   },
   {
-    "id": 2,
-    "poster_id": 2,
+    "posterId": 2,
     "url": "/static/images/2.jpg"
   },
   {
-    "id": 3,
-    "poster_id": 3,
+    "posterId": 3,
     "url": "/static/images/3.jpg"
   },
   {
-    "id": 4,
-    "poster_id": 4,
+    "posterId": 4,
     "url": "/static/images/4.jpg"
   },
   {
-    "id": 5,
-    "poster_id": 5,
+    "posterId": 5,
     "url": "/static/images/5.jpg"
   },
   {
-    "id": 6,
-    "poster_id": 6,
+    "posterId": 6,
     "url": "/static/images/6.jpg"
   },
   {
-    "id": 7,
-    "poster_id": 7,
+    "posterId": 7,
     "url": "/static/images/7.jpg"
   },
   {
-    "id": 8,
-    "poster_id": 8,
+    "posterId": 8,
     "url": "/static/images/8.jpg"
   },
   {
-    "id": 9,
-    "poster_id": 9,
+    "posterId": 9,
     "url": "/static/images/9.jpg"
   },
   {
-    "id": 10,
-    "poster_id": 10,
+    "posterId": 10,
     "url": "/static/images/10.jpg"
   },
   {
-    "id": 11,
-    "poster_id": 11,
+    "posterId": 11,
     "url": "/static/images/11.jpg"
   },
   {
-    "id": 12,
-    "poster_id": 12,
+    "posterId": 12,
     "url": "/static/images/12.jpg"
   },
   {
-    "id": 13,
-    "poster_id": 13,
+    "posterId": 13,
     "url": "/static/images/13.jpg"
   },
   {
-    "id": 14,
-    "poster_id": 14,
+    "posterId": 14,
     "url": "/static/images/14.jpg"
   },
   {
-    "id": 15,
-    "poster_id": 15,
+    "posterId": 15,
     "url": "/static/images/15.jpg"
   },
   {
-    "id": 16,
-    "poster_id": 16,
+    "posterId": 16,
     "url": "/static/images/16.jpg"
   },
   {
-    "id": 17,
-    "poster_id": 17,
+    "posterId": 17,
     "url": "/static/images/17.jpg"
   },
   {
-    "id": 18,
-    "poster_id": 18,
+    "posterId": 18,
     "url": "/static/images/18.jpg"
   }
 ]

@@ -33,7 +33,7 @@ module.exports =
           _.map(poster.tags, (tag) ->
             <Link to="tag" params={{tagId: tag.id}} key={tag.id}>
               <span className="tag label">
-                {tag.text}
+                {tag.name}
               </span>
             </Link>
           )

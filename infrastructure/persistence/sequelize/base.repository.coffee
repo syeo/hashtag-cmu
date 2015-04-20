@@ -1,3 +1,8 @@
+Query = require('./query.builder')
+Where = require('./where')
+
+debug = require('../../../etc/debug')('infra:persistence:BaseRepository')
+
 class BaseRepository
   constructor: (@registry) ->
 
@@ -7,7 +12,13 @@ class BaseRepository
 
   findById: (id) => @getModel().find(id)
 
-  findAll: (options = {}) => @getModel().findAll(options)
+  findAll: (query = Query()) =>
+    @getModel().findAll(query.end())
+
+  findAllByIds: (ids, query = Query()) =>
+    @findAll(
+      query.and(Where({id: {$in: ids}}))
+    )
 
   save: (obj) -> obj.save()
 

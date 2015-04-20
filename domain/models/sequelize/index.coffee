@@ -6,7 +6,8 @@ _ = require('lodash')
 
 basename = path.basename(module.filename)
 env = process.env.NODE_ENV or 'development'
-config = require(__dirname + '/../../../config/sequelize.json')[env]
+config = require(__dirname + '/../../../config/sequelize')[env]
+
 sequelize = new Sequelize(
   config.database,
   config.username,

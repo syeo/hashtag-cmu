@@ -48,23 +48,53 @@ registry =
 makeTest = makeDevelopment = makeStaging = makeProduction = () ->
   db = require('../domain/models/memory')
 
-  registry.domain.models.Poster = db.Poster
-  registry.domain.models.PosterImage = db.PosterImage
-  registry.domain.models.Tag = db.Tag
-  registry.domain.models.PosterTag = db.PosterTag
+  sequelize = db.sequelize
+  sequelizeDb = require('../domain/models/sequelize')
+
+  ########## Sequelize
+  registry.domain.models.Poster = sequelizeDb.Poster
+  registry.domain.models.PosterImage = sequelizeDb.PosterImage
+  registry.domain.models.Tag = sequelizeDb.Tag
+  registry.domain.models.PosterTag = sequelizeDb.PosterTag
+
+  registry.infrastructure.persistence.sequelize = sequelize
 
   registry.infrastructure.persistence.posterRepository = require(
-    '../infrastructure/persistence/memory/poster.repository'
+    '../infrastructure/persistence/sequelize/poster.repository'
   )(registry)
   registry.infrastructure.persistence.posterImageRepository = require(
-    '../infrastructure/persistence/memory/poster_image.repository'
+    '../infrastructure/persistence/sequelize/poster_image.repository'
   )(registry)
   registry.infrastructure.persistence.tagRepository = require(
-    '../infrastructure/persistence/memory/tag.repository'
+    '../infrastructure/persistence/sequelize/tag.repository'
   )(registry)
   registry.infrastructure.persistence.posterTagRepository = require(
-    '../infrastructure/persistence/memory/poster_tag.repository'
+    '../infrastructure/persistence/sequelize/poster_tag.repository'
   )(registry)
+
+
+
+  ########## Memory
+  # registry.domain.models.Poster = db.Poster
+  # registry.domain.models.PosterImage = db.PosterImage
+
+  # registry.infrastructure.persistence.posterRepository = require(
+  #   '../infrastructure/persistence/memory/poster.repository'
+  # )(registry)
+  # registry.infrastructure.persistence.posterImageRepository = require(
+  #   '../infrastructure/persistence/memory/poster_image.repository'
+  # )(registry)
+
+
+  # registry.domain.models.Tag = db.Tag
+  # registry.domain.models.PosterTag = db.PosterTag
+
+  # registry.infrastructure.persistence.tagRepository = require(
+  #   '../infrastructure/persistence/memory/tag.repository'
+  # )(registry)
+  # registry.infrastructure.persistence.posterTagRepository = require(
+  #   '../infrastructure/persistence/memory/poster_tag.repository'
+  # )(registry)
 
   registry.presenter.dehydrator.posterDehydrator = require(
     '../presenter/dehydrator/memory/poster.dehydrator'

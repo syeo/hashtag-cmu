@@ -1,11 +1,13 @@
 _ = require('lodash')
 
 FixtureRepository = require('./fixture.repository')
+BasePosterRepository = require('../shared/base.poster.repository')
 Promise = require('../../../config/promise')
+mixOf = require('../../../etc/mix_of')
 
 debug = require('../../../etc/debug')('poster:repository')
 
-class PosterRepository extends FixtureRepository
+class PosterRepository extends mixOf(FixtureRepository, BasePosterRepository)
   constructor: (@registry) ->
     super(@registry, '../../../fixtures/posters.json')
 
@@ -39,8 +41,6 @@ class PosterRepository extends FixtureRepository
     ).then((posters) ->
       posters.reverse()
     )
-
-  findRecentByTag: (tag) => @findRecentByTagId(tag.get('id'))
 
   findRecentByTagId: (tagId) =>
     tagId = Number(tagId)

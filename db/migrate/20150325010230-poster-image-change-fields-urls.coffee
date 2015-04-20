@@ -1,7 +1,7 @@
 'use strict'
 module.exports =
   up: (migration, DataTypes, done) ->
-    migration.removeColumn('PosterImages', 'path').then(() ->
+    migration.removeColumn('PosterImages', 'baseUrl').then(() ->
       migration.addColumn('PosterImages', 'thumbnailUrl', {
         type: DataTypes.STRING
       })
@@ -15,7 +15,7 @@ module.exports =
       })
     ).done(done)
   down: (migration, DataTypes, done) ->
-    migration.addColumn('PosterImages', 'path', {
+    migration.addColumn('PosterImages', 'baseUrl', {
       type: DataTypes.STRING
       allowNull: false
       allowEmpty: false

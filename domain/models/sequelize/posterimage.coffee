@@ -2,11 +2,7 @@
 
 module.exports = (sequelize, DataTypes) ->
   PosterImage = sequelize.define('PosterImage', {
-    thumbnailUrl:
-      type: DataTypes.STRING
-    cardUrl:
-      type: DataTypes.STRING
-    originalUrl:
+    url:
       type: DataTypes.STRING
   }, {
     classMethods:

@@ -1,102 +1,77 @@
 [
   {
-    "id": 1,
-    "text": "All"
+    "name": "All"
   },
   {
-    "id": 2,
-    "text": "SCS"
+    "name": "SCS"
   },
   {
-    "id": 3,
-    "text": "CFA"
+    "name": "CFA"
   },
   {
-    "id": 4,
-    "text": "ECE"
+    "name": "ECE"
   },
   {
-    "id": 5,
-    "text": "Music"
+    "name": "Music"
   },
   {
-    "id": 6,
-    "text": "Academic"
+    "name": "Academic"
   },
   {
-    "id": 7,
-    "text": "Tutor"
+    "name": "Tutor"
   },
   {
-    "id": 8,
-    "text": "Undergraduate"
+    "name": "Undergraduate"
   },
   {
-    "id": 9,
-    "text": "Tech Talk"
+    "name": "Tech Talk"
   },
   {
-    "id": 10,
-    "text": "Non-Academic"
+    "name": "Non-Academic"
   },
   {
-    "id": 11,
-    "text": "Bike"
+    "name": "Bike"
   },
   {
-    "id": 12,
-    "text": "Movie"
+    "name": "Movie"
   },
   {
-    "id": 13,
-    "text": "Research"
+    "name": "Research"
   },
   {
-    "id": 14,
-    "text": "Robotics"
+    "name": "Robotics"
   },
   {
-    "id": 15,
-    "text": "GMAT"
+    "name": "GMAT"
   },
   {
-    "id": 16,
-    "text": "Seminar"
+    "name": "Seminar"
   },
   {
-    "id": 17,
-    "text": "Summer"
+    "name": "Summer"
   },
   {
-    "id": 18,
-    "text": "Internship"
+    "name": "Internship"
   },
   {
-    "id": 19,
-    "text": "Work"
+    "name": "Work"
   },
   {
-    "id": 20,
-    "text": "Recruiting"
+    "name": "Recruiting"
   },
   {
-    "id": 21,
-    "text": "Housing"
+    "name": "Housing"
   },
   {
-    "id": 22,
-    "text": "Food"
+    "name": "Food"
   },
   {
-    "id": 23,
-    "text": "TED"
+    "name": "TED"
   },
   {
-    "id": 24,
-    "text": "Talk"
+    "name": "Talk"
   },
   {
-    "id": 25,
-    "text": "Pocket Money"
+    "name": "Pocket Money"
   }
 ]
