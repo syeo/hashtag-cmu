@@ -12,7 +12,7 @@ class PosterRepository extends mixOf(BaseRepository,
   getModel: () => @registry.domain.models.Poster
 
   findRecent: (options = {}) =>
-    @findAll(Query.order('createdAt DESC'))
+    @findAll(Query.order('"createdAt" DESC'))
 
   findRecentByTagId: (tagId) =>
     tagId = Number(tagId)
@@ -27,7 +27,7 @@ class PosterRepository extends mixOf(BaseRepository,
         debug(posterIds)
         return posterIds
       )
-      .then(_.partial(@findAllByIds, _, Query.order('createdAt DESC')))
+      .then(_.partial(@findAllByIds, _, Query.order('"createdAt" DESC')))
 
 
 module.exports = (registry) ->
