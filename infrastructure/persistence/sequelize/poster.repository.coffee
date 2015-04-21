@@ -1,11 +1,14 @@
 _ = require('lodash')
+QT = require('sequelize-qt')
 
 BaseRepository = require('./base.repository')
 BasePosterRepository = require('../shared/base.poster.repository')
-Query = require('./query.builder')
+
 mixOf = require('../../../etc/mix_of')
 
 debug = require('../../../etc/debug')('infra:persistence:PosterRepository')
+
+Query = QT.Query
 
 class PosterRepository extends mixOf(BaseRepository,
                                      BasePosterRepository)

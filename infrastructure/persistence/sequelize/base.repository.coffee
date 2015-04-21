@@ -1,7 +1,9 @@
-Query = require('./query.builder')
-Where = require('./where')
+QT = require('sequelize-qt')
 
 debug = require('../../../etc/debug')('infra:persistence:BaseRepository')
+
+Query = QT.Query
+Condition = QT.Condition
 
 class BaseRepository
   constructor: (@registry) ->
@@ -17,7 +19,7 @@ class BaseRepository
 
   findAllByIds: (ids, query = Query()) =>
     @findAll(
-      query.and(Where({id: {$in: ids}}))
+      query.and(Condition.in('id', ids))
     )
 
   save: (obj) -> obj.save()

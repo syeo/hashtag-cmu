@@ -1,10 +1,13 @@
+QT = require('sequelize-qt')
+
 BaseRepository = require('./base.repository')
 BaseTagRepository = require('../shared/base.tag.repository')
-Query = require('./query.builder')
-Where = require('./where')
 mixOf = require('../../../etc/mix_of')
 
 debug = require('../../../etc/debug')('infra:persistence:TagRepository')
+
+Query = QT.Query
+Condition = QT.Condition
 
 class TagRepository extends mixOf(BaseRepository,
                                   BaseTagRepository)

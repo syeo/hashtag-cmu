@@ -1,10 +1,13 @@
+QT = require('sequelize-qt')
+
 BaseRepository = require('./base.repository')
 BasePosterTagRepository = require('../shared/base.poster_tag.repository')
-Query = require('./query.builder')
-Where = require('./where')
 mixOf = require('../../../etc/mix_of')
 
 debug = require('../../../etc/debug')('infra:persistence:PosterTagRepository')
+
+Query = QT.Query
+Condition = QT.Condition
 
 class PosterTagRepository extends mixOf(BaseRepository,
                                         BasePosterTagRepository)
@@ -12,11 +15,11 @@ class PosterTagRepository extends mixOf(BaseRepository,
 
   findAllByPosterId: (posterId) =>
     posterId = Number(posterId)
-    @findAll(Query.where(Where({ posterId: posterId })))
+    @findAll(Query.where(Condition.eq('posterId', posterId)))
 
   findAllByTagId: (tagId) =>
     tagId = Number(tagId)
-    @findAll(Query.where(Where({ tagId: tagId })))
+    @findAll(Query.where(Condition.eq('tagId', tagId)))
 
 module.exports = (registry) ->
   return new PosterTagRepository(registry)
