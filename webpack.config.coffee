@@ -12,7 +12,7 @@ if config.NODE_ENV == 'production'
 
 module.exports = {
   # This is the main file that should include all other JS files
-  entry: './presenter/web/assets/scripts/application.cjsx'
+  entry: './application/web/assets/scripts/application.cjsx'
   target: "web"
   debug: true
   devtool: 'source-map'
@@ -20,7 +20,7 @@ module.exports = {
   watch: false
   # watchDelay: 300
   output:
-    path: path.join(__dirname, 'presenter', 'web', 'build', 'asset', 'script')
+    path: path.join(__dirname, 'application', 'web', 'assets.build', 'scripts')
     publicPath: "/static/"
     # filename: "main-[hash].js"
     filename: "application.js"

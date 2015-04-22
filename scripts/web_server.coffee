@@ -1,11 +1,4 @@
-fs = require('fs')
+registry = require('../system/registry')
 
-config = require('../config/config')
-
-web = require('../presenter/web')
-
-web.listen(config.port)
-
-console.log("#{config.app.title} started on port #{config.port}")
-if config.NODE_ENV == 'development'
-  fs.writeFileSync '.rebooted', 'rebooted'
+app = registry.instance().webAppFactory.create()
+registry.instance().webAppService.run(app)

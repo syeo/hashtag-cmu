@@ -7,3 +7,6 @@ module.exports =
   sequelize:
     dialect: 'sqlite',
     storage: './db/development.sqlite'
+  session:
+    secret: 'secret'
+    modelName: 'Session'

@@ -1,7 +1,7 @@
 _ = require('lodash')
 
-debug = require('../../../system/debug')('web:controller:api:v1:posters')
-registry = require('../../../system/registry')
+debug = require('../../../../../system/debug')('web:controller:api:v1:posters')
+registry = require('../../../../../system/registry')
 
 PAGE_SIZE = 30
 

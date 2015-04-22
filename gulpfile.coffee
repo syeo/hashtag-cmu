@@ -13,10 +13,10 @@ gulp.task('serve:web:dev', ['build'], ->
       'node_modules/'
       'bower_components/'
       'lib/'
-      'presenter/web/assets'
-      'presenter/web/public'
-      'presenter/web/build'
-      'presenter/web/templates'
+      'application/web/assets'
+      'application/web/public'
+      'application/web/assets.build'
+      'application/web/templates'
     ]
     env:
       NODE_ENV: 'development'
@@ -25,17 +25,17 @@ gulp.task('serve:web:dev', ['build'], ->
 )
 
 gulp.task('build:js', ->
-  gulp.src('./presenter/web/assets/scripts/application.cjsx')
+  gulp.src('./application/web/assets/scripts/application.cjsx')
     .pipe(plugins.plumber({
       errorHandler: plugins.notify.onError("Error: <%= error.message %>")
     }))
     .pipe(plugins.webpack(require('./webpack.config')))
-    .pipe(gulp.dest('./presenter/web/build/assets/scripts/'))
+    .pipe(gulp.dest('./application/web/assets.build/scripts/'))
     .pipe(plugins.livereload())
 )
 
 gulp.task('build:css', ->
-  gulp.src('./presenter/web/assets/styles/application.less')
+  gulp.src('./application/web/assets/styles/application.less')
     .pipe(plugins.plumber({
       errorHandler: plugins.notify.onError("Error: <%= error.message %>")
     }))
@@ -52,7 +52,7 @@ gulp.task('build:css', ->
       cascade: false
     }))
     .pipe(plugins.sourcemaps.write('./'))
-    .pipe(gulp.dest('./presenter/web/build/assets/styles/'))
+    .pipe(gulp.dest('./application/web/assets.build/styles/'))
     .pipe(plugins.livereload())
 )
 
@@ -61,16 +61,16 @@ gulp.task('watch', ->
 
   gulp.watch([
     'lib/**/*.@(css|less)'
-    'presenter/web/assets/styles/**/*.@(css|less)'
+    'application/web/assets/styles/**/*.@(css|less)'
   ], ['build:css'])
 
   gulp.watch([
     'lib/**/*.@(js|coffee)'
-    'presenter/web/assets/scripts/**/*.@(js|coffee|cjsx)'
+    'application/web/assets/scripts/**/*.@(js|coffee|cjsx)'
   ], ['build:js'])
 
   gulp.watch([
-    "presenter/web/templates/**/*.@(#{config.template.ext})"
+    "application/web/templates/**/*.@(#{config.template.ext})"
     '.rebooted'
   ], {}, () ->
     plugins.livereload.reload()
