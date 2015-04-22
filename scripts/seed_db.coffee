@@ -1,6 +1,6 @@
 _ = require('lodash')
 
-registry = require('../config/registry')()
+registry = require('../system/registry')
 
 postersData = require('../fixtures/posters.json')
 posterImagesData = require('../fixtures/poster_images.json')
@@ -8,16 +8,16 @@ tagsData = require('../fixtures/tags.json')
 posterTagsData = require('../fixtures/poster_tags.json')
 
 seedPosters = () ->
-  registry.infrastructure.persistence.posterRepository.bulkCreate(postersData)
+  registry.innstance().posterRepository.bulkCreate(postersData)
 
 seedPosterImages = () ->
-  registry.infrastructure.persistence.posterImageRepository.bulkCreate(posterImagesData)
+  registry.innstance().posterImageRepository.bulkCreate(posterImagesData)
 
 seedTags = () ->
-  registry.infrastructure.persistence.tagRepository.bulkCreate(tagsData)
+  registry.innstance().tagRepository.bulkCreate(tagsData)
 
 seedPosterTags = () ->
-  registry.infrastructure.persistence.posterTagRepository.bulkCreate(posterTagsData)
+  registry.innstance().posterTagRepository.bulkCreate(posterTagsData)
 
 
 progress = seedPosters()

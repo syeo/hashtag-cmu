@@ -4,4 +4,6 @@ module.exports =
   livereload:
     host: 'localhost'
     port: 35729
-
+  sequelize:
+    dialect: 'sqlite',
+    storage: './db/development.sqlite'

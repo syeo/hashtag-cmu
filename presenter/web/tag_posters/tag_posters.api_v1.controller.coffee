@@ -1,11 +1,11 @@
 _ = require('lodash')
 
-debug = require('../../../etc/debug')('web:controller:api:v1:tag_posters')
-registry = require('../../../config/registry')()
-Promise = ('../../../config/promise')
+debug = require('../../../system/debug')('web:controller:api:v1:tag_posters')
+registry = require('../../../system/registry')
+Promise = ('../../../system/promise')
 
-posterRepository = registry.infrastructure.persistence.posterRepository
-posterDehydrator = registry.presenter.dehydrator.posterDehydrator
+posterRepository = registry.instance().posterRepository
+posterDehydrator = registry.instance().posterDehydrator
 
 module.exports =
   list: (req, res) ->

@@ -3,26 +3,25 @@ QT = require('sequelize-qt')
 BaseRepository = require('./base.repository')
 BaseTagRepository = require('../shared/base.tag.repository')
 mixOf = require('../../../etc/mix_of')
+registry = require('../../../system/registry')
 
-debug = require('../../../etc/debug')('infra:persistence:TagRepository')
+debug = require('../../../system/debug')('infra:persistence:TagRepository')
 
 Query = QT.Query
 Condition = QT.Condition
 
 class TagRepository extends mixOf(BaseRepository,
                                   BaseTagRepository)
-  getModel: () => @registry.domain.models.Tag
+  getModel: () -> registry.instance().Tag
 
   findAllByPosterId: (posterId) =>
     posterId = Number(posterId)
 
-    posterTagRepository =
-      @registry.infrastructure.persistence.posterTagRepository
+    posterTagRepository = registry.instance().posterTagRepository
 
     posterTagRepository
       .findAllByPosterId(posterId)
       .map((posterTagRelation) -> posterTagRelation.get('tagId'))
       .then(@findAllByIds)
 
-module.exports = (registry) ->
-  return new TagRepository(registry)
+module.exports = TagRepository

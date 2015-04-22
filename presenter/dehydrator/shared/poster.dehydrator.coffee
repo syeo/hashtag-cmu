@@ -1,19 +1,17 @@
 _ = require('lodash')
 
-debug = require('../../../etc/debug')('view:dehydrator:poster')
-Promise = require('../../../config/promise')
+debug = require('../../../system/debug')('view:dehydrator:poster')
+Promise = require('../../../system/promise')
+registry = require('../../../system/registry')
 BaseDehydrator = require('./base.dehydrator')
 
-
 class PosterDehydrator extends BaseDehydrator
-  skim: (obj) =>
-    posterImageRepository =
-      @registry.infrastructure.persistence.posterImageRepository
-    posterImageDehydrator =
-      @registry.presenter.dehydrator.posterImageDehydrator
+  skim: (obj) ->
+    posterImageRepository = registry.instance().posterImageRepository
+    posterImageDehydrator = registry.instance().posterImageDehydrator
 
-    tagRepository = @registry.infrastructure.persistence.tagRepository
-    tagDehydrator = @registry.presenter.dehydrator.tagDehydrator
+    tagRepository = registry.instance().tagRepository
+    tagDehydrator = registry.instance().tagDehydrator
 
     Promise.all([
       tagRepository.findAllByPoster(obj)
@@ -31,4 +29,4 @@ class PosterDehydrator extends BaseDehydrator
       })
     )
 
-module.exports = (registry) -> new PosterDehydrator(registry)
+module.exports = () -> new PosterDehydrator()

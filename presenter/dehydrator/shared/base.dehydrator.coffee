@@ -1,10 +1,8 @@
-Promise = require('../../config/promise')
+Promise = require('../../../system/promise')
 
 class BaseDehydrator
-  constructor: (@registry) ->
-
   whole: (obj) => @skim(obj)
-  skim: (obj) => @default(obj)
+  skim: (obj) -> Promise.resolve(obj.get({plain: true}))
 
   list: (objs) =>
     Promise.map(objs, @skim)

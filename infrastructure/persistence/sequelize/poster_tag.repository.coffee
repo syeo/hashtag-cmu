@@ -3,15 +3,16 @@ QT = require('sequelize-qt')
 BaseRepository = require('./base.repository')
 BasePosterTagRepository = require('../shared/base.poster_tag.repository')
 mixOf = require('../../../etc/mix_of')
+registry = require('../../../system/registry')
 
-debug = require('../../../etc/debug')('infra:persistence:PosterTagRepository')
+debug = require('../../../system/debug')('infra:persistence:PosterTagRepository')
 
 Query = QT.Query
 Condition = QT.Condition
 
 class PosterTagRepository extends mixOf(BaseRepository,
                                         BasePosterTagRepository)
-  getModel: () => @registry.domain.models.PosterTag
+  getModel: () -> registry.instance().PosterTag
 
   findAllByPosterId: (posterId) =>
     posterId = Number(posterId)
@@ -21,5 +22,4 @@ class PosterTagRepository extends mixOf(BaseRepository,
     tagId = Number(tagId)
     @findAll(Query.where(Condition.eq('tagId', tagId)))
 
-module.exports = (registry) ->
-  return new PosterTagRepository(registry)
+module.exports = PosterTagRepository

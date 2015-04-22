@@ -1,9 +1,1 @@
-module.exports = {
-  development: {
-    dialect: 'sqlite',
-    storage: './db/development.sqlite'
-  },
-  production: {
-    use_env_variable: 'DATABASE_URL'
-  }
-}
+module.exports = require('./config').sequelize

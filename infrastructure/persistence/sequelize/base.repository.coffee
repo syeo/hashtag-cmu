@@ -1,16 +1,16 @@
 QT = require('sequelize-qt')
 
-debug = require('../../../etc/debug')('infra:persistence:BaseRepository')
+registry = require('../../../system/registry')
+
+debug = require('../../../system/debug')('infra:persistence:BaseRepository')
 
 Query = QT.Query
 Condition = QT.Condition
 
 class BaseRepository
-  constructor: (@registry) ->
-
   getModel: () -> throw new Error("Must override getModel method")
 
-  getSequelize: => @registry.infrastructure.presistence.sequelize
+  getSequelize: -> registry.instance().sequelize
 
   findById: (id) => @getModel().find(id)
 

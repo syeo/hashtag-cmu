@@ -7,7 +7,7 @@ config = require('./config/config')
 
 gulp.task('serve:web:dev', ['build'], ->
   plugins.nodemon({
-    script: 'presenter/web/index.coffee'
+    script: 'scripts/web_server.coffee'
     ext: "coffee, js, #{config.template.ext}, json"
     ignore: [
       'node_modules/'

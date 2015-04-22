@@ -5,14 +5,15 @@ BaseRepository = require('./base.repository')
 BasePosterRepository = require('../shared/base.poster.repository')
 
 mixOf = require('../../../etc/mix_of')
+registry = require('../../../system/registry')
 
-debug = require('../../../etc/debug')('infra:persistence:PosterRepository')
+debug = require('../../../system/debug')('infra:persistence:PosterRepository')
 
 Query = QT.Query
 
 class PosterRepository extends mixOf(BaseRepository,
                                      BasePosterRepository)
-  getModel: () => @registry.domain.models.Poster
+  getModel: () -> registry.instance().Poster
 
   findRecent: (options = {}) =>
     @findAll(Query.order('"createdAt" DESC'))
@@ -21,8 +22,7 @@ class PosterRepository extends mixOf(BaseRepository,
     tagId = Number(tagId)
     debug("tagId = #{tagId}")
 
-    posterTagRepository =
-      @registry.infrastructure.persistence.posterTagRepository
+    posterTagRepository = registry.instance().posterTagRepository
 
     posterTagRepository.findAllByTagId(tagId)
       .map((posterTagRelation) -> posterTagRelation.get('posterId'))
@@ -33,5 +33,4 @@ class PosterRepository extends mixOf(BaseRepository,
       .then(_.partial(@findAllByIds, _, Query.order('"createdAt" DESC')))
 
 
-module.exports = (registry) ->
-  return new PosterRepository(registry)
+module.exports = PosterRepository

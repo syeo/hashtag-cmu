@@ -5,7 +5,7 @@ config = require('./config/config')
 
 plugins = []
 
-if process.env.NODE_ENV == 'production'
+if config.NODE_ENV == 'production'
   plugins.push(new webpack.optimize.UglifyJsPlugin(
     mangle: true
   ))

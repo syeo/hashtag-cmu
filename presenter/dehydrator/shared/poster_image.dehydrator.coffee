@@ -1,14 +1,13 @@
 _ = require('lodash')
 
 BaseDehydrator = require('./base.dehydrator')
-Promise = require('../../../config/promise')
+Promise = require('../../../system/promise')
+registry = require('../../../system/registry')
 
 class PosterImageDehydrator extends BaseDehydrator
-  whole: (obj) =>
-    posterRepository =
-      @registry.infrastructure.persistence.posterRepository
-    posterDehydrator =
-      @registry.presenter.dehydrator.posterDehydrator
+  whole: (obj) ->
+    posterRepository = registry.instance().posterRepository
+    posterDehydrator = registry.instance().posterDehydrator
 
     posterRepository.findById(obj.get('posterId')).then((poster) ->
       Promise.all([
@@ -27,4 +26,4 @@ class PosterImageDehydrator extends BaseDehydrator
       return res
     )
 
-module.exports = (registry) -> new PosterImageDehydrator(registry)
+module.exports = () -> new PosterImageDehydrator()

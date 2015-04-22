@@ -2,9 +2,8 @@
   "name": "hashtag-cmu",
   "version": "1.0.0",
   "description": "#CMU",
-  "main": "presenter/web/index.coffee",
   "scripts": {
-    "start": "coffee presenter/web/index.coffee",
+    "web": "coffee scripts/web_server.coffee",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "bower install && gulp build"
   },

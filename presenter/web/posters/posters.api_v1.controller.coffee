@@ -1,12 +1,12 @@
 _ = require('lodash')
 
-debug = require('../../../etc/debug')('web:controller:api:v1:posters')
-registry = require('../../../config/registry')()
+debug = require('../../../system/debug')('web:controller:api:v1:posters')
+registry = require('../../../system/registry')
 
 PAGE_SIZE = 30
 
-posterRepository = registry.infrastructure.persistence.posterRepository
-posterDehydrator = registry.presenter.dehydrator.posterDehydrator
+posterRepository = registry.instance().posterRepository
+posterDehydrator = registry.instance().posterDehydrator
 
 module.exports =
   list: (req, res) ->
