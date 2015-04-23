@@ -5,4 +5,4 @@ Promise = require('../../../system/promise')
 
 class TagImageDehydrator extends BaseDehydrator
 
-module.exports = () -> new TagImageDehydrator()
+module.exports = TagImageDehydrator

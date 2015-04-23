@@ -1,8 +1,7 @@
 _ = require('lodash')
 
-debug = require('../../../system/debug')('web:controller:api:v1:tag_posters')
-registry = require('../../../system/registry')
-Promise = ('../../../system/promise')
+debug = require('../../../../../system/debug')('web:controller:api:v1:tag_posters')
+registry = require('../../../../../system/registry')
 
 posterRepository = registry.instance().posterRepository
 posterDehydrator = registry.instance().posterDehydrator

@@ -17,12 +17,12 @@
     <meta name="keywords" content="{{keywords}}">
     <meta name="description" content="{{description}}">
 
-    <link rel="stylesheet" href="/static/styles/application.css">
+    <link rel="stylesheet" href="/static/assets/styles/application.css">
 
   </head>
   <body class="light">
     {% block content %}{% endblock %}
-    <script src="/static/scripts/application.js"></script>
+    <script src="/static/assets/scripts/application.js"></script>
     {% if NODE_ENV == 'development' && livereload %}
       <script src="http://{{livereload.host}}:{{livereload.port}}/livereload.js">
       </script>

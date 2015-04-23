@@ -10,6 +10,7 @@ helmet = require('helmet')
 flash = require('connect-flash')
 consolidate = require('consolidate')
 path = require('path')
+session = require('express-session')
 
 getGlobbedFiles = (globPatterns, removeRoot) ->
   # URL paths regex
@@ -37,7 +38,7 @@ getGlobbedFiles = (globPatterns, removeRoot) ->
 
   return output
 
-module.exports = (instance, config) ->
+module.exports = (instance, passport, sessionStore, config) ->
   # Setting application local variables
   instance.locals.title = config.app.title
   instance.locals.description = config.app.description
@@ -71,7 +72,7 @@ module.exports = (instance, config) ->
 
   # Set default
   instance.set('view engine', config.template.ext)
-  instance.set('views', './presenter/web/templates')
+  instance.set('views', './application/web/templates')
 
   # Environment dependent middleware
   if config.NODE_ENV is 'development'
@@ -106,20 +107,33 @@ module.exports = (instance, config) ->
 
   # Setting the express router and static folder
   instance.use(
-    '/static'
-    express.static(path.resolve('./presenter/web/build/assets'))
+    '/static/assets'
+    express.static(path.resolve('./application/web/assets.build'))
   )
   instance.use(
     '/static'
-    express.static(path.resolve('./presenter/web/public'))
+    express.static(path.resolve('./application/web/public'))
   )
   instance.use(
     '/static/fonts'
     express.static(path.resolve('./bower_components/bootstrap/fonts'))
   )
 
+  instance.use(session(
+    secret: config.session.secret
+    store: sessionStore
+    proxy: config.session.config
+    resave: false
+    saveUninitialized: false
+  ))
+
+  instance.use(passport.initialize())
+  instance.use(passport.session())
+
   # Globbing routing files
-  getGlobbedFiles('./presenter/web/**/*.route.@(js|coffee)').forEach(
+  getGlobbedFiles(
+    './application/web/express/components/**/*.route.@(js|coffee)'
+  ).forEach(
     (routePath) ->
       require(path.resolve(routePath))(instance)
   )

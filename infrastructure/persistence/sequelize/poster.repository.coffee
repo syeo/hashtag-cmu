@@ -2,7 +2,7 @@ _ = require('lodash')
 QT = require('sequelize-qt')
 
 BaseRepository = require('./base.repository')
-BasePosterRepository = require('../shared/base.poster.repository')
+BasePosterRepository = require('../shared/poster.repository.mixin')
 
 mixOf = require('../../../etc/mix_of')
 registry = require('../../../system/registry')

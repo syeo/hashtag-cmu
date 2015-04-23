@@ -29,4 +29,4 @@ class PosterDehydrator extends BaseDehydrator
       })
     )
 
-module.exports = () -> new PosterDehydrator()
+module.exports = PosterDehydrator

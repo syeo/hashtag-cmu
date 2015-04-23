@@ -1,4 +1,4 @@
-debug = require('../../../system/debug')('web:controller:home')
+debug = require('../../../../../system/debug')('web:controller:home')
 
 module.exports =
   index: (req, res) ->

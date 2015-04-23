@@ -1,12 +1,12 @@
 module.exports =
   app:
-    title: '#CMU - dev'
+    title: '#CMU - test'
   livereload:
     host: 'localhost'
     port: 35729
   sequelize:
     dialect: 'sqlite',
-    storage: './db/development.sqlite'
+    storage: ':memory:'
   session:
     secret: 'secret'
     modelName: 'Session'

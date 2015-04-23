@@ -1,7 +1,7 @@
 QT = require('sequelize-qt')
 
 BaseRepository = require('./base.repository')
-BasePosterTagRepository = require('../shared/base.poster_tag.repository')
+BasePosterTagRepository = require('../shared/poster_tag.repository.mixin')
 mixOf = require('../../../etc/mix_of')
 registry = require('../../../system/registry')
 
