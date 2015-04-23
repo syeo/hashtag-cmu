@@ -115,7 +115,7 @@ module.exports = (instance, passport, sessionStore, config) ->
     express.static(path.resolve('./application/web/public'))
   )
   instance.use(
-    '/static/fonts'
+    '/static/assets/fonts'
     express.static(path.resolve('./bower_components/bootstrap/fonts'))
   )
 
