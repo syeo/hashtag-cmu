@@ -1,1 +1,1 @@
-web: coffee scripts/web_server.coffee
+web: npm run web
