@@ -11,6 +11,9 @@ makeCommon = (registry) ->
     '../../application/web/express/sequelize/session.store.factory'
   ))()
 
+  registry.userRepository = new (require(
+    '../../infrastructure/persistence/sequelize/user.repository'
+  ))()
   registry.posterRepository = new (require(
     '../../infrastructure/persistence/sequelize/poster.repository'
   ))()
@@ -24,6 +27,9 @@ makeCommon = (registry) ->
     '../../infrastructure/persistence/sequelize/poster_tag.repository'
   ))()
 
+  registry.userDehydrator = new (require(
+    '../../domain/user/user.dehydrator'
+  ))()
   registry.posterDehydrator = new (require(
     '../../domain/models/dehydrators/poster.dehydrator'
   ))()
@@ -32,6 +38,10 @@ makeCommon = (registry) ->
   ))()
   registry.tagDehydrator = new (require(
     '../../domain/models/dehydrators/tag.dehydrator'
+  ))()
+
+  registry.userService = new (require(
+    '../../domain/user/user.service'
   ))()
 
 makeTest = makeDevelopment = makeStaging = (registry) ->

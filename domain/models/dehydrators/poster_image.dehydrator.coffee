@@ -29,4 +29,4 @@ class PosterImageDehydrator extends BaseDehydrator
       return res
     )
 
-module.exports = () -> new PosterImageDehydrator()
+module.exports = PosterImageDehydrator

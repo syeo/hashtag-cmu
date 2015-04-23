@@ -14,6 +14,9 @@ class BaseRepository
 
   findById: (id) => @getModel().find(id)
 
+  find: (query = Query()) =>
+    @getModel().find(query.end())
+
   findAll: (query = Query()) =>
     @getModel().findAll(query.end())
 

@@ -1,6 +1,6 @@
-class BasePosterRepository
+class PosterRepositoryMixin
   findRecent: (options = {}) -> throw new Error("Method not implemented")
   findRecentByTagId: (tagId) -> throw new Error("Method not implemented")
   findRecentByTag: (tag) => @findRecentByTagId(tag.get('id'))
 
-module.exports = BasePosterRepository
+module.exports = PosterRepositoryMixin

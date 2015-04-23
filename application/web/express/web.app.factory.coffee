@@ -10,12 +10,14 @@ class WebAppFactory
   create: () ->
     sessionStore = registry.instance().sessionStoreFactory.create()
 
-    initializers.passport(passport, registry)
-    initializers.express(
+    webApp = initializers.express(
       express(),
       passport,
       sessionStore,
       config
     )
+    initializers.passport(passport, registry)
+
+    return webApp
 
 module.exports = WebAppFactory

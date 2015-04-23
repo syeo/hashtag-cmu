@@ -119,14 +119,6 @@ module.exports = (instance, passport, sessionStore, config) ->
     express.static(path.resolve('./bower_components/bootstrap/fonts'))
   )
 
-  # Globbing routing files
-  getGlobbedFiles(
-    './application/web/express/components/**/*.route.@(js|coffee)'
-  ).forEach(
-    (routePath) ->
-      require(path.resolve(routePath))(instance)
-  )
-
   instance.use(session(
     secret: config.session.secret
     store: sessionStore
@@ -134,6 +126,17 @@ module.exports = (instance, passport, sessionStore, config) ->
     resave: false
     saveUninitialized: false
   ))
+
+  instance.use(passport.initialize())
+  instance.use(passport.session())
+
+  # Globbing routing files
+  getGlobbedFiles(
+    './application/web/express/components/**/*.route.@(js|coffee)'
+  ).forEach(
+    (routePath) ->
+      require(path.resolve(routePath))(instance)
+  )
 
   # Assume 'not found' in the error msgs is a 404. this is somewhat silly,
   # but valid, you can do whatever you like, set properties, use instanceof etc.

@@ -1,5 +1,5 @@
-class BasePosterImageRepository
+class TagRepositoryMixin
   findAllByPoster: (poster) => @findAllByPosterId(poster.get('id'))
   findAllByPosterId: (posterId) -> throw new Error("Method not implemented")
 
-module.exports = BasePosterImageRepository
+module.exports = TagRepositoryMixin
