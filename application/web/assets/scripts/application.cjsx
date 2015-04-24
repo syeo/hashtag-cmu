@@ -8,7 +8,7 @@ PosterActionCreator = require('./page/page_data.action_creator')
 routes = require('./app.routes.cjsx')
 
 Router.run(routes, Router.HistoryLocation, (Handler, state) ->
-  PosterActionCreator.changePageData(state.params, state.query)
+  _.defer(() -> PosterActionCreator.changePageData(state.params, state.query))
 
   React.render(<Handler/>, document.getElementById('app'))
 )

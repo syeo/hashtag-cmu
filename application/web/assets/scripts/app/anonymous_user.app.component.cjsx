@@ -2,17 +2,15 @@ React = require('react')
 Router = require('react-router')
 
 RouteHandler = Router.RouteHandler
-NavBar = require('./nav_bar.component.cjsx')
 
-App = React.createClass
-  displayName: 'App'
+AnonymousUserApp = React.createClass
+  displayName: 'AnonymousUserApp'
 
   render: ->
     <div>
-      <NavBar/>
-      <div className="content">
+      <div className="anonymous-content">
         <RouteHandler/>
       </div>
     </div>
 
-module.exports = App
+module.exports = AnonymousUserApp

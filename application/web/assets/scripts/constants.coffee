@@ -6,6 +6,8 @@ module.exports =
     RECEIVE_HOME_POSTER_LIST: null
     RECEIVE_TAG_POSTER_LIST: null
     CHANGE_PAGE: null
+    SIGN_UP_SUCCESS: null
+    LOG_IN_SUCCESS: null
   })
   API:
     ROOT: '/api/v1'

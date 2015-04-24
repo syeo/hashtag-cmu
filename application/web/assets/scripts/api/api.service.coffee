@@ -12,6 +12,24 @@ class ApiService
     superagent
       .get(@makeApiUrl(path))
 
+  makePostRequest: (path, data) =>
+    superagent
+      .post(@makeApiUrl(path))
+      .send(data)
+
+  signUp: (data) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makePostRequest(
+        '/users',
+        {
+          email: data.email
+          password: data.password
+        }
+      )
+    ).then((res) ->
+      res.body.user
+    )
+
   getHomePosterList: () =>
     utils.makePromiseWithSuperagentRequest(
       @makeGetRequest("/posters")

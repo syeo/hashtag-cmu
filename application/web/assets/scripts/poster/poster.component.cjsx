@@ -25,15 +25,15 @@ Poster = React.createClass
   getInitialState: -> @makeStateFromStore()
 
   componentDidMount: ->
-    PosterStore.addChangeListener(@_onPosterChange)
+    PosterStore.addChangeListener(@handlePosterChange)
 
     if @getCurrentPosterId()?
       PosterService.loadPoster(@getCurrentPosterId())
 
   componentWillUnmount: ->
-    PosterStore.removeChangeListener(@_onPosterChange)
+    PosterStore.removeChangeListener(@handlePosterChange)
 
-  _onPosterChange: ->
+  handlePosterChange: ->
     @setState(@makeStateFromStore())
 
   render: ->
