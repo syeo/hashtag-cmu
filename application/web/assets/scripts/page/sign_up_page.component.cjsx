@@ -2,12 +2,15 @@ _ = require('lodash')
 React = require('react')
 ReactBootstrap = require('react-bootstrap')
 classNames = require('classnames')
+Router = require('react-router')
 
 UserStore = require('../user/user.store')
 UserService = require('../user/user.service')
 
 Input = ReactBootstrap.Input
 Button = ReactBootstrap.Button
+
+Link = Router.Link
 
 debug = require('../debug')('sign_up_page:component')
 
@@ -101,6 +104,12 @@ SignUpPage = React.createClass({
                   Sign Up
                 </Button>
               </form>
+              <div className='auxiliary'>
+                <div className='existing-user'>
+                  <span className='description'>Have an account?</span>
+                  <Link to="log-in">Log in</Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>

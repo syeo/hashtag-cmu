@@ -32,6 +32,19 @@ class ApiService
       res.body.user
     )
 
+  logIn: (data) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makePostRequest(
+        '/users/log-in',
+        {
+          email: data.email
+          password: data.password
+        }
+      )
+    ).then((res) ->
+      res.body.user
+    )
+
   getHomePosterList: () =>
     utils.makePromiseWithSuperagentRequest(
       @makeGetRequest("/posters")
