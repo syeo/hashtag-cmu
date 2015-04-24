@@ -52,6 +52,8 @@ SignUpPage = React.createClass({
     UserService.signUp({
       email: @state.email
       password: @state.password
+      firstName: @state.firstName
+      lastName: @state.lastName
     })
 
   render: ->

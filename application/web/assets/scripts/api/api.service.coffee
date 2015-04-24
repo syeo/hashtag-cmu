@@ -24,6 +24,8 @@ class ApiService
         {
           email: data.email
           password: data.password
+          firstName: data.firstName
+          lastName: data.lastName
         }
       )
     ).then((res) ->

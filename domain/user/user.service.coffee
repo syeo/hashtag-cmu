@@ -10,5 +10,4 @@ class UserService
     debug(user.get({plain: true}))
     registry.instance().userRepository.save(user)
 
-
 module.exports = UserService

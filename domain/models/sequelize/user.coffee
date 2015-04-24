@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) ->
     email: DataTypes.STRING
     password: DataTypes.STRING
     salt: DataTypes.STRING
+    firstName: DataTypes.STRING
+    lastName: DataTypes.STRING
   }, {
     setterMethods:
       password: (password) ->
