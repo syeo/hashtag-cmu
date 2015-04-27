@@ -12,7 +12,6 @@ PosterPage = React.createClass({
 
   statics:
     fetchData: (params, query) ->
-      debug(Poster)
       Poster.fetchData(params, query)
 
   contextTypes:

@@ -15,15 +15,16 @@ Router.run(routes, Router.HistoryLocation, (Handler, state) ->
   fetchers = _.compact(_.map(state.routes, (route) -> route.handler.fetchData))
   promises = _.map(fetchers, (fetcher) -> fetcher(state.params, state.query))
 
-  debug(Router)
-
   Promise.all(promises)
     .then(() ->
       React.render(<Handler/>, document.getElementById('app'))
     )
     .catch((error) ->
-      debug(error)
+      if error instanceof ApiError
+        if error.code == 401
+          window.location.pathname = "/sign-up"
+          return
 
-      # window.location.pathname = "/sign-up"
+      throw error
     )
 )

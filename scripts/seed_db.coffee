@@ -2,25 +2,30 @@ _ = require('lodash')
 
 registry = require('../system/registry')
 
+usersData = require('../fixtures/users.json')
 postersData = require('../fixtures/posters.json')
 posterImagesData = require('../fixtures/poster_images.json')
 tagsData = require('../fixtures/tags.json')
 posterTagsData = require('../fixtures/poster_tags.json')
 
+seedUsers = () ->
+  registry.instance().userRepository.bulkCreate(usersData)
+
 seedPosters = () ->
-  registry.innstance().posterRepository.bulkCreate(postersData)
+  registry.instance().posterRepository.bulkCreate(postersData)
 
 seedPosterImages = () ->
-  registry.innstance().posterImageRepository.bulkCreate(posterImagesData)
+  registry.instance().posterImageRepository.bulkCreate(posterImagesData)
 
 seedTags = () ->
-  registry.innstance().tagRepository.bulkCreate(tagsData)
+  registry.instance().tagRepository.bulkCreate(tagsData)
 
 seedPosterTags = () ->
-  registry.innstance().posterTagRepository.bulkCreate(posterTagsData)
+  registry.instance().posterTagRepository.bulkCreate(posterTagsData)
 
 
-progress = seedPosters()
+progress = seedUsers()
+  .then(seedPosters)
   .then(seedPosterImages)
   .then(seedTags)
   .then(seedPosterTags)

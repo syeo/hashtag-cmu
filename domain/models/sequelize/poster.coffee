@@ -17,5 +17,9 @@ module.exports = (sequelize, DataTypes) ->
           as: 'images'
           foreignKey: 'posterId'
         })
+        Poster.belongsTo(models.User, {
+          as: 'owner'
+          foreignKey: 'ownerId'
+        })
   })
   Poster

@@ -3,6 +3,9 @@ _ = require('lodash')
 makeCommon = (registry) ->
   registry = _.extend(registry, require('../../domain/models/sequelize'))
 
+  registry.syncDb = (options = {}) ->
+    registry.sequelize.sync(options)
+
   registry.webAppFactory = new (require(
     '../../application/web/express/web.app.factory'
   ))()

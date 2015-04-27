@@ -1,74 +1,92 @@
 [
   {
     "title": "All University Orchestra",
-    "description": "Connections!"
+    "description": "Connections!",
+    "ownerId": 1
   },
   {
     "title": "Requesting a GRE Tutor",
-    "description": "Offering $10 per hour"
+    "description": "Offering $10 per hour",
+    "ownerId": 1
   },
   {
     "title": "Spring 2015 Talk Series",
-    "description": "#!/cmu/cc - CMU computing club"
+    "description": "#!/cmu/cc - CMU computing club",
+    "ownerId": 1
   },
   {
     "title": "Pre-Registration Event Passing the Torch",
-    "description": "No faculty allowed"
+    "description": "No faculty allowed",
+    "ownerId": 1
   },
   {
     "title": "Let's Ride",
-    "description": "Dust off your bike + Ride to campus with everyone!"
+    "description": "Dust off your bike + Ride to campus with everyone!",
+    "ownerId": 1
   },
   {
     "title": "The Imitation Game",
-    "description": "Movies in McConomy. Presented by AB films."
+    "description": "Movies in McConomy. Presented by AB films.",
+    "ownerId": 1
   },
   {
     "title": "Robotics Seminar",
-    "description": ""
+    "description": "",
+    "ownerId": 1
   },
   {
     "title": "FACES OF WORK",
-    "description": "2015 CMU International Film Festival"
+    "description": "2015 CMU International Film Festival",
+    "ownerId": 1
   },
   {
     "title": "Princeton Review",
-    "description": "Enroll in GMAT Ultimate and GET a FREE Basic Pre-application Package from Admit Advantage (A $300 value)"
+    "description": "Enroll in GMAT Ultimate and GET a FREE Basic Pre-application Package from Admit Advantage (A $300 value)",
+    "ownerId": 1
   },
   {
     "title": "COURT",
-    "description": "2015 CMU International Film Festival"
+    "description": "2015 CMU International Film Festival",
+    "ownerId": 1
   },
   {
     "title": "Holy Communication",
-    "description": ""
+    "description": "",
+    "ownerId": 1
   },
   {
     "title": "The Dirty Ball",
-    "description": ""
+    "description": "",
+    "ownerId": 1
   },
   {
     "title": "We're all mad here",
-    "description": ""
+    "description": "",
+    "ownerId": 2
   },
   {
     "title": "Fun Summer Work!",
-    "description": "Gain real world experience"
+    "description": "Gain real world experience",
+    "ownerId": 2
   },
   {
     "title": "Summer Housing",
-    "description": "Apply for summer housing!"
+    "description": "Apply for summer housing!",
+    "ownerId": 2
   },
   {
     "title": "Tartans Pizza",
-    "description": "Create your own personal pizza!"
+    "description": "Create your own personal pizza!",
+    "ownerId": 2
   },
   {
     "title": "TEDMED Live",
-    "description": ""
+    "description": "",
+    "ownerId": 2
   },
   {
     "title": "Heavy Social Drinker Wanted",
-    "description": "You may earn up to $60!"
+    "description": "You may earn up to $60!",
+    "ownerId": 2
   }
 ]
