@@ -8,6 +8,7 @@ module.exports =
     CHANGE_PAGE: null
     SIGN_UP_SUCCESS: null
     LOG_IN_SUCCESS: null
+    RECEIVE_ME: null
   })
   API:
     ROOT: '/api/v1'

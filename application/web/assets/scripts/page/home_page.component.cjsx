@@ -2,6 +2,7 @@ _ = require('lodash')
 React = require('react')
 
 HomePosterList = require('../home/home_poster_list.component.cjsx')
+PosterService = require('../poster/poster.service')
 
 debug = require('../debug')('home_page:component')
 
@@ -9,6 +10,10 @@ debug = require('../debug')('home_page:component')
 
 HomePage = React.createClass({
   displayName: 'HomePage'
+
+  statics:
+    fetchData: (params, query) ->
+      HomePosterList.fetchData(params, query)
 
   render: ->
     <div className='home-page'>

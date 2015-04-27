@@ -15,3 +15,9 @@ module.exports =
       type: ACTION.LOG_IN_SUCCESS
       user: user
     })
+
+  loadMe: (user) ->
+    Dispatcher.dispatch({
+      type: ACTION.RECEIVE_ME
+      user: user
+    })

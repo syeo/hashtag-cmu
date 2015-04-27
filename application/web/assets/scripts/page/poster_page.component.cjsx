@@ -10,12 +10,19 @@ debug = require('../debug')('poster_page:component')
 PosterPage = React.createClass({
   displayName: 'PosterPage'
 
+  statics:
+    fetchData: (params, query) ->
+      debug(Poster)
+      Poster.fetchData(params, query)
+
   contextTypes:
     router: React.PropTypes.func
 
   render: ->
+    params = @context.router.getCurrentParams()
+    posterId = params.posterId
     <div className='poster-page'>
-      <Poster />
+      <Poster posterId={posterId}/>
     </div>
 
 })

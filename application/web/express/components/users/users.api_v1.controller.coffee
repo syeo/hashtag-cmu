@@ -58,7 +58,7 @@ module.exports =
         .then((user) -> res.json({user: user}))
         .done()
     else
-      res.status(403).json({
+      res.status(401).json({
         user: undefined,
         message: 'Log-in required.'
       })

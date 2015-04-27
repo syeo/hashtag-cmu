@@ -1,6 +1,7 @@
 _ = require('lodash')
 
 Promise = require('../promise')
+debug = require('../debug')('utils')
 
 module.exports =
   makePromiseWithSuperagentRequest: (req) ->
@@ -9,10 +10,7 @@ module.exports =
         if err?
           cb(err, null)
         else
-          if res.ok
-            cb(null, res)
-          else
-            cb(res.error, null)
+          cb(null, res)
       )
     )()
 

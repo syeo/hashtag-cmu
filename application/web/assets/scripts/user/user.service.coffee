@@ -16,3 +16,8 @@ module.exports =
     ApiService.logIn(logInData).then((user) ->
       UserActionCreator.logIn(user)
     )
+
+  loadMe: () ->
+    ApiService.getMe().then((user) ->
+      UserActionCreator.loadMe(user)
+    )

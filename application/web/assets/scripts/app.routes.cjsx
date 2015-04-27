@@ -12,14 +12,14 @@ DefaultRoute = Router.DefaultRoute
 Route = Router.Route
 
 module.exports = (
-  <Route>
-    <Route path="/" handler={AuthenticatedUserApp}>
+  <Route name="app">
+    <Route name="authenticated-user-app" path="/" handler={AuthenticatedUserApp}>
       <Route name="home" path="/" handler={HomePage} />
       <Route name="tag" path="tags/:tagId" handler={TagPage} />
       <Route name="poster" path="posters/:posterId" handler={PosterPage} />
       <DefaultRoute handler={HomePage} />
     </Route>
-    <Route path="/" handler={AnonymousUserApp}>
+    <Route name="anonymous-user-app" path="/" handler={AnonymousUserApp}>
       <Route name="log-in" path="log-in" handler={LogInPage} />
       <Route name="sign-up" path="sign-up" handler={SignUpPage} />
     </Route>

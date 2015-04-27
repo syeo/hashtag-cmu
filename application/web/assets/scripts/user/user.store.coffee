@@ -19,10 +19,7 @@ class UserStore extends StoreBase
   actionHandler: (action) =>
     debug(action)
     switch action.type
-      when ACTION.SIGN_UP_SUCCESS
-        @setMe(action.user)
-        @emitChange()
-      when ACTION.LOG_IN_SUCCESS
+      when ACTION.SIGN_UP_SUCCESS, ACTION.LOG_IN_SUCCESS, ACTION.RECEIVE_ME
         @setMe(action.user)
         @emitChange()
 

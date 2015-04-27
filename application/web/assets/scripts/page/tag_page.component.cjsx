@@ -10,12 +10,18 @@ debug = require('../debug')('tag_page:component')
 TagPage = React.createClass({
   displayName: 'TagPage'
 
+  statics:
+    fetchData: (params, query) ->
+      TagPosterList.fetchData(params, query)
+
   contextTypes:
     router: React.PropTypes.func
 
   render: ->
+    params = @context.router.getCurrentParams()
+    tagId = params.tagId
     <div className='tag-page'>
-      <TagPosterList />
+      <TagPosterList tagId={tagId}/>
     </div>
 
 })

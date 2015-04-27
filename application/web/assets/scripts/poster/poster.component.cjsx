@@ -3,32 +3,27 @@ React = require('react')
 PosterMixin = require('./poster.component.mixin.cjsx')
 PosterStore = require('./poster.store')
 PosterService = require('./poster.service')
-PageDataStore = require('../page/page_data.store')
 
 debug = require('../debug')('poster:component')
-
-debug("here")
 
 Poster = React.createClass
   displayName: 'Poster'
 
-  mixins: [PosterMixin]
+  statics:
+    fetchData: (params, query) ->
+      PosterService.loadPoster(params.posterId)
 
-  getCurrentPosterId: () ->
-    PageDataStore.getParams().posterId
+  mixins: [PosterMixin]
 
   makeStateFromStore: ->
     {
-      poster: PosterStore.getPoster(@getCurrentPosterId())
+      poster: PosterStore.getPoster(@props.posterId)
     }
 
   getInitialState: -> @makeStateFromStore()
 
   componentDidMount: ->
     PosterStore.addChangeListener(@handlePosterChange)
-
-    if @getCurrentPosterId()?
-      PosterService.loadPoster(@getCurrentPosterId())
 
   componentWillUnmount: ->
     PosterStore.removeChangeListener(@handlePosterChange)

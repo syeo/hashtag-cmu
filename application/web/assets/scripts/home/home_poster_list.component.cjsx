@@ -14,6 +14,10 @@ MASONRY_OPTIONS = {}
 HomePosterList = React.createClass({
   displayName: 'HomePosterList'
 
+  statics:
+    fetchData: () ->
+      PosterService.loadHomePosterList()
+
   getDefaultProps: ->
     {
       masonryContainerRef: MASONRY_CONTAINER_REF
@@ -35,7 +39,6 @@ HomePosterList = React.createClass({
     debug("didmount")
 
     PosterStore.addChangeListener(@_onChange)
-    PosterService.loadHomePosterList()
 
   componentWillUnmount: ->
     debug("will unmount")
