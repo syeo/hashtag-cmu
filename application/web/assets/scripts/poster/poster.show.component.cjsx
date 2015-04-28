@@ -3,6 +3,7 @@ React = require('react')
 PosterMixin = require('./poster.component.mixin.cjsx')
 PosterStore = require('./poster.store')
 PosterService = require('./poster.service')
+UserStore = require('../user/user.store')
 
 debug = require('../debug')('poster:show:component')
 
@@ -15,8 +16,12 @@ PosterShow = React.createClass
 
   mixins: [PosterMixin]
 
+  contextTypes:
+    router: React.PropTypes.func
+
   makeStateFromStore: ->
     {
+      me: UserStore.getMe()
       poster: PosterStore.getPoster(@props.posterId)
     }
 
@@ -31,22 +36,35 @@ PosterShow = React.createClass
   handlePosterChange: ->
     @setState(@makeStateFromStore())
 
+  handleEditButtonClick: ->
+    @context.router.transitionTo('poster-edit', {posterId: @props.posterId})
+
+  handleDeleteButtonClick: ->
+    debug("delete!")
+
   render: ->
     rows = []
 
     if @state.poster?
+      {me, poster} = @state
       rows.push(
         <div className='row' key="poster">
           <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
             <div className="poster">
-              {@renderImageSection(@state.poster)}
+              {@renderImageSection(poster)}
             </div>
           </div>
           <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
             <div className="poster">
-              {@renderTitleSection(@state.poster)}
-              {@renderTagsSection(@state.poster)}
-              {@renderDescriptionSection(@state.poster)}
+              {@renderTitleSection(poster)}
+              {@renderTagsSection(poster)}
+              {@renderDescriptionSection(poster)}
+            </div>
+            <div className="poster-controls">
+              {@renderShowControls(me, poster, {
+                onEditButtonClick: @handleEditButtonClick
+                onDeleteButtonClick: @handleDeleteButtonClick
+              })}
             </div>
           </div>
         </div>

@@ -1,13 +1,18 @@
 React = require('react')
 Lens = require('data-lens')
+ReactBootstrap = require('react-bootstrap')
 
 PosterMixin = require('./poster.component.mixin.cjsx')
 PosterStore = require('./poster.store')
 PosterService = require('./poster.service')
 TagService = require('../tag/tag.service')
+TagStore = require('../tag/tag.store')
+UserStore = require('../user/user.store')
 Promise = require('../promise')
 
 debug = require('../debug')('poster:edit:component')
+
+{ButtonToolbar, Button} = ReactBootstrap
 
 PosterEdit = React.createClass
   displayName: 'PosterEdit'
@@ -26,6 +31,7 @@ PosterEdit = React.createClass
 
   getInitialState: ->
     {
+      me: UserStore.getMe()
       poster: @getPosterFromStore()
       editing: true
     }
@@ -42,23 +48,52 @@ PosterEdit = React.createClass
   toggleEditing: () ->
     @setState(Lens.key('editing').set(!@state.editing, @state))
 
-  makePosterFromRefs: () ->
-    {
-      images: @state.poster.images
-      title: @state.poster.title
-      description: @state.poster.description
-      tags: @state.poster.tags
-    }
+  handleSaveButtonClick: () ->
+    debug('save!')
 
-  updatePosterByRefs: () ->
+  handleDeleteButtonClick: () ->
+    debug('delete!')
+
+  parseTagsInput: () ->
+    tagsTextArr = _.map(
+      @refs.tagsInput.getValue().split(",")
+      (tagText) -> tagText.trim()
+    )
+    tagsArr = _.map(
+      tagsTextArr
+      (tagText) ->
+        TagStore.getByName(tagText) || {
+          name: tagText
+        }
+    )
+
+  makePosterFromRefs: () ->
+    poster = @state.poster
+    poster = Lens.key('title').set(@refs.titleInput.getValue(), poster)
+    poster = Lens.key('description').set(@refs.descriptionInput.getValue(), poster)
+    poster = Lens.key('tags').set(@parseTagsInput(), poster)
+    return poster
+
+  handleInputChange: () ->
     @setState(Lens.key('poster').set(@makePosterFromRefs(), @state))
 
-  renderEdit: () ->
-
-  renderPreview: () ->
+  renderControls: () ->
+    me = @state.me
+    poster = @state.poster
+    <ButtonToolbar>
+      {@renderSaveControl(me, poster, @handleSaveButtonClick)}
+      <Button className='preview'
+              bsSize='xsmall'
+              onClick={@toggleEditing}>
+        {if @state.editing then 'Preview' else 'Edit'}
+      </Button>
+      {@renderDeleteControl(me, poster, @handleDeleteButtonClick)}
+    </ButtonToolbar>
 
   render: ->
     rows = []
+
+    debug("started rendering")
 
     if @state.poster?
       if @state.editing
@@ -69,6 +104,7 @@ PosterEdit = React.createClass
             name: 'title'
             label: 'Title'
             ref: 'titleInput'
+            onChange: @handleInputChange
           }
         )
         tagsSection = @renderTagsEditSection(
@@ -78,6 +114,7 @@ PosterEdit = React.createClass
             name: 'tags'
             label: 'Tags'
             ref: 'tagsInput'
+            onChange: @handleInputChange
           }
         )
         descriptionSection = @renderDescriptionEditSection(
@@ -87,6 +124,7 @@ PosterEdit = React.createClass
             name: 'description'
             label: 'Description'
             ref: 'descriptionInput'
+            onChange: @handleInputChange
           }
         )
       else
@@ -107,6 +145,9 @@ PosterEdit = React.createClass
               {tagsSection}
               {descriptionSection}
             </div>
+            <div className='controls'>
+              {@renderControls()}
+            </div>
           </div>
         </div>
       )
@@ -118,6 +159,8 @@ PosterEdit = React.createClass
           </div>
         </div>
       )
+
+    debug("ending rendering")
 
     <div className="container single-poster">
       {rows}

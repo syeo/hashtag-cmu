@@ -2,6 +2,10 @@ _ = require('lodash')
 Router = require('react-router')
 ReactBootstrap = require('react-bootstrap')
 
+AuthService = require('../auth/auth.service')
+
+{ButtonToolbar, Button} = ReactBootstrap
+
 debug = require('../debug')('poster:component:mixin')
 
 Input = ReactBootstrap.Input
@@ -43,11 +47,16 @@ module.exports =
       tagsSection = <div className="poster-content-section v-skinny">
         <div className="poster-tags">{
           _.map(poster.tags, (tag) ->
-            <Link to="tag" params={{tagId: tag.id}} key={tag.id}>
-              <span className="tag label">
-                {tag.name}
-              </span>
-            </Link>
+            content = <span className="tag label">
+              {tag.name}
+            </span>
+
+            if tag.id
+              content = <Link to="tag" params={{tagId: tag.id}} key={tag.id}>
+                {content}
+              </Link>
+
+            return content
           )
         }</div>
       </div>
@@ -57,7 +66,7 @@ module.exports =
     return tagsSection
 
   renderTagsEditSection: (poster, inputAttrs) ->
-    tagsText = _.map(poster.tags, (tag) -> tag.name).join(", ")
+    tagsText = _.map(poster.tags, (tag) -> tag.name).join(", ").trim()
     debug(tagsText)
     <div className="poster-content-section">
       <Input className="poster-tags"
@@ -83,3 +92,35 @@ module.exports =
              value={poster.description}
              {...inputAttrs} />
     </div>
+
+  renderEditControl: (user, poster, onClick) ->
+    if AuthService.userCanEditPoster(user, poster)
+      <Button className='edit'
+              bsSize='xsmall'
+              onClick={onClick}>
+        Edit
+      </Button>
+
+  renderDeleteControl: (user, poster, onClick) ->
+    if AuthService.userCanDeletePoster(user, poster)
+      <Button className='delete'
+              bsSize='xsmall'
+              bsStyle='link'
+              onClick={onClick}>
+        Delete
+      </Button>
+
+  renderSaveControl: (user, poster, onClick) ->
+    if AuthService.userCanDeletePoster(user, poster)
+      <Button className='save'
+              bsSize='xsmall'
+              bsStyle='primary'
+              onClick={onClick}>
+        Save
+      </Button>
+
+  renderShowControls: (user, poster, options) ->
+    <ButtonToolbar>
+      {@renderEditControl(user, poster, options.onEditButtonClick)}
+      {@renderDeleteControl(user, poster, options.onDeleteButtonClick)}
+    </ButtonToolbar>
