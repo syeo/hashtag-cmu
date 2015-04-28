@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) ->
       type: DataTypes.TEXT
       notNull: true
       notEmpty: true
+    deleted:
+      type: DataTypes.BOOLEAN
+      defaultValue: false
+      notNull: true
   }, {
     classMethods:
       associate: (models) ->
@@ -20,6 +24,11 @@ module.exports = (sequelize, DataTypes) ->
         Poster.belongsTo(models.User, {
           as: 'owner'
           foreignKey: 'ownerId'
+        })
+        Poster.belongsToMany(models.Tag, {
+          as: 'tags'
+          through: 'PosterTag'
+          foreignKey: 'posterId'
         })
   })
   Poster

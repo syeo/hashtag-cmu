@@ -9,14 +9,16 @@ registry = require('../../../system/registry')
 
 debug = require('../../../system/debug')('infra:persistence:PosterRepository')
 
-Query = QT.Query
+{Condition, Query} = QT
 
 class PosterRepository extends mixOf(BaseRepository,
                                      BasePosterRepository)
   getModel: () -> registry.instance().Poster
 
   findRecent: (options = {}) =>
-    @findAll(Query.order('"createdAt" DESC'))
+    @findAll(
+      Query.where(Condition.eq('deleted', false)).order('"createdAt" DESC')
+    )
 
   findRecentByTagId: (tagId) =>
     tagId = Number(tagId)
@@ -30,7 +32,11 @@ class PosterRepository extends mixOf(BaseRepository,
         debug(posterIds)
         return posterIds
       )
-      .then(_.partial(@findAllByIds, _, Query.order('"createdAt" DESC')))
+      .then(_.partial(
+        @findAllByIds
+        _
+        Query.where(Condition.eq('deleted', false)).order('"createdAt" DESC')
+      ))
 
 
 module.exports = PosterRepository

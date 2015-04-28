@@ -20,6 +20,9 @@ class PosterStore extends StoreBase
     @posters[poster.id] = poster
     return poster
 
+  deletePoster: (poster) =>
+    delete @posters[poster.id]
+
   setHomePosterList: (posters) =>
     @homePosterList = _.map(posters, @setPoster)
     return @homePosterList
@@ -40,11 +43,14 @@ class PosterStore extends StoreBase
       when ACTION.RECEIVE_HOME_POSTER_LIST
         @setHomePosterList(action.posters)
         @emitChange()
-      when ACTION.RECEIVE_POSTER
+      when ACTION.RECEIVE_POSTER, ACTION.UPDATE_POSTER
         @setPoster(action.poster)
         @emitChange()
       when ACTION.RECEIVE_TAG_POSTER_LIST
         @setTagPosterList(action.tagId, action.posters)
+        @emitChange()
+      when ACTION.DELETE_POSTER
+        @deletePoster(action.poster)
         @emitChange()
 
 module.exports = new PosterStore

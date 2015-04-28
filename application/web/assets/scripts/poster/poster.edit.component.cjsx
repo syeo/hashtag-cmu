@@ -27,6 +27,9 @@ PosterEdit = React.createClass
 
   mixins: [PosterMixin]
 
+  contextTypes:
+    router: React.PropTypes.func
+
   getPosterFromStore: () -> PosterStore.getPoster(@props.posterId)
 
   getInitialState: ->
@@ -45,14 +48,18 @@ PosterEdit = React.createClass
   handlePosterChange: ->
     @setState(Lens.key('poster').set(@getPosterFromStore(), @state))
 
-  toggleEditing: () ->
+  handleTogglePreviewClick: () ->
     @setState(Lens.key('editing').set(!@state.editing, @state))
 
   handleSaveButtonClick: () ->
-    debug('save!')
+    PosterService.updatePoster(@state.poster).bind(@).then(() ->
+      @context.router.transitionTo('poster-show', {posterId: @props.posterId})
+    )
 
   handleDeleteButtonClick: () ->
-    debug('delete!')
+    PosterService.deletePoster(@state.poster).bind(@).then(() ->
+      @context.router.transitionTo('home')
+    )
 
   parseTagsInput: () ->
     tagsTextArr = _.map(
@@ -77,6 +84,9 @@ PosterEdit = React.createClass
   handleInputChange: () ->
     @setState(Lens.key('poster').set(@makePosterFromRefs(), @state))
 
+  handleCancelClick: () ->
+    @context.router.goBack()
+
   renderControls: () ->
     me = @state.me
     poster = @state.poster
@@ -84,8 +94,13 @@ PosterEdit = React.createClass
       {@renderSaveControl(me, poster, @handleSaveButtonClick)}
       <Button className='preview'
               bsSize='xsmall'
-              onClick={@toggleEditing}>
+              onClick={@handleTogglePreviewClick}>
         {if @state.editing then 'Preview' else 'Edit'}
+      </Button>
+      <Button className='cancel'
+              bsSize='xsmall'
+              onClick={@handleCancelClick}>
+        Cancel
       </Button>
       {@renderDeleteControl(me, poster, @handleDeleteButtonClick)}
     </ButtonToolbar>

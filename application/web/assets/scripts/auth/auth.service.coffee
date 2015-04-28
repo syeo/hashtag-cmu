@@ -7,7 +7,7 @@ debug = require('../debug')('auth:service')
 
 module.exports =
   userCanEditPoster: (user, poster) ->
-    user.id == poster.ownerId
+    user.id == poster.owner.id
 
   userCanDeletePoster: (user, poster) ->
-    user.id == poster.ownerId
+    user.id == poster.owner.id

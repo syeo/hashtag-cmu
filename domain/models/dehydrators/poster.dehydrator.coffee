@@ -28,11 +28,14 @@ class PosterDehydrator extends BaseDehydrator
         posterImageDehydrator.list(posterImages)
       ])
     ).spread((res, user, tags, images) ->
-      _.extend(res, {
-        user: user
-        images: images
-        tags: tags
-      })
+      _.extend(
+        _.omit(res, 'ownerId')
+        {
+          owner: user
+          images: images
+          tags: tags
+        }
+      )
     )
 
 module.exports = PosterDehydrator

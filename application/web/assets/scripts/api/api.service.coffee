@@ -18,6 +18,15 @@ class ApiService
       .post(@makeApiUrl(path))
       .send(data)
 
+  makeDeleteRequest: (path)=>
+    superagent
+      .del(@makeApiUrl(path))
+
+  makePutRequest: (path, data) =>
+    superagent
+      .put(@makeApiUrl(path))
+      .send(data)
+
   processApiError: (err) ->
     throw new ApiError(err.status, err.response?.body)
 
@@ -93,5 +102,23 @@ class ApiService
       res.body.poster
     )
     .catch(@processApiError)
+
+  deletePoster: (poster) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makeDeleteRequest("/posters/#{poster.id}")
+    )
+      .then((res) -> null)
+      .catch(@processApiError)
+
+  updatePoster: (poster) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makePutRequest(
+        "/posters/#{poster.id}"
+        {poster: poster}
+      )
+    )
+      .then((res) -> res.body.poster)
+      .catch(@processApiError)
+
 
 module.exports = new ApiService

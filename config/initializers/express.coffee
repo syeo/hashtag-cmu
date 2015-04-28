@@ -156,14 +156,15 @@ module.exports = (instance, passport, sessionStore, config) ->
 
   # Assume 404 since no middleware responded
   instance.use((req, res) ->
-    if req.accepts('html')
+    if req.path.indexOf('/api') == 0 or req.path.indexOf('/static') == 0
+      res.status(404)
+      if req.accepts('json')
+        res.json({ message: 'Not Found' })
+      else
+        res.send()
+    else
       res.render('home.swig', {
         req: req
-      })
-
-    else if req.accepts('json')
-      res.status(404).json({
-        text: 'Not Found'
       })
   )
 

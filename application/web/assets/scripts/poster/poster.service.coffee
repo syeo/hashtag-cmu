@@ -22,7 +22,13 @@ module.exports =
       PosterActionCreator.receiveTagPosterList(tagId, posterList)
     )
 
-  # deletePoster: (id) ->
-  #   ApiService.deletePoster(id).then(() ->
-  #     PosterActionCreator.
-  #   )
+  deletePoster: (id) ->
+    ApiService.deletePoster(id).then(() ->
+      PosterActionCreator.deletePoster(id)
+    )
+
+  updatePoster: (poster) ->
+    debug(poster)
+    ApiService.updatePoster(poster).then((poster) ->
+      PosterActionCreator.updatePoster(poster)
+    )

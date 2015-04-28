@@ -40,7 +40,9 @@ PosterShow = React.createClass
     @context.router.transitionTo('poster-edit', {posterId: @props.posterId})
 
   handleDeleteButtonClick: ->
-    debug("delete!")
+    PosterService.deletePoster(@state.poster).bind(@).then(() ->
+      @context.router.transitionTo('home')
+    )
 
   render: ->
     rows = []
