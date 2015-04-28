@@ -1,7 +1,7 @@
 _ = require('lodash')
 React = require('react')
 
-Poster = require('../poster/poster.component.cjsx')
+PosterShow = require('../poster/poster.show.component.cjsx')
 
 debug = require('../debug')('poster_page:component')
 
@@ -12,7 +12,7 @@ PosterPage = React.createClass({
 
   statics:
     fetchData: (params, query) ->
-      Poster.fetchData(params, query)
+      PosterShow.fetchData(params, query)
 
   contextTypes:
     router: React.PropTypes.func
@@ -21,7 +21,7 @@ PosterPage = React.createClass({
     params = @context.router.getCurrentParams()
     posterId = params.posterId
     <div className='poster-page'>
-      <Poster posterId={posterId}/>
+      <PosterShow posterId={posterId} />
     </div>
 
 })

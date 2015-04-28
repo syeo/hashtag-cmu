@@ -1,7 +1,7 @@
 _ = require('lodash')
 React = require('react')
 
-HomePosterList = require('../home/home_poster_list.component.cjsx')
+HomePosterList = require('../home/home.poster_list.component.cjsx')
 PosterService = require('../poster/poster.service')
 
 debug = require('../debug')('home_page:component')

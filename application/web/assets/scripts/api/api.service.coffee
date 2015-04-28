@@ -78,6 +78,14 @@ class ApiService
     )
     .catch(@processApiError)
 
+  getTagList: () =>
+    utils.makePromiseWithSuperagentRequest(
+      @makeGetRequest("/tags")
+    ).then((res) ->
+      res.body.tags
+    )
+    .catch(@processApiError)
+
   getPoster: (id) =>
     utils.makePromiseWithSuperagentRequest(
       @makeGetRequest("/posters/#{id}")

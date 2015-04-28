@@ -4,7 +4,7 @@ ApiService = require('../api/api.service')
 PosterActionCreator = require('./poster.action_creator')
 Promise = require('../promise')
 
-debug = require('../debug')('watchboard:query:result:service')
+debug = require('../debug')('poster:service')
 
 module.exports =
   loadHomePosterList: () ->

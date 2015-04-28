@@ -2,9 +2,38 @@ body.light {
   .poster {
     background-color: @poster-ligit-background-color;
     border: 1px solid @poster-light-border-color;
-    .poster-content {
-      .sep {
+    .poster-content-section {
+      & + .poster-content-section {
         border-color: @poster-light-border-color;
+      }
+
+      .form-group {
+        label {
+          color: @poster-light-edit-label-color;
+        }
+        input {
+          color: @poster-light-edit-input-color;
+        }
+      }
+
+      .poster-title {
+        color: @poster-light-title-color;
+      }
+
+      .poster-tags {
+        .tag {
+          background-color: transparent;
+          color: @poster-light-tag-color;
+          border-color: @poster-light-tag-border-color;
+          &:hover {
+            color: @poster-light-tag-highlight-color;
+            border-color: @poster-light-tag-border-highlight-color;
+          }
+        }
+      }
+
+      .poster-description {
+        color: @poster-light-description-color;
       }
     }
   }

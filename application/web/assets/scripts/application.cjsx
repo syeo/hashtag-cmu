@@ -4,7 +4,6 @@ React = require('react')
 
 window.React = React
 
-PosterActionCreator = require('./page/page_data.action_creator')
 routes = require('./app.routes.cjsx')
 Promise = require('./promise')
 ApiError = require('./api/api.error')

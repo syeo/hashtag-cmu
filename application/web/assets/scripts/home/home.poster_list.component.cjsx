@@ -4,9 +4,9 @@ MasonryMixin = require('react-masonry-mixin')
 
 PosterStore = require('../poster/poster.store')
 PosterService = require('../poster/poster.service')
-PosterListMixin = require('../poster/poster_list.mixin.cjsx')
+PosterListMixin = require('../poster/poster_list.component.mixin.cjsx')
 
-debug = require('../debug')('home_poster_list:component')
+debug = require('../debug')('home.poster_list:component')
 
 MASONRY_CONTAINER_REF = 'masonryContainer'
 MASONRY_OPTIONS = {}
@@ -48,6 +48,6 @@ HomePosterList = React.createClass({
   render: -> @renderList()
 
   _onChange: -> @setState(@makeStateFromStore())
-});
+})
 
-module.exports = HomePosterList;
+module.exports = HomePosterList

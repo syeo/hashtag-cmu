@@ -4,10 +4,10 @@ PosterMixin = require('./poster.component.mixin.cjsx')
 PosterStore = require('./poster.store')
 PosterService = require('./poster.service')
 
-debug = require('../debug')('poster:component')
+debug = require('../debug')('poster:show:component')
 
-Poster = React.createClass
-  displayName: 'Poster'
+PosterShow = React.createClass
+  displayName: 'PosterShow'
 
   statics:
     fetchData: (params, query) ->
@@ -64,4 +64,4 @@ Poster = React.createClass
       {rows}
     </div>
 
-module.exports = Poster
+module.exports = PosterShow

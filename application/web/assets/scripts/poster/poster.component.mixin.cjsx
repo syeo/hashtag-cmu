@@ -1,5 +1,10 @@
 _ = require('lodash')
 Router = require('react-router')
+ReactBootstrap = require('react-bootstrap')
+
+debug = require('../debug')('poster:component:mixin')
+
+Input = ReactBootstrap.Input
 
 Link = Router.Link
 
@@ -8,7 +13,7 @@ module.exports =
     unless _.isEmpty(poster.images)
       firstImage = _.first(poster.images)
       imageSection = <div className="poster-image-section">
-        <Link to="poster" params={{posterId: poster.id}}>
+        <Link to="poster-show" params={{posterId: poster.id}}>
            <img className="poster-image" src={firstImage.url} />
         </Link>
       </div>
@@ -19,11 +24,18 @@ module.exports =
 
   renderTitleSection: (poster) ->
     <div className="poster-content-section">
-      <Link to="poster" params={{posterId: poster.id}}>
+      <Link to="poster-show" params={{posterId: poster.id}}>
         <h3 className="poster-title">
           {poster.title}
         </h3>
       </Link>
+    </div>
+
+  renderTitleEditSection: (poster, inputAttrs) ->
+    <div className="poster-content-section">
+      <Input className="poster-title"
+             value={poster.title}
+             {...inputAttrs} />
     </div>
 
   renderTagsSection: (poster) ->
@@ -44,6 +56,15 @@ module.exports =
 
     return tagsSection
 
+  renderTagsEditSection: (poster, inputAttrs) ->
+    tagsText = _.map(poster.tags, (tag) -> tag.name).join(", ")
+    debug(tagsText)
+    <div className="poster-content-section">
+      <Input className="poster-tags"
+             value={tagsText}
+             {...inputAttrs} />
+    </div>
+
   renderDescriptionSection: (poster) ->
     unless _.isEmpty(poster.description)
       descriptionSection = <div className="poster-content-section">
@@ -56,10 +77,9 @@ module.exports =
 
     return descriptionSection
 
-  renderPoster: (poster) ->
-    <div className="poster">
-      {@renderImageSection(poster)}
-      {@renderTitleSection(poster)}
-      {@renderTagsSection(poster)}
-      {@renderDescriptionSection(poster)}
+  renderDescriptionEditSection: (poster, inputAttrs) ->
+    <div className="poster-content-section">
+      <Input className="poster-description"
+             value={poster.description}
+             {...inputAttrs} />
     </div>
