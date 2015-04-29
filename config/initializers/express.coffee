@@ -139,13 +139,7 @@ module.exports = (instance, passport, sessionStore, config) ->
   instance.use((req, res, next) ->
     req.files ||= []
     if req.busboy
-      console.log("busboy!")
       req.busboy.on('file', (fieldname, file, filename, encoding, mimetype) ->
-        console.log("file!")
-        console.log(fieldname)
-        console.log(filename)
-        console.log(encoding)
-        console.log(mimetype)
         chunks = []
         file.on('data', (data) ->
           chunks.push(data)

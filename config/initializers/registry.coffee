@@ -1,7 +1,7 @@
 _ = require('lodash')
 path = require('path')
 
-makeCommon = (registry) ->
+makeCommon = (registry, config) ->
   registry = _.extend(registry, require('../../domain/models/sequelize'))
 
   registry.syncDb = (options = {}) ->
@@ -47,32 +47,35 @@ makeCommon = (registry) ->
   registry.userService = new (require(
     '../../domain/user/user.service'
   ))()
+
+makeTest = makeDevelopment = makeStaging = (registry, config) ->
+  makeCommon(registry, config)
+  registry.webAppService = new (require(
+    '../../application/web/express/development.web.app.service'
+  ))()
   registry.posterImageService = new (require(
     '../../domain/poster_image/local.poster_image.service'
   ))(path.resolve('./upload/poster-images'), '/static/poster-images')
 
-makeTest = makeDevelopment = makeStaging = (registry) ->
-  makeCommon(registry)
-  registry.webAppService = new (require(
-    '../../application/web/express/development.web.app.service'
-  ))()
-
-makeProduction = (registry) ->
-  makeCommon(registry)
+makeProduction = (registry, config) ->
+  makeCommon(registry, config)
   registry.webAppService = new (require(
     '../../application/web/express/web.app.service'
   ))()
+  registry.posterImageService = new (require(
+    '../../domain/poster_image/cloudinary.poster_image.service'
+  ))(config.cloudinary)
 
 module.exports = (registry, config) ->
   switch config.NODE_ENV
     when 'test'
-      makeTest(registry)
+      makeTest(registry, config)
     when 'development'
-      makeDevelopment(registry)
+      makeDevelopment(registry, config)
     when 'staging'
-      makeStaging(registry)
+      makeStaging(registry, config)
     when 'production'
-      makeProduction(registry)
+      makeProduction(registry, config)
     else
       throw new Error("Cannot make registry for '#{process.env.NODE_ENV}'.")
 

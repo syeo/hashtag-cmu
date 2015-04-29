@@ -10,13 +10,15 @@ debug = require('../debug')('poster:component:mixin')
 
 Link = Router.Link
 
+urlKey = if window.location.protocol == 'https:' then 'secureUrl' else 'url'
+
 module.exports =
   renderImageSection: (poster) ->
     unless _.isEmpty(poster.images)
       firstImage = _.first(poster.images)
       imageSection = <div className="poster-image-section">
         <Link to="poster-show" params={{posterId: poster.id}}>
-          <img className="poster-image" src={firstImage.url} />
+          <img className="poster-image" src={firstImage[urlKey]} />
         </Link>
       </div>
     else
@@ -30,7 +32,7 @@ module.exports =
       imageSection = <div className="poster-image-section">
         <input {...inputAttrs} />
         <img className="poster-image"
-             src={firstImage.url}
+             src={firstImage[urlKey]}
              {...imageAttrs} />
       </div>
     else
