@@ -4,7 +4,8 @@ AuthenticatedUserApp = require('./app/authenticated_user.app.component.cjsx')
 AnonymousUserApp = require('./app/anonymous_user.app.component.cjsx')
 HomePage = require('./page/home_page.component.cjsx')
 TagPage = require('./page/tag_page.component.cjsx')
-PosterPage = require('./page/poster_page.component.cjsx')
+PosterShowPage = require('./page/poster_show_page.component.cjsx')
+PosterEditPage = require('./page/poster_edit_page.component.cjsx')
 LogInPage = require('./page/log_in_page.component.cjsx')
 SignUpPage = require('./page/sign_up_page.component.cjsx')
 
@@ -16,7 +17,8 @@ module.exports = (
     <Route name="authenticated-user-app" path="/" handler={AuthenticatedUserApp}>
       <Route name="home" path="/" handler={HomePage} />
       <Route name="tag" path="tags/:tagId" handler={TagPage} />
-      <Route name="poster" path="posters/:posterId" handler={PosterPage} />
+      <Route name="poster-show" path="posters/:posterId" handler={PosterShowPage}/>
+      <Route name="poster-edit" path="posters/:posterId/edit" handler={PosterEditPage}/>
       <DefaultRoute handler={HomePage} />
     </Route>
     <Route name="anonymous-user-app" path="/" handler={AnonymousUserApp}>

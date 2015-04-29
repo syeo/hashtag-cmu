@@ -4,7 +4,7 @@ ApiService = require('../api/api.service')
 PosterActionCreator = require('./poster.action_creator')
 Promise = require('../promise')
 
-debug = require('../debug')('watchboard:query:result:service')
+debug = require('../debug')('poster:service')
 
 module.exports =
   loadHomePosterList: () ->
@@ -20,4 +20,15 @@ module.exports =
   loadTagPosterList: (tagId) ->
     ApiService.getTagPosterList(tagId).then((posterList) ->
       PosterActionCreator.receiveTagPosterList(tagId, posterList)
+    )
+
+  deletePoster: (id) ->
+    ApiService.deletePoster(id).then(() ->
+      PosterActionCreator.deletePoster(id)
+    )
+
+  updatePoster: (poster) ->
+    debug(poster)
+    ApiService.updatePoster(poster).then((poster) ->
+      PosterActionCreator.updatePoster(poster)
     )

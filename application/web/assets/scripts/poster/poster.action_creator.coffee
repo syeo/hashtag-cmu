@@ -22,3 +22,15 @@ module.exports =
       tagId: tagId
       posters: posters
     })
+
+  deletePoster: (poster) ->
+    Dispatcher.dispatch({
+      type: ACTION.DELETE_POSTER
+      poster: poster
+    })
+
+  updatePoster: (poster) ->
+    Dispatcher.dispatch({
+      type: ACTION.UPDATE_POSTER
+      poster: poster
+    })

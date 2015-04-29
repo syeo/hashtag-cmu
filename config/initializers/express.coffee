@@ -11,6 +11,7 @@ flash = require('connect-flash')
 consolidate = require('consolidate')
 path = require('path')
 session = require('express-session')
+busboy = require('connect-busboy')
 
 getGlobbedFiles = (globPatterns, removeRoot) ->
   # URL paths regex
@@ -107,16 +108,20 @@ module.exports = (instance, passport, sessionStore, config) ->
 
   # Setting the express router and static folder
   instance.use(
-    '/static/assets'
-    express.static(path.resolve('./application/web/assets.build'))
+    '/static/assets/fonts'
+    express.static(path.resolve('./bower_components/bootstrap/fonts'))
   )
   instance.use(
     '/static'
     express.static(path.resolve('./application/web/public'))
   )
   instance.use(
-    '/static/assets/fonts'
-    express.static(path.resolve('./bower_components/bootstrap/fonts'))
+    '/static/assets'
+    express.static(path.resolve('./application/web/assets.build'))
+  )
+  instance.use(
+    '/static'
+    express.static(path.resolve('./upload'))
   )
 
   instance.use(session(
@@ -129,6 +134,40 @@ module.exports = (instance, passport, sessionStore, config) ->
 
   instance.use(passport.initialize())
   instance.use(passport.session())
+
+  instance.use(busboy())
+  instance.use((req, res, next) ->
+    req.files ||= []
+    if req.busboy
+      req.busboy.on('file', (fieldname, file, filename, encoding, mimetype) ->
+        chunks = []
+        file.on('data', (data) ->
+          chunks.push(data)
+        )
+        file.on('end', () ->
+          buffer = Buffer.concat(chunks)
+          req.files[fieldname] = {
+            buffer: buffer
+            size: buffer.length
+            filename: filename
+            mimetype: mimetype
+            encoding: encoding
+          }
+        )
+      )
+      req.busboy.on('field', (key, value, keyTruncated, valueTruncated) ->
+        if _.has(req.body, key)
+          unless _.isArray(req.body[key])
+            req.body[key] = [req.body[key]]
+          req.body[key].push(value)
+        else
+          req.body[key] = value
+      )
+      req.busboy.on('finish', next)
+      req.pipe(req.busboy)
+    else
+      next()
+  )
 
   # Globbing routing files
   getGlobbedFiles(
@@ -156,14 +195,15 @@ module.exports = (instance, passport, sessionStore, config) ->
 
   # Assume 404 since no middleware responded
   instance.use((req, res) ->
-    if req.accepts('html')
+    if req.path.indexOf('/api') == 0 or req.path.indexOf('/static') == 0
+      res.status(404)
+      if req.accepts('json')
+        res.json({ message: 'Not Found' })
+      else
+        res.send()
+    else
       res.render('home.swig', {
         req: req
-      })
-
-    else if req.accepts('json')
-      res.status(404).json({
-        text: 'Not Found'
       })
   )
 

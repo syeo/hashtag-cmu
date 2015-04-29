@@ -13,10 +13,17 @@ class ApiService
     superagent
       .get(@makeApiUrl(path))
 
-  makePostRequest: (path, data) =>
+  makePostRequest: (path) =>
     superagent
       .post(@makeApiUrl(path))
-      .send(data)
+
+  makeDeleteRequest: (path)=>
+    superagent
+      .del(@makeApiUrl(path))
+
+  makePutRequest: (path) =>
+    superagent
+      .put(@makeApiUrl(path))
 
   processApiError: (err) ->
     throw new ApiError(err.status, err.response?.body)
@@ -34,15 +41,13 @@ class ApiService
 
   signUp: (data) =>
     utils.makePromiseWithSuperagentRequest(
-      @makePostRequest(
-        '/users',
-        {
+      @makePostRequest('/users')
+        .send({
           email: data.email
           password: data.password
           firstName: data.firstName
           lastName: data.lastName
-        }
-      )
+        })
     ).then((res) ->
       res.body.user
     )
@@ -50,13 +55,11 @@ class ApiService
 
   logIn: (data) =>
     utils.makePromiseWithSuperagentRequest(
-      @makePostRequest(
-        '/users/log-in',
-        {
+      @makePostRequest('/users/log-in')
+        .send({
           email: data.email
           password: data.password
-        }
-      )
+        })
     ).then((res) ->
       res.body.user
     )
@@ -78,6 +81,14 @@ class ApiService
     )
     .catch(@processApiError)
 
+  getTagList: () =>
+    utils.makePromiseWithSuperagentRequest(
+      @makeGetRequest("/tags")
+    ).then((res) ->
+      res.body.tags
+    )
+    .catch(@processApiError)
+
   getPoster: (id) =>
     utils.makePromiseWithSuperagentRequest(
       @makeGetRequest("/posters/#{id}")
@@ -85,5 +96,31 @@ class ApiService
       res.body.poster
     )
     .catch(@processApiError)
+
+  deletePoster: (poster) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makeDeleteRequest("/posters/#{poster.id}")
+    )
+      .then((res) -> null)
+      .catch(@processApiError)
+
+  updatePoster: (poster) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makePutRequest("/posters/#{poster.id}")
+        .send({
+          poster: poster
+        })
+    )
+      .then((res) -> res.body.poster)
+      .catch(@processApiError)
+
+  uploadPosterImage: (file) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makePostRequest("/poster-images")
+        .attach('image', file, file.name)
+    )
+      .then((res) -> res.body.posterImage)
+      .catch(@processApiError)
+
 
 module.exports = new ApiService

@@ -46,8 +46,9 @@ LogInPage = React.createClass({
   handleFormDataChange: () ->
     @setState(@makeStateFromRefs())
 
-  handleClick: () ->
+  handleSubmit: (e) ->
     debug(@state)
+    e.preventDefault()
     UserService.logIn({
       email: @state.email
       password: @state.password
@@ -67,7 +68,7 @@ LogInPage = React.createClass({
         <div className='row'>
           <div className={colClasses}>
             <div className='card log-in-card'>
-              <form className='log-in-form'>
+              <form className='log-in-form' onSubmit={@handleSubmit}>
                 <Input type='email'
                        ref='email'
                        onChange={@handleFormDataChange}
@@ -80,11 +81,10 @@ LogInPage = React.createClass({
                        value={@state.password}
                        placeholder='Password'
                        name='password' />
-                <Button bsStyle='primary'
-                        block
-                        onClick={@handleClick}>
-                  Log in
-                </Button>
+                <Input type='submit'
+                       value='Log In'
+                       bsStyle='primary'
+                       block />
               </form>
               <div className='auxiliary'>
                 <div className='existing-user'>

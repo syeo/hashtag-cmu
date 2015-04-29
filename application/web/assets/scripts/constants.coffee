@@ -9,6 +9,9 @@ module.exports =
     SIGN_UP_SUCCESS: null
     LOG_IN_SUCCESS: null
     RECEIVE_ME: null
+    RECEIVE_TAG_LIST: null
+    DELETE_POSTER: null
+    UPDATE_POSTER: null
   })
   API:
     ROOT: '/api/v1'
