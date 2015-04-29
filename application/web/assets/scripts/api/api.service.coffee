@@ -13,19 +13,17 @@ class ApiService
     superagent
       .get(@makeApiUrl(path))
 
-  makePostRequest: (path, data) =>
+  makePostRequest: (path) =>
     superagent
       .post(@makeApiUrl(path))
-      .send(data)
 
   makeDeleteRequest: (path)=>
     superagent
       .del(@makeApiUrl(path))
 
-  makePutRequest: (path, data) =>
+  makePutRequest: (path) =>
     superagent
       .put(@makeApiUrl(path))
-      .send(data)
 
   processApiError: (err) ->
     throw new ApiError(err.status, err.response?.body)
@@ -43,15 +41,13 @@ class ApiService
 
   signUp: (data) =>
     utils.makePromiseWithSuperagentRequest(
-      @makePostRequest(
-        '/users',
-        {
+      @makePostRequest('/users')
+        .send({
           email: data.email
           password: data.password
           firstName: data.firstName
           lastName: data.lastName
-        }
-      )
+        })
     ).then((res) ->
       res.body.user
     )
@@ -59,13 +55,11 @@ class ApiService
 
   logIn: (data) =>
     utils.makePromiseWithSuperagentRequest(
-      @makePostRequest(
-        '/users/log-in',
-        {
+      @makePostRequest('/users/log-in')
+        .send({
           email: data.email
           password: data.password
-        }
-      )
+        })
     ).then((res) ->
       res.body.user
     )
@@ -112,12 +106,20 @@ class ApiService
 
   updatePoster: (poster) =>
     utils.makePromiseWithSuperagentRequest(
-      @makePutRequest(
-        "/posters/#{poster.id}"
-        {poster: poster}
-      )
+      @makePutRequest("/posters/#{poster.id}")
+        .send({
+          poster: poster
+        })
     )
       .then((res) -> res.body.poster)
+      .catch(@processApiError)
+
+  uploadPosterImage: (file) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makePostRequest("/poster-images")
+        .attach('image', file, file.name)
+    )
+      .then((res) -> res.body.posterImage)
       .catch(@processApiError)
 
 

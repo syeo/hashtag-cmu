@@ -4,11 +4,9 @@ ReactBootstrap = require('react-bootstrap')
 
 AuthService = require('../auth/auth.service')
 
-{ButtonToolbar, Button} = ReactBootstrap
+{ButtonToolbar, Button, Input} = ReactBootstrap
 
 debug = require('../debug')('poster:component:mixin')
-
-Input = ReactBootstrap.Input
 
 Link = Router.Link
 
@@ -18,8 +16,22 @@ module.exports =
       firstImage = _.first(poster.images)
       imageSection = <div className="poster-image-section">
         <Link to="poster-show" params={{posterId: poster.id}}>
-           <img className="poster-image" src={firstImage.url} />
+          <img className="poster-image" src={firstImage.url} />
         </Link>
+      </div>
+    else
+      imageSection = []
+
+    return imageSection
+
+  renderImageEditSection: (poster, inputAttrs = {}, imageAttrs = {}) ->
+    unless _.isEmpty(poster.images)
+      firstImage = _.first(poster.images)
+      imageSection = <div className="poster-image-section">
+        <input {...inputAttrs} />
+        <img className="poster-image"
+             src={firstImage.url}
+             {...imageAttrs} />
       </div>
     else
       imageSection = []
@@ -35,7 +47,7 @@ module.exports =
       </Link>
     </div>
 
-  renderTitleEditSection: (poster, inputAttrs) ->
+  renderTitleEditSection: (poster, inputAttrs = {}) ->
     <div className="poster-content-section">
       <Input className="poster-title"
              value={poster.title}
@@ -65,7 +77,7 @@ module.exports =
 
     return tagsSection
 
-  renderTagsEditSection: (poster, inputAttrs) ->
+  renderTagsEditSection: (poster, inputAttrs = {}) ->
     tagsText = _.map(poster.tags, (tag) -> tag.name).join(", ").trim()
     debug(tagsText)
     <div className="poster-content-section">
@@ -86,7 +98,7 @@ module.exports =
 
     return descriptionSection
 
-  renderDescriptionEditSection: (poster, inputAttrs) ->
+  renderDescriptionEditSection: (poster, inputAttrs = {}) ->
     <div className="poster-content-section">
       <Input className="poster-description"
              value={poster.description}
@@ -112,11 +124,26 @@ module.exports =
 
   renderSaveControl: (user, poster, onClick) ->
     if AuthService.userCanDeletePoster(user, poster)
-      <Button className='save'
+      <Button bsStyle='primary'
               bsSize='xsmall'
-              bsStyle='primary'
               onClick={onClick}>
         Save
+      </Button>
+
+  renderTogglePreviewControl: (user, poster, onClick, text) ->
+    if AuthService.userCanEditPoster(user, poster)
+      <Button className='preview'
+              bsSize='xsmall'
+              onClick={onClick}>
+        {text}
+      </Button>
+
+  renderCancelControl: (user, poster, onClick) ->
+    if AuthService.userCanEditPoster(user, poster)
+      <Button className='cancel'
+              bsSize='xsmall'
+              onClick={@handleCancelClick}>
+        Cancel
       </Button>
 
   renderShowControls: (user, poster, options) ->

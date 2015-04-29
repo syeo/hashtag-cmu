@@ -50,8 +50,9 @@ SignUpPage = React.createClass({
   handleFormDataChange: () ->
     @setState(@makeStateFromRefs())
 
-  handleClick: () ->
+  handleSubmit: (e) ->
     debug(@state)
+    e.preventDefault()
     UserService.signUp({
       email: @state.email
       password: @state.password
@@ -73,7 +74,7 @@ SignUpPage = React.createClass({
         <div className='row'>
           <div className={colClasses}>
             <div className='card sign-up-card'>
-              <form className='sign-up-form'>
+              <form className='sign-up-form' onSubmit={@handleSubmit}>
                 <Input type='text'
                        ref='firstName'
                        onChange={@handleFormDataChange}
@@ -98,11 +99,10 @@ SignUpPage = React.createClass({
                        value={@state.password}
                        placeholder='Password'
                        name='password' />
-                <Button bsStyle='primary'
-                        block
-                        onClick={@handleClick}>
-                  Sign Up
-                </Button>
+                <Input type='submit'
+                       value='Sign Up'
+                       bsStyle='primary'
+                       block />
               </form>
               <div className='auxiliary'>
                 <div className='existing-user'>

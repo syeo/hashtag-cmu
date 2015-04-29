@@ -1,11 +1,11 @@
 _ = require('lodash')
 
-BaseDehydrator = require('./base.dehydrator')
-Promise = require('../../../system/promise')
-registry = require('../../../system/registry')
+BaseDehydrator = require('../shared/base.dehydrator')
+Promise = require('../../system/promise')
+registry = require('../../system/registry')
 
 class PosterImageDehydrator extends BaseDehydrator
-  whole: (obj) =>
+  whole: (obj, context = {}) =>
     posterRepository = registry.instance().posterRepository
     posterDehydrator = registry.instance().posterDehydrator
 
@@ -13,8 +13,8 @@ class PosterImageDehydrator extends BaseDehydrator
       .bind(@)
       .then((poster) ->
         Promise.all([
-          super(obj)
-          posterDehydrator.skim(poster)
+          super(obj, context)
+          posterDehydrator.skim(poster, context)
         ])
       )
       .spread((res, poster) ->
@@ -22,10 +22,11 @@ class PosterImageDehydrator extends BaseDehydrator
         return res
       )
 
-  skim: (obj) =>
-    super(obj).then((res) ->
-      res = _.omit(res, 'posterId')
+  skim: (obj, context = {}) =>
+    super(obj, context).then((res) ->
+      res = _.omit(res, ['posterId', 'ownerId'])
       res.poster = {id: obj.get('posterId') }
+      res.owner = {id: obj.get('ownerId') }
       return res
     )
 

@@ -1,10 +1,13 @@
 Promise = require('../../system/promise')
 
 class BaseDehydrator
-  whole: (obj) => @skim(obj)
-  skim: (obj) -> Promise.resolve(obj.get({plain: true}))
+  whole: (obj, context = {}) => @skim(obj, context)
+  skim: (obj, context = {}) -> Promise.resolve(obj.get({plain: true}))
 
-  list: (objs) =>
-    Promise.map(objs, @skim)
+  list: (objs, context = {}) =>
+    that = @
+    Promise.map(objs, (obj) ->
+      that.skim(obj, context)
+    )
 
 module.exports = BaseDehydrator

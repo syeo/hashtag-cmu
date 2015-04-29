@@ -1,12 +1,13 @@
 _ = require('lodash')
 
-debug = require('../../../system/debug')('view:dehydrator:poster')
-Promise = require('../../../system/promise')
-registry = require('../../../system/registry')
-BaseDehydrator = require('./base.dehydrator')
+Promise = require('../../system/promise')
+registry = require('../../system/registry')
+BaseDehydrator = require('../shared/base.dehydrator')
+
+debug = require('../../system/debug')('view:dehydrator:poster')
 
 class PosterDehydrator extends BaseDehydrator
-  skim: (obj) ->
+  skim: (obj, context = {}) ->
     posterImageRepository = registry.instance().posterImageRepository
     posterImageDehydrator = registry.instance().posterImageDehydrator
 
@@ -22,10 +23,10 @@ class PosterDehydrator extends BaseDehydrator
       posterImageRepository.findAllByPoster(obj)
     ]).spread((user, tags, posterImages) ->
       Promise.all([
-        super(obj)
-        userDehydrator.skim(user)
-        tagDehydrator.list(tags)
-        posterImageDehydrator.list(posterImages)
+        super(obj, context)
+        userDehydrator.skim(user, context)
+        tagDehydrator.list(tags, context)
+        posterImageDehydrator.list(posterImages, context)
       ])
     ).spread((res, user, tags, images) ->
       _.extend(

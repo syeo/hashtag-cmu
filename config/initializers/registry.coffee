@@ -1,4 +1,5 @@
 _ = require('lodash')
+path = require('path')
 
 makeCommon = (registry) ->
   registry = _.extend(registry, require('../../domain/models/sequelize'))
@@ -34,18 +35,21 @@ makeCommon = (registry) ->
     '../../domain/user/user.dehydrator'
   ))()
   registry.posterDehydrator = new (require(
-    '../../domain/models/dehydrators/poster.dehydrator'
+    '../../domain/poster/poster.dehydrator'
   ))()
   registry.posterImageDehydrator = new (require(
-    '../../domain/models/dehydrators/poster_image.dehydrator'
+    '../../domain/poster_image/poster_image.dehydrator'
   ))()
   registry.tagDehydrator = new (require(
-    '../../domain/models/dehydrators/tag.dehydrator'
+    '../../domain/tag/tag.dehydrator'
   ))()
 
   registry.userService = new (require(
     '../../domain/user/user.service'
   ))()
+  registry.posterImageService = new (require(
+    '../../domain/poster_image/local.poster_image.service'
+  ))(path.resolve('./upload/poster-images'), '/static/poster-images')
 
 makeTest = makeDevelopment = makeStaging = (registry) ->
   makeCommon(registry)

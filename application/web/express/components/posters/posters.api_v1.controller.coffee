@@ -7,10 +7,13 @@ Promise = require('../../../../../system/promise')
 
 PAGE_SIZE = 30
 
-posterRepository = registry.instance().posterRepository
-posterDehydrator = registry.instance().posterDehydrator
-tagRepository = registry.instance().tagRepository
-Tag = registry.instance().Tag
+{
+  posterRepository
+  posterImageRepository
+  posterDehydrator
+  tagRepository
+  Tag
+} = registry.instance()
 
 module.exports =
   list: (req, res) ->
@@ -64,16 +67,18 @@ module.exports =
           tagRepository.findAllByIds(
             _.compact(_.map(newPosterData.tags, (tag) -> tag.id))
           )
-        ])
-          .spread((newTags, existingTags) ->
-            debug(newTags)
-            debug(existingTags)
-            newTags.concat(existingTags)
+          posterImageRepository.findAllByIds(
+            _.map(newPosterData.images, (posterImage) -> posterImage.id)
           )
-          .then((tags) ->
-            debug(tags)
-            debug(poster.setTags)
-            poster.setTags(tags)
+        ])
+          .spread((newTags, existingTags, posterImages) ->
+            [newTags.concat(existingTags), posterImages]
+          )
+          .spread((tags, posterImages) ->
+            Promise.all([
+              poster.setTags(tags)
+              poster.setImages(posterImages)
+            ])
           )
           .then(() -> poster)
       )
