@@ -1,5 +1,7 @@
 crypto = require('crypto')
 
+registry = require('../../../system/registry')
+
 SALT_PASSWORD_ENCODING = 'base64'
 
 module.exports = (sequelize, DataTypes) ->
@@ -29,6 +31,14 @@ module.exports = (sequelize, DataTypes) ->
 
       authenticate: (password) ->
         @getEncryptedPassword(password) is @get('password')
+
+      createNewPosterWithData: (data) ->
+        {Poster, posterRepository} = registry.instance()
+
+        poster = Poster.build(data)
+        poster.set('ownerId', @get('id'))
+
+        posterRepository.save(poster)
 
     classMethods:
       makeSalt: () ->

@@ -17,11 +17,14 @@ PosterPage = React.createClass({
   contextTypes:
     router: React.PropTypes.func
 
+  propTypes:
+    user: React.PropTypes.object.isRequired
+
   render: ->
     params = @context.router.getCurrentParams()
-    posterId = params.posterId
+    posterId = Number(params.posterId)
     <div className='poster-page'>
-      <PosterShow posterId={posterId} />
+      <PosterShow user={@props.user} posterId={posterId} />
     </div>
 
 })

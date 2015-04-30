@@ -9,6 +9,7 @@ module.exports = (app) ->
   app.route('/api/v1/posters')
     .all(authMiddlewares.loginRequired)
     .get(postersApiV1.list)
+    .post(postersApiV1.create)
 
   app.route('/api/v1/posters/:posterId(\\d+)')
     .all(

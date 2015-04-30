@@ -2,58 +2,51 @@ _ = require('lodash')
 Router = require('react-router')
 ReactBootstrap = require('react-bootstrap')
 
-AuthService = require('../auth/auth.service')
-
 {ButtonToolbar, Button, Input} = ReactBootstrap
 
 debug = require('../debug')('poster:component:mixin')
 
 Link = Router.Link
 
-urlKey = if window.location.protocol == 'https:' then 'secureUrl' else 'url'
-
 module.exports =
+  getUrlKey: () ->
+    if window.location.protocol == 'https:' then 'secureUrl' else 'url'
+
+  getImageUrl: (poster) ->
+    unless _.isEmpty(poster.images)
+      image = _.first(poster.images)
+    else
+      image = {
+        url: 'http://placehold.it/700x400'
+        secureUrl: 'https://placehold.it/700x400'
+      }
+
+    return image[@getUrlKey()]
+
   renderImageSection: (poster) ->
-    unless _.isEmpty(poster.images)
-      firstImage = _.first(poster.images)
-      imageSection = <div className="poster-image-section">
-        <Link to="poster-show" params={{posterId: poster.id}}>
-          <img className="poster-image" src={firstImage[urlKey]} />
-        </Link>
-      </div>
-    else
-      imageSection = []
+    content = <img className="poster-image" src={@getImageUrl(poster)} />
 
-    return imageSection
-
-  renderImageEditSection: (poster, inputAttrs = {}, imageAttrs = {}) ->
-    unless _.isEmpty(poster.images)
-      firstImage = _.first(poster.images)
-      imageSection = <div className="poster-image-section">
-        <input {...inputAttrs} />
-        <img className="poster-image"
-             src={firstImage[urlKey]}
-             {...imageAttrs} />
-      </div>
-    else
-      imageSection = []
-
-    return imageSection
-
-  renderTitleSection: (poster) ->
-    <div className="poster-content-section">
-      <Link to="poster-show" params={{posterId: poster.id}}>
-        <h3 className="poster-title">
-          {poster.title}
-        </h3>
+    if poster.id
+      content = <Link to="poster-show" params={{posterId: poster.id}}>
+        {content}
       </Link>
+
+    <div className="poster-image-section">
+      {content}
     </div>
 
-  renderTitleEditSection: (poster, inputAttrs = {}) ->
+  renderTitleSection: (poster) ->
+    content = <h3 className="poster-title">
+      {poster.title}
+    </h3>
+
+    if poster.id
+      content = <Link to="poster-show" params={{posterId: poster.id}}>
+        {content}
+      </Link>
+
     <div className="poster-content-section">
-      <Input className="poster-title"
-             value={poster.title}
-             {...inputAttrs} />
+      {content}
     </div>
 
   renderTagsSection: (poster) ->
@@ -79,15 +72,6 @@ module.exports =
 
     return tagsSection
 
-  renderTagsEditSection: (poster, inputAttrs = {}) ->
-    tagsText = _.map(poster.tags, (tag) -> tag.name).join(", ").trim()
-    debug(tagsText)
-    <div className="poster-content-section">
-      <Input className="poster-tags"
-             value={tagsText}
-             {...inputAttrs} />
-    </div>
-
   renderDescriptionSection: (poster) ->
     unless _.isEmpty(poster.description)
       descriptionSection = <div className="poster-content-section">
@@ -108,48 +92,16 @@ module.exports =
     </div>
 
   renderEditControl: (user, poster, onClick) ->
-    if AuthService.userCanEditPoster(user, poster)
-      <Button className='edit'
-              bsSize='xsmall'
-              onClick={onClick}>
-        Edit
-      </Button>
+    <Button className='edit'
+            bsSize='xsmall'
+            onClick={onClick}>
+      Edit
+    </Button>
 
   renderDeleteControl: (user, poster, onClick) ->
-    if AuthService.userCanDeletePoster(user, poster)
-      <Button className='delete'
-              bsSize='xsmall'
-              bsStyle='link'
-              onClick={onClick}>
-        Delete
-      </Button>
-
-  renderSaveControl: (user, poster, onClick) ->
-    if AuthService.userCanDeletePoster(user, poster)
-      <Button bsStyle='primary'
-              bsSize='xsmall'
-              onClick={onClick}>
-        Save
-      </Button>
-
-  renderTogglePreviewControl: (user, poster, onClick, text) ->
-    if AuthService.userCanEditPoster(user, poster)
-      <Button className='preview'
-              bsSize='xsmall'
-              onClick={onClick}>
-        {text}
-      </Button>
-
-  renderCancelControl: (user, poster, onClick) ->
-    if AuthService.userCanEditPoster(user, poster)
-      <Button className='cancel'
-              bsSize='xsmall'
-              onClick={@handleCancelClick}>
-        Cancel
-      </Button>
-
-  renderShowControls: (user, poster, options) ->
-    <ButtonToolbar>
-      {@renderEditControl(user, poster, options.onEditButtonClick)}
-      {@renderDeleteControl(user, poster, options.onDeleteButtonClick)}
-    </ButtonToolbar>
+    <Button className='delete'
+            bsSize='xsmall'
+            bsStyle='link'
+            onClick={onClick}>
+      Delete
+    </Button>
