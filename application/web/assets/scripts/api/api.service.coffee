@@ -114,6 +114,16 @@ class ApiService
       .then((res) -> res.body.poster)
       .catch(@processApiError)
 
+  createPoster: (poster) =>
+    utils.makePromiseWithSuperagentRequest(
+      @makePostRequest("/posters")
+        .send({
+          poster: poster
+        })
+    )
+      .then((res) -> res.body.poster)
+      .catch(@processApiError)
+
   uploadPosterImage: (file) =>
     utils.makePromiseWithSuperagentRequest(
       @makePostRequest("/poster-images")

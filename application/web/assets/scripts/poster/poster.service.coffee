@@ -6,20 +6,23 @@ Promise = require('../promise')
 
 debug = require('../debug')('poster:service')
 
-module.exports =
+PosterService =
   loadHomePosterList: () ->
     ApiService.getHomePosterList().then((posterList) ->
       PosterActionCreator.receiveHomePosterList(posterList)
+      return posterList
     )
 
   loadPoster: (id) ->
     ApiService.getPoster(id).then((poster) ->
       PosterActionCreator.receivePoster(poster)
+      return poster
     )
 
   loadTagPosterList: (tagId) ->
     ApiService.getTagPosterList(tagId).then((posterList) ->
       PosterActionCreator.receiveTagPosterList(tagId, posterList)
+      return posterList
     )
 
   deletePoster: (id) ->
@@ -28,7 +31,15 @@ module.exports =
     )
 
   updatePoster: (poster) ->
-    debug(poster)
     ApiService.updatePoster(poster).then((poster) ->
       PosterActionCreator.updatePoster(poster)
+      return poster
     )
+
+  createPoster: (poster) ->
+    ApiService.createPoster(poster).then((poster) ->
+      PosterActionCreator.receivePoster(poster)
+      return poster
+    )
+
+module.exports = PosterService

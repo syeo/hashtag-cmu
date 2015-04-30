@@ -1,11 +1,16 @@
 React = require('react')
+ReactBootstrap = require('react-bootstrap')
 
 PosterMixin = require('./poster.component.mixin.cjsx')
 PosterStore = require('./poster.store')
 PosterService = require('./poster.service')
+PosterSingleMixin = require('./poster.single.component.mixin.cjsx')
+LoadingRow = require('../shared/loading.row.component.cjsx')
 UserStore = require('../user/user.store')
 
 debug = require('../debug')('poster:show:component')
+
+{ButtonToolbar} = ReactBootstrap
 
 PosterShow = React.createClass
   displayName: 'PosterShow'
@@ -14,14 +19,17 @@ PosterShow = React.createClass
     fetchData: (params, query) ->
       PosterService.loadPoster(params.posterId)
 
-  mixins: [PosterMixin]
+  mixins: [PosterMixin, PosterSingleMixin]
+
+  propTypes:
+    user: React.PropTypes.object.isRequired
+    posterId: React.PropTypes.number.isRequired
 
   contextTypes:
     router: React.PropTypes.func
 
   makeStateFromStore: ->
     {
-      me: UserStore.getMe()
       poster: PosterStore.getPoster(@props.posterId)
     }
 
@@ -44,44 +52,36 @@ PosterShow = React.createClass
       @context.router.transitionTo('home')
     )
 
-  render: ->
-    rows = []
+  renderControls: () ->
+    poster = @state.poster
+    user = @props.user
+    <ButtonToolbar>
+      {@renderEditControl(user, poster, @handleEditButtonClick)}
+      {@renderDeleteControl(user, poster, @handleDeleteButtonClick)}
+    </ButtonToolbar>
 
-    if @state.poster?
-      {me, poster} = @state
-      rows.push(
-        <div className='row' key="poster">
-          <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
-            <div className="poster">
-              {@renderImageSection(poster)}
-            </div>
-          </div>
-          <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
-            <div className="poster">
-              {@renderTitleSection(poster)}
-              {@renderTagsSection(poster)}
-              {@renderDescriptionSection(poster)}
-            </div>
-            <div className="poster-controls">
-              {@renderShowControls(me, poster, {
-                onEditButtonClick: @handleEditButtonClick
-                onDeleteButtonClick: @handleDeleteButtonClick
-              })}
-            </div>
-          </div>
-        </div>
-      )
+
+  render: ->
+    if @state.poster
+      poster = @state.poster
+      user = @props.user
+
+      delegates =
+        poster: poster
+        renderImageSection: _.partial(@renderImageSection, poster)
+        renderTitleSection: _.partial(@renderTitleSection, poster)
+        renderTagsSection: _.partial(@renderTagsSection, poster)
+        renderDescriptionSection: _.partial(@renderDescriptionSection, poster)
+
+      if poster.owner.id == user.id
+        delegates.renderControls = @renderControls
+
+      row = @renderPoster(delegates)
     else
-      rows.push(
-        <div className='row' key="poster-loading">
-          <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-            LOADING
-          </div>
-        </div>
-      )
+      row = <LoadingRow />
 
     <div className="container single-poster">
-      {rows}
+      {row}
     </div>
 
 module.exports = PosterShow

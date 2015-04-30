@@ -5,11 +5,11 @@ ReactBootstrap = require('react-bootstrap')
 PosterMixin = require('./poster.component.mixin.cjsx')
 PosterStore = require('./poster.store')
 PosterService = require('./poster.service')
-TagService = require('../tag/tag.service')
-TagStore = require('../tag/tag.store')
+PosterForm = require('./poster.form.component.cjsx')
+LoadingRow = require('../shared/loading.row.component.cjsx')
+ForbiddenRow = require('../shared/forbidden.row.component.cjsx')
 UserStore = require('../user/user.store')
 Promise = require('../promise')
-AuthService = require('../auth/auth.service')
 PosterImageService = require('../poster_image/poster_image.service')
 
 debug = require('../debug')('poster:edit:component')
@@ -23,11 +23,11 @@ PosterEdit = React.createClass
     fetchData: (params, query) ->
       Promise.all([
         PosterService.loadPoster(params.posterId)
-        TagService.loadTagList()
       ])
 
-
-  mixins: [PosterMixin]
+  propTypes:
+    user: React.PropTypes.object.isRequired
+    posterId: React.PropTypes.number.isRequired
 
   contextTypes:
     router: React.PropTypes.func
@@ -38,8 +38,10 @@ PosterEdit = React.createClass
     {
       me: UserStore.getMe()
       poster: @getPosterFromStore()
-      editing: true
     }
+
+  handlePosterChange: ->
+    @setState(Lens.key('poster').set(@getPosterFromStore(), @state))
 
   componentDidMount: ->
     PosterStore.addChangeListener(@handlePosterChange)
@@ -47,15 +49,8 @@ PosterEdit = React.createClass
   componentWillUnmount: ->
     PosterStore.removeChangeListener(@handlePosterChange)
 
-  handlePosterChange: ->
-    @setState(Lens.key('poster').set(@getPosterFromStore(), @state))
-
-  handleTogglePreviewClick: () ->
-    @setState(Lens.key('editing').set(!@state.editing, @state))
-
-  handleSubmit: (e) ->
-    e.preventDefault()
-    PosterService.updatePoster(@state.poster).bind(@).then(() ->
+  handleSubmit: (poster) ->
+    PosterService.updatePoster(poster).bind(@).then(() ->
       @context.router.transitionTo('poster-show', {posterId: @props.posterId})
     )
 
@@ -64,156 +59,26 @@ PosterEdit = React.createClass
       @context.router.transitionTo('home')
     )
 
-  parseTagsInput: () ->
-    tagsTextArr = _.map(
-      @refs.tagsInput.getValue().split(",")
-      (tagText) -> tagText.trim()
-    )
-    tagsArr = _.map(
-      tagsTextArr
-      (tagText) ->
-        TagStore.getByName(tagText) || {
-          name: tagText
-        }
-    )
+  render: () ->
+    if @state.poster
+      poster = @state.poster
+      user = @props.user
 
-  makePosterFromRefs: () ->
-    poster = @state.poster
-    poster = Lens.key('title').set(@refs.titleInput.getValue(), poster)
-    poster = Lens.key('description').set(@refs.descriptionInput.getValue(), poster)
-    poster = Lens.key('tags').set(@parseTagsInput(), poster)
-    return poster
+      if user.id == poster.id
+        props =
+          poster: poster
+          user: user
+          onSubmit: @handleSubmit
+          onDelete: @handleDeleteButtonClick
 
-  handleInputChange: () ->
-    @setState(Lens.key('poster').set(@makePosterFromRefs(), @state))
-
-  handleCancelClick: () ->
-    unless @context.router.goBack()
-      @context.router.transitionTo('home')
-
-  renderControls: () ->
-    me = @state.me
-    poster = @state.poster
-    <ButtonToolbar>
-      {@renderSaveControl(me, poster, @handleSubmit)}
-      {
-        @renderTogglePreviewControl(
-          me
-          poster
-          @handleTogglePreviewClick
-          if @state.editing then 'Preview' else 'Edit'
-        )
-      }
-      {@renderCancelControl(me, poster, @handleCancelClick)}
-      {@renderDeleteControl(me, poster, @handleDeleteButtonClick)}
-    </ButtonToolbar>
-
-  handleImageInputChange: (e) ->
-    e.preventDefault()
-    file = _.first(Array.prototype.slice.call(e.target.files))
-    if file?
-      debug(file)
-      PosterImageService.upload(file).bind(@).then((posterImage) ->
-        debug(posterImage)
-        @setState(Lens.path('poster.images').set([posterImage], @state))
-      )
-
-
-  handleImageClick: () ->
-    debug("image CLicked")
-    if @state.editing
-      debug("image CLicked")
-      @refs.imageInput.getDOMNode().click()
-
-  render: ->
-    rows = []
-
-    debug("started rendering")
-
-    if @state.poster?
-      if @state.editing
-        imageSection = @renderImageEditSection(
-          @state.poster
-          {
-            className: 'hidden'
-            type: 'file'
-            ref: 'imageInput'
-            onChange: @handleImageInputChange
-          }
-          {
-            onClick: @handleImageClick
-          }
-        )
-        titleSection = @renderTitleEditSection(
-          @state.poster,
-          {
-            type: 'text'
-            name: 'title'
-            label: 'Title'
-            ref: 'titleInput'
-            onChange: @handleInputChange
-          }
-        )
-        tagsSection = @renderTagsEditSection(
-          @state.poster,
-          {
-            type: 'text'
-            name: 'tags'
-            label: 'Tags'
-            ref: 'tagsInput'
-            onChange: @handleInputChange
-          }
-        )
-        descriptionSection = @renderDescriptionEditSection(
-          @state.poster,
-          {
-            type: 'text'
-            name: 'description'
-            label: 'Description'
-            ref: 'descriptionInput'
-            onChange: @handleInputChange
-          }
-        )
+        row = <PosterForm {...props} />
       else
-        imageSection = @renderImageSection(@state.poster)
-        titleSection = @renderTitleSection(@state.poster)
-        tagsSection = @renderTagsSection(@state.poster)
-        descriptionSection = @renderDescriptionSection(@state.poster)
-
-      rows.push(
-        <div className='row' key="poster">
-          <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
-            <div className="poster">
-              {imageSection}
-            </div>
-          </div>
-          <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
-            <div className="poster">
-              {titleSection}
-              {tagsSection}
-              {descriptionSection}
-            </div>
-            <div className='controls'>
-              {@renderControls()}
-            </div>
-          </div>
-        </div>
-      )
+        row = <ForbiddenRow />
     else
-      rows.push(
-        <div className='row' key="poster-loading">
-          <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-            LOADING
-          </div>
-        </div>
-      )
-
-    debug("ending rendering")
+      row = <LoadingRow />
 
     <div className="container single-poster">
-      <form className='poster-form' onSubmit={@handleSubmit}>
-        {rows}
-      </form>
+      {row}
     </div>
 
 module.exports = PosterEdit

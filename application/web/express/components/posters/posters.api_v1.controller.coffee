@@ -85,7 +85,43 @@ module.exports =
         )
         return poster
       )
-      .then((poster) -> posterRepository.save(poster))
+      .then(posterRepository.save)
+      .then(posterDehydrator.whole)
+      .then((poster) -> res.json({poster: poster}))
+      .done()
+
+  create: (req, res) ->
+    debug('api.v1.poster.update called')
+
+    newPosterData = req.body.poster
+
+    req.user
+      .createNewPosterWithData(_.pick(newPosterData, ['title', 'description']))
+      .then((poster) ->
+        Promise.all([
+          Promise.all(_.map(
+            _.filter(newPosterData.tags, (tag) -> !tag.id?)
+            (tag) -> tagRepository.save(Tag.build(tag))
+          ))
+          tagRepository.findAllByIds(
+            _.compact(_.map(newPosterData.tags, (tag) -> tag.id))
+          )
+          posterImageRepository.findAllByIds(
+            _.map(newPosterData.images, (posterImage) -> posterImage.id)
+          )
+        ])
+          .spread((newTags, existingTags, posterImages) ->
+            [newTags.concat(existingTags), posterImages]
+          )
+          .spread((tags, posterImages) ->
+            Promise.all([
+              poster.setTags(tags)
+              poster.setImages(posterImages)
+            ])
+          )
+          .then(() -> poster)
+      )
+      .then(posterRepository.save)
       .then(posterDehydrator.whole)
       .then((poster) -> res.json({poster: poster}))
       .done()

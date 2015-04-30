@@ -4,6 +4,7 @@ Router = require('react-router')
 RouteHandler = Router.RouteHandler
 NavBar = require('../nav_bar.component.cjsx')
 UserService = require('../user/user.service')
+UserStore = require('../user/user.store')
 debug = require('../debug')('authenticated-user-app')
 
 AuthenticatedUserApp = React.createClass
@@ -14,10 +15,11 @@ AuthenticatedUserApp = React.createClass
       UserService.loadMe()
 
   render: ->
+
     <div>
       <NavBar/>
       <div className="authenticated-content">
-        <RouteHandler/>
+        <RouteHandler user={UserStore.getMe()} />
       </div>
     </div>
 
