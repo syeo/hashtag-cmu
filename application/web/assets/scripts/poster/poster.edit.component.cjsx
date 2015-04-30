@@ -36,7 +36,6 @@ PosterEdit = React.createClass
 
   getInitialState: ->
     {
-      me: UserStore.getMe()
       poster: @getPosterFromStore()
     }
 
@@ -64,7 +63,7 @@ PosterEdit = React.createClass
       poster = @state.poster
       user = @props.user
 
-      if user.id == poster.id
+      if user.id == poster.owner.id
         props =
           poster: poster
           user: user
