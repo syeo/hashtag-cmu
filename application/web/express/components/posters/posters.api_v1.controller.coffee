@@ -35,19 +35,16 @@ module.exports =
   get: (req, res) ->
     debug('api.v1.poster.get called')
 
-    posterRepository
-      .findById(req.params.posterId)
-      .then(posterDehydrator.whole)
+    posterDehydrator.whole(req.poster)
       .then((poster) -> res.json({poster: poster}))
       .done()
 
   delete: (req, res) ->
     debug('api.v1.poster.delete called')
 
-    posterRepository
-      .findById(req.params.posterId)
+    Promise.resolve(req.poster)
       .then((poster) -> poster.set('deleted', true))
-      .then((poster) -> posterRepository.save(poster))
+      .then(posterRepository.save)
       .then(res.json({message: 'OK'}))
       .done()
 
@@ -56,8 +53,7 @@ module.exports =
 
     newPosterData = req.body.poster
 
-    posterRepository
-      .findById(req.params.posterId)
+    Promise.resolve(req.poster)
       .then((poster) ->
         Promise.all([
           Promise.all(_.map(

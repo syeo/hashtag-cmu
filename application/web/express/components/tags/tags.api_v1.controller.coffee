@@ -21,7 +21,6 @@ module.exports =
   get: (req, res) ->
     debug('api.v1.tag.get called')
 
-    tagRepository.findById(req.params.tagId)
-      .then(tagDehydrator.whole)
+    tagDehydrator.whole(req.tag)
       .then((tag) -> res.json({tag: tag}))
       .done()

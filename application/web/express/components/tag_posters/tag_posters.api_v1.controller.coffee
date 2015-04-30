@@ -10,7 +10,7 @@ module.exports =
   list: (req, res) ->
     debug('api.v1.tag.list called')
 
-    posterRepository.findRecentByTagId(req.params.tagId)
+    posterRepository.findRecentByTag(req.tag)
       .then(posterDehydrator.list)
       .then((posters) -> res.json({posters: posters}))
       .done()

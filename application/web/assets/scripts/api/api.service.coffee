@@ -41,7 +41,7 @@ class ApiService
 
   signUp: (data) =>
     utils.makePromiseWithSuperagentRequest(
-      @makePostRequest('/users')
+      @makePostRequest('/auth/sign-up')
         .send({
           email: data.email
           password: data.password
@@ -55,7 +55,7 @@ class ApiService
 
   logIn: (data) =>
     utils.makePromiseWithSuperagentRequest(
-      @makePostRequest('/users/log-in')
+      @makePostRequest('/auth/log-in')
         .send({
           email: data.email
           password: data.password
